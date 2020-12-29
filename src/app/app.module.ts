@@ -6,12 +6,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { BaseComponent } from './components/base/base.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
 import { UserService } from './services/user.service';
 import { HeaderComponent } from './components/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { LayoutModule } from '@angular/cdk/layout';
+import { HomeComponent } from './components/home/home.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+import {MatListModule} from '@angular/material/list'
 
 @NgModule({
   declarations: [
@@ -19,14 +28,23 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     BaseComponent,
     RegisterComponent,
+    HeaderComponent,
     HomeComponent,
-    HeaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule,
+    MatListModule,
+    NgbModule
   ],
   providers: [
     UserService,

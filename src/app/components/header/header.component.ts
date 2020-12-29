@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 
 export class HeaderComponent implements OnInit {
   user: User;
+  isCollapsed = false;
 
   constructor( private authenticationService: AuthenticationService ) {
       this.authenticationService.user.subscribe(x => this.user = x);

@@ -1,1 +1,100 @@
-<p>home works!</p>
+<div class="container">
+  <div class = "row" style="margin-top: 16px">
+    <div class= "col-md-4"  >
+      <mat-card style="height: 97%">
+        <mat-card-title>Danh mục</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-divider></mat-divider>
+            <mat-list-item><a href = "#" class = "text-dark"> Danh mục 1</a></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><a href = "#" class = "text-dark">Danh mục 2</a></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><a href = "#" class = "text-dark">Danh mục 3</a></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><a href = "#" class = "text-dark">Danh mục 4</a></mat-list-item>
+        </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class= "col-md-8">
+      <h1 class = "mat-h1 pl-3" >Các khóa học nổi bật</h1>
+      <mat-grid-list cols="2" rowHeight="4:3">
+        
+        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                {{card.title}}
+                
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <div>Card Content Here</div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <h1 class="mat-h1">Danh sách khóa học</h1>
+  <div class ="row mb-3">
+    <div class ="card col-sm-3 p-0">
+      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
+      <div class="card-body">
+        <div class = "course-info">
+          <h2 class="card-title">Course name</h2>
+          <p class="card-text">Instructor name</p>
+          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
+        </div>
+        <div class = "card-body">
+          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <div class ="card col-sm-3  p-0">
+      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
+      <div class="card-body">
+        <div class = "course-info">
+          <h2 class="card-title">Course name</h2>
+          <p class="card-text">Instructor name</p>
+          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
+        </div>
+        <div class = "card-body">
+          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <div class ="card col-sm-3  p-0">
+      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
+      <div class="card-body">
+        <div class = "course-info">
+          <h2 class="card-title">Course name</h2>
+          <p class="card-text">Instructor name</p>
+          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
+        </div>
+        <div class = "card-body">
+          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <div class ="card col-sm-3 p-0">
+      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
+      <div class="card-body">
+        <div class = "course-info">
+          <h2 class="card-title">Course name</h2>
+          <p class="card-text">Instructor name</p>
+          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
+        </div>
+        <div class = "card-body">
+          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
