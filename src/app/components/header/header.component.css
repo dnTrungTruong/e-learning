@@ -4,3 +4,11 @@
 .btn-outline-light:hover {
     color: #1CC88A !important;
 }
+
+.search-rounded {
+    border-radius: 1rem;
+}
+
+#search-span {
+    cursor: pointer;
+}

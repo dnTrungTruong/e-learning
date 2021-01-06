@@ -4,10 +4,28 @@
 
 .dashboard-card {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 7px;
+  transition: transform .5s ease;
+}
+
+
+
+.dashboard-card:hover {
+  background-color:#1CC88A;
+  cursor:pointer;
+}
+
+.dashboard-card:hover {
+  color: #FFFFFF;
+  transform: scale(1.1);
+}
+
+.dashboard-card-text {
+  font-size: 1.1vw;
+  font-weight: 500;
 }
 
 .more-button {
@@ -26,7 +44,27 @@
 .card-body {
   padding: 0 !important;
 }
+
+.home-card {
+  margin: 15px;
+}
+
+.card-course-content:hover {
+  box-shadow: 3px 3px 6px #1CC88A;
+  cursor:pointer;
+}
+
+.course-image {
+  height:20vh;
+}
+.course-name {
+  height: 5vh;
+  font-size: 15px;
+  font-weight: 400;
+}
 .course-price  {
+  font-size: 16px;
+  font-weight: 400;
   color: green;
   text-align: center;
 }
@@ -35,5 +73,13 @@
 }
 
 .course-details-btn {
-  background: #1CC88A;
+  background-color: #1CC88A;
+  color: white;
 }
+.course-details-btn:hover {
+  background-color: white;
+  color:#1CC88A;
+  border-color:#1CC88A;
+  display:block;
+}
+

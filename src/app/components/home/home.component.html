@@ -2,99 +2,47 @@
   <div class = "row" style="margin-top: 16px">
     <div class= "col-md-4"  >
       <mat-card style="height: 97%">
-        <mat-card-title>Danh mục</mat-card-title>
+        <mat-card-title>Subjects</mat-card-title>
         <mat-card-content>
           <mat-list>
-            <mat-divider></mat-divider>
-            <mat-list-item><a href = "#" class = "text-dark"> Danh mục 1</a></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item><a href = "#" class = "text-dark">Danh mục 2</a></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item><a href = "#" class = "text-dark">Danh mục 3</a></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item><a href = "#" class = "text-dark">Danh mục 4</a></mat-list-item>
-        </mat-list>
+            <div *ngFor="let subject of subjectsList">
+                <mat-divider></mat-divider>
+                <mat-list-item><a href = "#" class = "text-dark"> {{subject.name}}</a></mat-list-item>
+                <mat-divider></mat-divider>
+            
+            </div>
+          </mat-list>
+          
         </mat-card-content>
       </mat-card>
     </div>
     <div class= "col-md-8">
-      <h1 class = "mat-h1 pl-3" >Các khóa học nổi bật</h1>
-      <mat-grid-list cols="2" rowHeight="4:3">
+      <h1 class = "mat-h1 pl-3" >These courses are on trending</h1>
+      <mat-grid-list cols="2" rowHeight="9:7">
         
-        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-          <mat-card class="dashboard-card">
-            <mat-card-header>
-              <mat-card-title>
-                {{card.title}}
-                
-              </mat-card-title>
-            </mat-card-header>
+        <mat-grid-tile *ngFor="let course of hotCoursesList">
+          <mat-card class="dashboard-card" >
+            
             <mat-card-content class="dashboard-card-content">
-              <div>Card Content Here</div>
+              <img mat-card-image [src]="course.img_url">
+              <p class=dashboard-card-text>{{course.name }}</p>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
   </div>
-  <h1 class="mat-h1">Danh sách khóa học</h1>
+  <h1 class="mat-h1">Courses</h1>
   <div class ="row mb-3">
-    <div class ="card col-sm-3 p-0">
-      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
-      <div class="card-body">
-        <div class = "course-info">
-          <h2 class="card-title">Course name</h2>
-          <p class="card-text">Instructor name</p>
-          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
-        </div>
-        <div class = "card-body">
-          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
+    <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-3 h-100">
+      <div class="card p-0 card-course-content">
+        <div class="card-body ">
+          <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+          <p class="card-text mx-3 mt-1 course-name"  ><strong>{{course.name}}</strong></p>
+          <p class="card-text mx-3 pt-1 pb-0 mb-0 instructor-name">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+          <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 course-price" style = "text-align: right;">{{course.price}}$</p>
+          
         </div>
       </div>
     </div>
-
-    <div class ="card col-sm-3  p-0">
-      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
-      <div class="card-body">
-        <div class = "course-info">
-          <h2 class="card-title">Course name</h2>
-          <p class="card-text">Instructor name</p>
-          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
-        </div>
-        <div class = "card-body">
-          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
-        </div>
-      </div>
-    </div>
-
-    <div class ="card col-sm-3  p-0">
-      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
-      <div class="card-body">
-        <div class = "course-info">
-          <h2 class="card-title">Course name</h2>
-          <p class="card-text">Instructor name</p>
-          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
-        </div>
-        <div class = "card-body">
-          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
-        </div>
-      </div>
-    </div>
-
-    <div class ="card col-sm-3 p-0">
-      <img src="https://c.files.bbci.co.uk/169C7/production/_112151629_gettyimages-1142576725.jpg" class="card-img-top" alt="Course avatar">
-      <div class="card-body">
-        <div class = "course-info">
-          <h2 class="card-title">Course name</h2>
-          <p class="card-text">Instructor name</p>
-          <p class ="course-price mb-0 pb-0" style = "text-align: right;">Price</p>
-        </div>
-        <div class = "card-body">
-          <button class = "btn btn-block btn-dark course-details-btn px-3 mx-0">Details</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
 </div>

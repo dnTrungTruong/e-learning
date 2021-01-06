@@ -19,8 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
-import {MatListModule} from '@angular/material/list'
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatListModule} from '@angular/material/list';
+import {SubjectService} from './services/subject.service';
+import {CourseService} from './services/course.service';
+import { CardCourseComponent } from './components/card-course/card-course.component';
+import { SearchComponent } from './components/search/search.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,10 @@ import {MatListModule} from '@angular/material/list'
     RegisterComponent,
     HeaderComponent,
     HomeComponent,
+    CardCourseComponent,
+    SearchComponent,
+    FooterComponent,
+    TrimCourseNamePipe,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +60,8 @@ import {MatListModule} from '@angular/material/list'
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    SubjectService,
+    CourseService,
   ],
   bootstrap: [AppComponent]
 })

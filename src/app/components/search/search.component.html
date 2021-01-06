@@ -1,0 +1,17 @@
+<div class="container mt-3">
+    <h1 class="mat-h1">Search result for <strong>{{keyword}}</strong></h1>
+    <div class ="row mb-3">
+        <div *ngFor="let course of coursesList" class = "col-md-3 col-sm-4 my-3 h-100">
+          <div class="card p-0 ">
+            <div class="card-body ">
+              <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              <p class="card-text mx-3 mt-1 course-name"  ><strong>{{course.name}}</strong></p>
+              <p class="card-text mx-3 pt-1 pb-0 mb-0 instructor-name">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+              <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 course-price" style = "text-align: right;">{{course.price}}$</p>
+              <button class = " btn btn-block course-details-btn px-3 mx-0">Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  

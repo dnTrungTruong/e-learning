@@ -1,0 +1,26 @@
+.course-name {
+    height: 5vh;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .course-price  {
+    font-size: 16px;
+    font-weight: 400;
+    color: green;
+    text-align: center;
+  }
+  .course-info {
+    padding:15px;
+  }
+  
+  .course-details-btn {
+    background-color: #1CC88A;
+    color: white;
+  }
+  .course-details-btn:hover {
+    background-color: white;
+    color:#1CC88A;
+    border-color:#1CC88A;
+    display:block;
+  }
+  
