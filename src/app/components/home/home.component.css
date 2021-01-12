@@ -1,17 +1,18 @@
 .grid-container {
   margin: 20px;
 }
+.dashboard-subject {
+  cursor: pointer;
+}
 
 .dashboard-card {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 7px;
   transition: transform .5s ease;
 }
 
-
+.dashboard-flex-card > div > div.card {
+  /* height: calc(100% - 15px); */
+  height: calc(100% - 25px);;
+}
 
 .dashboard-card:hover {
   background-color:#1CC88A;
@@ -24,7 +25,8 @@
 }
 
 .dashboard-card-text {
-  font-size: 1.1vw;
+  min-height: 35px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -47,6 +49,11 @@
 
 .home-card {
   margin: 15px;
+}
+
+.card-course-content {
+  box-shadow: 3px 3px 6px #444444;
+
 }
 
 .card-course-content:hover {

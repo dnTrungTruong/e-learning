@@ -4,6 +4,8 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {Subject, Course} from '../../models';
 import {SubjectService} from '../../services/subject.service';
 import {CourseService} from '../../services/course.service';
+import {Router} from "@angular/router"
+
 
 @Component({
   selector: 'app-home',
@@ -38,7 +40,7 @@ export class HomeComponent {
     private breakpointObserver: BreakpointObserver,
     private subjectService: SubjectService,
     private courseService: CourseService,
-    
+    private router: Router
     ) {
       subjectService.getSubjects()
       .subscribe((subjects: Subject[]) => {
@@ -54,4 +56,8 @@ export class HomeComponent {
       })
     }
     
+  toSearchPage(string) {
+    this.courseService.changeKeyWord(string);
+    this.router.navigate(['/search']);
+  }
 }

@@ -1,15 +1,15 @@
 <div class="container">
   <div class = "row" style="margin-top: 16px">
-    <div class= "col-md-4"  >
+    <div class= "col-md-4 "  >
       <mat-card style="height: 97%">
         <mat-card-title>Subjects</mat-card-title>
         <mat-card-content>
           <mat-list>
             <div *ngFor="let subject of subjectsList">
                 <mat-divider></mat-divider>
-                <mat-list-item><a href = "#" class = "text-dark"> {{subject.name}}</a></mat-list-item>
+                <mat-list-item><a (click)="toSearchPage(subject.name)" class = "text-dark dashboard-subject"> {{subject.name}}</a></mat-list-item>
                 <mat-divider></mat-divider>
-            
+              
             </div>
           </mat-list>
           
@@ -18,7 +18,27 @@
     </div>
     <div class= "col-md-8">
       <h1 class = "mat-h1 pl-3" >These courses are on trending</h1>
-      <mat-grid-list cols="2" rowHeight="9:7">
+      <div class="row dashboard-flex-card ">
+        <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
+          <div *ngIf="i<2" class="card p-0 dashboard-card ">
+            <div class="card-body dashboard-card-content h-100">
+              <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate" >{{course.name}}</p>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="row  dashboard-flex-card">
+        <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
+          <div *ngIf="i>=2" class="card p-0 dashboard-card ">
+            <div class="card-body dashboard-card-content h-100">
+              <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate " >{{course.name}}</p>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <!-- <mat-grid-list cols="2" rowHeight="9:7">
         
         <mat-grid-tile *ngFor="let course of hotCoursesList">
           <mat-card class="dashboard-card" >
@@ -29,12 +49,12 @@
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
-      </mat-grid-list>
+      </mat-grid-list> -->
     </div>
   </div>
   <h1 class="mat-h1">Courses</h1>
   <div class ="row mb-3">
-    <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-3 h-100">
+    <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-3 py-3 h-100">
       <div class="card p-0 card-course-content">
         <div class="card-body ">
           <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">

@@ -1,5 +1,9 @@
 <div class="container mt-3">
     <h1 class="mat-h1">Search result for <strong>{{keyword}}</strong></h1>
+    <hr>
+    <div *ngIf="noResult"class="row mx-3 px-3">
+      <h2 class="mat-h2">Sorry, we haven't have any course match your request right now. Please come back later.</h2>
+    </div>
     <div class ="row mb-3">
         <div *ngFor="let course of coursesList" class = "col-md-3 col-sm-4 my-3 h-100">
           <div class="card p-0 ">
@@ -12,6 +16,5 @@
             </div>
         </div>
     </div>
-</div>
 
   

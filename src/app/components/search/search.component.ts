@@ -11,6 +11,7 @@ import {Course} from '../../models';
 export class SearchComponent implements OnInit {
   keyword:string;
   coursesList: Course[];
+  noResult:boolean = false;
 
   constructor(private courseService: CourseService) {
 
@@ -22,7 +23,11 @@ export class SearchComponent implements OnInit {
       this.keyword=value;
       //In case user use url to enter this route
       if (this.keyword=="") {this.keyword="all";}
-      this.courseService.searchCourses().subscribe((courses: Course[]) => {this.coursesList = courses;
+      this.courseService.searchCourses().subscribe((courses: Course[]) => {
+        this.coursesList = courses;
+        if (this.coursesList.length==0) {
+          this.noResult=true;
+        }
       })
     })
   }
