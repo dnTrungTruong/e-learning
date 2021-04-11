@@ -1,8 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "../src/assets/external-css/sb-admin-2.css";
 @import "~font-awesome/css/font-awesome.css";
 html, body {
     height: 100%;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mycard-course-content {
+    box-shadow: 3px 3px 6px #444444;
+}
+
+.mycard-course-content:hover {
+    box-shadow: 3px 3px 6px #1CC88A;
+    cursor: pointer;
+}
+
+.mycard-course-image {
+    height: 20vh;
+}
+.mycard-course-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 400;
+}
+.mycard-course-price {
+    font-size: 16px;
+    font-weight: 400;
+    color: green;
+    text-align: center;
+}

@@ -56,8 +56,12 @@ export class HomeComponent {
       })
     }
     
-  toSearchPage(string) {
-    this.courseService.changeKeyWord(string);
-    this.router.navigate(['/search']);
+    toSearchCoursesBySubjectPage(string) {
+    //this.courseService.changeKeyWord(string);
+    this.router.navigate([`/courses/${string}`]);
+  }
+
+  goToCourseDetails(courseId) {
+    console.log(courseId);
   }
 }

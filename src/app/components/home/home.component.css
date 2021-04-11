@@ -40,42 +40,17 @@
   text-align: center;
 }
 
-.my-card-title {
-  text-align: center;
-}
+
 .card-body {
   padding: 0 !important;
 }
 
-.home-card {
-  margin: 15px;
-}
 
-.card-course-content {
-  box-shadow: 3px 3px 6px #444444;
 
-}
 
-.card-course-content:hover {
-  box-shadow: 3px 3px 6px #1CC88A;
-  cursor:pointer;
-}
 
-.course-image {
-  height:20vh;
-}
-.course-name {
-  height: 5vh;
-  font-size: 15px;
-  font-weight: 400;
-}
-.course-price  {
-  font-size: 16px;
-  font-weight: 400;
-  color: green;
-  text-align: center;
-}
-.course-info {
+
+/* .course-info {
   padding:15px;
 }
 
@@ -88,5 +63,5 @@
   color:#1CC88A;
   border-color:#1CC88A;
   display:block;
-}
+} */
 

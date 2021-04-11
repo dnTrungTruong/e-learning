@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
+import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
 import { AuthGuard } from './helpers';
 
 const routes: Routes = [
@@ -27,7 +28,11 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchComponent
-      }
+      },
+      {
+        path: 'courses/:subject',
+        component: CourseListBysubjectComponent
+      },
     ],
   },
   

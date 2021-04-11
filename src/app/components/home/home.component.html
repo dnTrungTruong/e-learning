@@ -1,27 +1,25 @@
 <div class="container">
   <div class = "row" style="margin-top: 16px">
-    <div class= "col-md-4 "  >
-      <mat-card style="height: 97%">
-        <mat-card-title>Subjects</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <div *ngFor="let subject of subjectsList">
-                <mat-divider></mat-divider>
-                <mat-list-item><a (click)="toSearchPage(subject.name)" class = "text-dark dashboard-subject"> {{subject.name}}</a></mat-list-item>
-                <mat-divider></mat-divider>
-              
-            </div>
-          </mat-list>
-          
-        </mat-card-content>
-      </mat-card>
+    <div class= "col-md-6 col-lg-4 mt-sm-3 mt-md-1">
+      <div class="card-header">
+        <h2>Subjects</h2>
+      </div>
+      
+      <div class="list-group " style="height: 88%; background-color: white;">
+        <div *ngFor="let subject of subjectsList">
+          <a (click)="toSearchCoursesBySubjectPage(subject.name)" class = "list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
+        </div>
+      </div>
     </div>
-    <div class= "col-md-8">
-      <h1 class = "mat-h1 pl-3" >These courses are on trending</h1>
+    <div class= "col-md-6 col-lg-8 mt-sm-3 mt-md-1">
+      <div class="card-header">
+        <h2 >These courses are on trending</h2>
+      </div>
+      
       <div class="row dashboard-flex-card ">
         <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
           <div *ngIf="i<2" class="card p-0 dashboard-card ">
-            <div class="card-body dashboard-card-content h-100">
+            <div class="card-body dashboard-card-content h-100" (click)="goToCourseDetails(course._id)">
               <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
               <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate" >{{course.name}}</p>
             </div>
@@ -31,37 +29,24 @@
       <div class="row  dashboard-flex-card">
         <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
           <div *ngIf="i>=2" class="card p-0 dashboard-card ">
-            <div class="card-body dashboard-card-content h-100">
+            <div class="card-body dashboard-card-content h-100" (click)="goToCourseDetails(course._id)">
               <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
               <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate " >{{course.name}}</p>
             </div>
           </div>
         </div> 
       </div>
-      <!-- <mat-grid-list cols="2" rowHeight="9:7">
-        
-        <mat-grid-tile *ngFor="let course of hotCoursesList">
-          <mat-card class="dashboard-card" >
-            
-            <mat-card-content class="dashboard-card-content">
-              <img mat-card-image [src]="course.img_url">
-              <p class=dashboard-card-text>{{course.name }}</p>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list> -->
     </div>
   </div>
-  <h1 class="mat-h1">Courses</h1>
+  <h2 class = "mt-3">Courses</h2>
   <div class ="row mb-3">
     <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-3 py-3 h-100">
-      <div class="card p-0 card-course-content">
-        <div class="card-body ">
-          <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
-          <p class="card-text mx-3 mt-1 course-name"  ><strong>{{course.name}}</strong></p>
-          <p class="card-text mx-3 pt-1 pb-0 mb-0 instructor-name">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
-          <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 course-price" style = "text-align: right;">{{course.price}}$</p>
-          
+      <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id)">
+        <div class="card-body">
+          <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
+          <p class="card-text px-3 mt-1 mycard-course-name" style="height: 40px;" ><strong>{{course.name}}</strong></p>
+          <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+          <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style = "text-align: right;">{{course.price}}$</p>
         </div>
       </div>
     </div>

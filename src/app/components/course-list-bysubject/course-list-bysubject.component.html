@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  
+    
+    <div class ="row mb-3">
+      <div class = "col-3" >
+        <div class="card-header">
+          <h2>Subjects</h2>
+        </div>
+  
+        <div class="list-group ">
+          <div *ngFor="let subject of subjectsList">
+            <a (click)="toSearchCoursesBySubjectPage(subject.name)"
+              class="list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
+          </div>
+        </div>
+      </div>
+      <div class = "col-9">
+        <h2>{{subject}} courses</h2>
+        <hr>
+        <div class="row">
+          <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-4 py-3 h-100">
+            <div class="card p-0 mycard-course-content">
+              <div class="card-body">
+                <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
+                <p class="card-text px-3 mt-1 mycard-course-name" style="height: 40px;" ><strong>{{course.name}}</strong></p>
+                <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+                <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style = "text-align: right;">{{course.price}}$</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

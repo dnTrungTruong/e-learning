@@ -12,3 +12,7 @@
 #search-span {
     cursor: pointer;
 }
+#navbarNavDropdown > *:not(:last-child) {
+    display: block;
+    margin-bottom: 3px; 
+} 

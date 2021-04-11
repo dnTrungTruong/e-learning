@@ -1,10 +1,70 @@
 <div class="container mt-3">
-    <h1 class="mat-h1">Search result for <strong>{{keyword}}</strong></h1>
-    <hr>
-    <div *ngIf="noResult"class="row mx-3 px-3">
-      <h2 class="mat-h2">Sorry, we haven't have any course match your request right now. Please come back later.</h2>
+
+
+  <div class="row mb-3">
+    <div class="col-3">
+      <div class="card-header">
+        <h2>Subjects</h2>
+      </div>
+
+      <div class="list-group ">
+        <div *ngFor="let subject of subjectsList">
+          <a (click)="toSearchCoursesBySubjectPage(subject.name)"
+            class="list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
+        </div>
+      </div>
     </div>
-    <div class ="row mb-3">
+    <div class="col-9">
+      <h1 *ngIf="!noResult">Search result for "<strong>{{keyword}}</strong>"</h1>
+      <div *ngIf="noResult">
+        <h2>Sorry, we couldn't find any results for "<strong>{{keyword}}</strong>"</h2>
+        <h2>Try adjusting your search. Here are some ideas:</h2>
+
+        <ul>
+          <li>Make sure all words are spelled correctly</li>
+          <li>Try to use instructor name as keyword</li>
+          <li>Try a better search term</li>
+          <li>Try more general search terms</li>
+        </ul>
+      </div>
+      
+      
+      <hr>
+      <div ngbDropdown class="d-inline-block float-right">
+        <button class="btn btn-outline-success" id="dropdownMenuButton" ngbDropdownToggle>Sort by</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem (click)="sortBy('price-ascending')">Lowest Price</button>
+          <button ngbDropdownItem (click)="sortBy('price-descending')">Highest Price</button>
+          <button ngbDropdownItem (click)="sortBy('rate-descending')">Highest Rated</button>
+          <button ngbDropdownItem (click)="sortBy('newest')">Newest</button>
+        </div>
+      </div>
+      <br>
+      <!-- <div class="form-group">
+        <select class="form-control" name="sort" (change)="sortBy($event)">
+          <option>Sort by</option>
+          <option *ngFor="let sort of sortByList">{{sort}}</option>
+        </select>
+    </div> -->
+      <div class="row">
+        <div *ngFor="let course of coursesList" class="col-6 col-sm-6 col-md-4 col-lg-4 py-3 h-100">
+          <div class="card p-0 mycard-course-content">
+            <div class="card-body">
+              <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
+              <p class="card-text px-3 mt-1 mycard-course-name" style="height: 40px;"><strong>{{course.name}}</strong>
+              </p>
+              <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}
+              </p>
+              <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
+                {{course.price}}$</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- <div class ="row mb-3">
         <div *ngFor="let course of coursesList" class = "col-md-3 col-sm-4 my-3 h-100">
           <div class="card p-0 ">
             <div class="card-body ">
@@ -15,6 +75,4 @@
               <button class = " btn btn-block course-details-btn px-3 mx-0">Details</button>
             </div>
         </div>
-    </div>
-
-  
+    </div> -->

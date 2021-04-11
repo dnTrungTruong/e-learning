@@ -44,8 +44,20 @@ export class CourseService {
     ))
   }
 
-  public searchCourses(): Observable<Course[]> {
-    return this.http.get(`${this.coursesUrl}/search/${this.searchKeyWord}`)
+  public searchCoursesBySubject(subject: string): Observable<Course[]> {
+    return this.http.get(`${this.coursesUrl}/search/?${new URLSearchParams({sub: subject}).toString()}`)
+    .pipe(map(res => 
+      res['data'] as Course[]
+    ))
+  }
+  public searchCourses(queryObject?: {[k:string]: string}): Observable<Course[]> {
+    if (!queryObject) { 
+      let tempObject: {[k:string]: string} = {}; 
+      queryObject = tempObject;
+    }
+      queryObject.keyword = this.searchKeyWord;
+    let query = new URLSearchParams(queryObject);
+    return this.http.get(`${this.coursesUrl}/search/?${query.toString()}`)
     .pipe(map(res => 
       res['data'] as Course[]
     ))

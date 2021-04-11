@@ -12,21 +12,22 @@ import { ErrorInterceptor, JwtInterceptor } from './helpers';
 import { UserService } from './services/user.service';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+// import { MatGridListModule } from '@angular/material/grid-list';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatMenuModule } from '@angular/material/menu';
+// import { MatIconModule } from '@angular/material/icon';
+// import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {MatListModule} from '@angular/material/list';
+// import {MatListModule} from '@angular/material/list';
 import {SubjectService} from './services/subject.service';
 import {CourseService} from './services/course.service';
 import { CardCourseComponent } from './components/card-course/card-course.component';
 import { SearchComponent } from './components/search/search.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
+import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
     SearchComponent,
     FooterComponent,
     TrimCourseNamePipe,
+    CourseListBysubjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,13 +49,13 @@ import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
+    // MatGridListModule,
+    // MatCardModule,
+    // MatMenuModule,
+    // MatIconModule,
+    // MatButtonModule,
     LayoutModule,
-    MatListModule,
+    // MatListModule,
     NgbModule
   ],
   providers: [
