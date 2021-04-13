@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
+import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { AuthGuard } from './helpers';
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'courses/:subject',
         component: CourseListBysubjectComponent
+      },
+      {
+        path: 'course/:courseId',
+        component: CourseDetailsComponent
       },
     ],
   },

@@ -62,6 +62,6 @@ export class HomeComponent {
   }
 
   goToCourseDetails(courseId) {
-    console.log(courseId);
+    this.router.navigate([`/course/${courseId}`]);
   }
 }

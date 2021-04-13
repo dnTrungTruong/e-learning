@@ -1,8 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "../src/assets/external-css/sb-admin-2.css";
 @import "~font-awesome/css/font-awesome.css";
+
+.bg-success {
+    background-color: #1CC888 !important;
+  }
+  a.bg-success:hover, a.bg-success:focus,
+  button.bg-success:hover,
+  button.bg-success:focus {
+    background-color: #09A088 !important;
+  }
+  .btn-emerald { 
+    color: #FFFFFF; 
+    background-color: #1CC888; 
+    border-color: #1CC999; 
+  } 
+   
+  .btn-emerald:hover, 
+  .btn-emerald:focus, 
+  .btn-emerald:active, 
+  .btn-emerald.active, 
+  .open .dropdown-toggle.btn-emerald { 
+    color: #FFFFFF; 
+    background-color: #09A088; 
+    border-color: #1CC999; 
+  } 
+   
+  .btn-emerald:active, 
+  .btn-emerald.active, 
+  .open .dropdown-toggle.btn-emerald { 
+    background-image: none; 
+  } 
+   
+  .btn-emerald.disabled, 
+  .btn-emerald[disabled], 
+  fieldset[disabled] .btn-emerald, 
+  .btn-emerald.disabled:hover, 
+  .btn-emerald[disabled]:hover, 
+  fieldset[disabled] .btn-emerald:hover, 
+  .btn-emerald.disabled:focus, 
+  .btn-emerald[disabled]:focus, 
+  fieldset[disabled] .btn-emerald:focus, 
+  .btn-emerald.disabled:active, 
+  .btn-emerald[disabled]:active, 
+  fieldset[disabled] .btn-emerald:active, 
+  .btn-emerald.disabled.active, 
+  .btn-emerald[disabled].active, 
+  fieldset[disabled] .btn-emerald.active { 
+    background-color: #1CC888; 
+    border-color: #1CC999; 
+  } 
+   
+  .btn-emerald .badge { 
+    color: #1CC888; 
+    background-color: #FFFFFF; 
+  }
+  .border-success {
+    border-color: #1CC888 !important;
+  }
+  .btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem transparent !important;
+  }
 html, body {
     height: 100%;
 }

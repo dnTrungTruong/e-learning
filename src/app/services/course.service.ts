@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import {Course} from '../models/course.model';
+import {Course, CourseDetails} from '../models/course.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,12 @@ export class CourseService {
     return this.http.get(`${this.coursesUrl}/hot`)
     .pipe(map(res => 
       res['data'] as Course[]
+    ))
+  }
+  public getCourseDetails(courseId): Observable<CourseDetails> {
+    return this.http.get(`${this.coursesUrl}/${courseId}`)
+    .pipe(map(res => 
+      res['data'] as CourseDetails
     ))
   }
 

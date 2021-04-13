@@ -28,6 +28,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
 import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
+import { CourseDetailsComponent } from './components/course-details/course-details.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CourseListBysubjectComponent } from './components/course-list-bysubject
     FooterComponent,
     TrimCourseNamePipe,
     CourseListBysubjectComponent,
+    CourseDetailsComponent,
   ],
   imports: [
     BrowserModule,

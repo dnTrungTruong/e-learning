@@ -1,0 +1,60 @@
+<div class="container-fuild bg-dark text-light pt-5 pb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 text-center">
+                <img [src]="course?.img_url" style="max-width: 100%;height: auto" alt="Course's image">
+                <p class="mt-1 text-mediumsize text-light mb-0 font-weight-bold"><strong>9.9</strong> $</p>
+                <button class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">Enroll now</button>
+            </div>
+            <div class="col-sm-8 px-sm-1 px-md-0">
+                <h1 class="mb-3">{{course?.name}}</h1>
+                <p class="mb-3">{{course?.description}}</p>
+                <p>Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container border border-2 border-success rounded bg-white px-sm-3 px-md-5  my-3 py-3 course-content-box">
+    <h2 class="text-body mt-sm-1 mt-md-3">What you will learn?</h2>
+    <div class="container mx-sm-0 mx-md-3 my-3">
+        <ul class="mycourse-objectives mx-sm-0 mx-md-1">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 py-1 text-justify" *ngFor="let objective of course?.objectives">
+                    <li >
+                         {{objective}}
+                    </li>
+                </div>
+            </div>
+            
+        </ul>
+    </div>
+
+</div>
+
+<div class="container border border-2 border-success rounded bg-white px-sm-3 px-md-5 my-3 py-3 course-content-box">
+    <h2 class="text-body mt-sm-1 mt-md-3">Course's contents</h2>
+    <div class="container  text-dark mx-sm-0 mx-md-3 my-3">
+        <div  class="accordion pr-3 py-sm-0 py-md-1" id="accordion">
+            <div *ngFor="let section of course?.sections; let i=index" class="card">
+                <div class="card-header" [id]="'heading'+section._id">
+                    <h5 class="mb-0 text-truncate">
+                        <button class="btn btn-link text-dark " data-toggle="collapse" [attr.data-target]="'#collapse'+section._id" [attr.aria-controls]="'collapse'+section._id">
+                            <strong>Section {{i+1}}:</strong> {{section.name}}
+                        </button>
+                    </h5>
+                </div>
+                <div [id]="'collapse'+section._id" class="collapse" [attr.aria-labelledby]="'heading'+section._id" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul >
+                            <li *ngFor="let lecture of section.lectures; let j=index" class="py-sm-0 py-md-1 text-truncate">
+                                <strong>Lecture {{j+1}}:</strong> {{lecture.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>

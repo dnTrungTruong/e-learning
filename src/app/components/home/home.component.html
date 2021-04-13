@@ -1,17 +1,19 @@
 <div class="container">
   <div class = "row" style="margin-top: 16px">
-    <div class= "col-md-6 col-lg-4 mt-sm-3 mt-md-1">
-      <div class="card-header">
-        <h2>Subjects</h2>
-      </div>
-      
-      <div class="list-group " style="height: 88%; background-color: white;">
+    <div class= "col-lg-6 col-xl-4 mt-sm-3 mt-md-1">
+      <button class="card-header btn btn-block d-xs-block  d-lg-none" type="button" data-toggle="collapse" data-target="#example-collapse">
+        <h2 class="text-left">Subjects</h2>
+    </button>
+    <div class="card-header d-none d-lg-block d-xl-block">
+      <h2>Subjects</h2>
+    </div>  
+      <div id="example-collapse" class="list-group collapse d-lg-block" style="height: 88%; background-color: white;">
         <div *ngFor="let subject of subjectsList">
           <a (click)="toSearchCoursesBySubjectPage(subject.name)" class = "list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
         </div>
       </div>
     </div>
-    <div class= "col-md-6 col-lg-8 mt-sm-3 mt-md-1">
+    <div class= "col-lg-6 col-xl-8 mt-sm-3 mt-md-1">
       <div class="card-header">
         <h2 >These courses are on trending</h2>
       </div>

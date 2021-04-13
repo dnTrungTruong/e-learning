@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {CourseService} from '../../services/course.service';
 import {SubjectService} from '../../services/subject.service';
 import {Course, Subject} from '../../models';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,7 +19,6 @@ export class CourseListBysubjectComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private subjectService: SubjectService,
-    private router:Router,
     private route: ActivatedRoute
   ) {
     subjectService.getSubjects()
