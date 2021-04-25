@@ -1,4 +1,5 @@
 import { Section } from "./section.model";
+import { Subject } from "./subject.model";
 
 export class Course {
     _id: String;
@@ -10,11 +11,12 @@ export class Course {
     img_url: String;
     price: Number;
     sections: String[];
+    type: String;
 }
 export class CourseDetails {
     _id: String;
     name: String;
-    subject: String;
+    subject: Subject;
     instructor: Instructor;
     description: String;
     objectives: String[];

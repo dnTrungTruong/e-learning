@@ -1,0 +1,91 @@
+<h2 class="text-center mt-3 mb-1">{{course?.name}}</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <div class="container border border-success mt-3 p-1 course-content-box">
+                <h4 class="card-header text-left my-0">Lecture: <strong>{{selectedLecture?.name}}</strong></h4>
+                <!-- <video class = "w-100"controls>  <source [src]="lectureUrl + selectedLecture?.course + '/' + selectedLecture?.url" type="video/mp4"> </video> -->
+                <video class="w-100" controls controlslist="nodownload">
+                    <source type="video/mp4">
+                </video>
+            </div>
+
+            <ul class="nav nav-tabs mt-1" id="courseDetailsTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab"
+                        aria-controls="description" aria-selected="true">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="objectives-tab" data-toggle="tab" href="#objectives" role="tab"
+                        aria-controls="objectives" aria-selected="false">Objectives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="discussion-tab" data-toggle="tab" href="#discussion" role="tab"
+                        aria-controls="discussion" aria-selected="false">Discussion</a>
+                </li>
+            </ul>
+            <div class="tab-content ml-0" id="courseDetailsTabContent">
+                <div class="tab-pane fade show active" id="description" role="tabpanel"
+                    aria-labelledby="description-tab">
+                    <div class="container py-3">
+                        {{course?.description}}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="objectives" role="tabpanel" aria-labelledby="objectives-tab">
+                    <div class="container py-3">
+                        <ul class="mycourse-objectives mx-sm-0 mx-md-1">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 py-1 text-justify"
+                                    *ngFor="let objective of course?.objectives">
+                                    <li>
+                                        {{objective}}
+                                    </li>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="discussion" role="tabpanel" aria-labelledby="discussion-tab">
+                    <div class="container py-3">
+                        Discussion will soon be available in the future.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="container border border-2 border-success rounded bg-white px-sm-3 px-md-5  my-3 py-3 course-content-box">
+                <h2 class="text-body mt-sm-1 mt-md-3">What you will learn?</h2>
+                
+                <div class="container mx-sm-0 mx-md-3 my-3">
+                    <ul class="mycourse-objectives mx-sm-0 mx-md-1">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 py-1 text-justify"
+                                *ngFor="let objective of course?.objectives">
+                                <li>
+                                    {{objective}}
+                                </li>
+                            </div>
+                        </div>
+
+                    </ul>
+                </div>
+            </div> -->
+        <div class="col-4">
+            <div
+                class="container border border-success px-sm-1 px-md-3  my-3 py-3  course-content-box">
+                <h4 class=" text-left ">Course's contents</h4>
+                <hr class="m-0 p-0">
+                <div *ngFor="let section of course?.sections; let i=index" class="py-3">
+                    <strong>Section {{i+1}}</strong> {{section.name}}
+                    <div  class="card ml-3 mt-3 mylecture" *ngFor="let lecture of section.lectures" > 
+                        <div [ngStyle]="{'background-color': lecture._id == selectedLecture?._id ? '#1CC888' :  '#EEEEEE'}" [id]="'lecture' + lecture._id" (click)="changeLecture(lecture)"
+                            class="card-body px-3 py-3 ">
+                            {{lecture.name}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

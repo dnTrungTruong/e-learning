@@ -7,7 +7,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { CourseMoocLearningComponent } from './components/course-mooc-learning/course-mooc-learning.component';
 import { AuthGuard } from './helpers';
+import { CourseMyEnrolledComponent } from './components/course-my-enrolled/course-my-enrolled.component';
+import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
+import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 
 const routes: Routes = [
   {
@@ -31,12 +35,28 @@ const routes: Routes = [
         component: SearchComponent
       },
       {
+        path: 'my-enrolled-courses',
+        component: CourseMyEnrolledComponent
+      },
+      {
         path: 'courses/:subject',
         component: CourseListBysubjectComponent
       },
       {
+        path: 'course/quiz/:quizId',
+        component: CourseQuizComponent
+      },
+      {
+        path: 'course/quiz-result',
+        component: CourseQuizResultComponent
+      },
+      {
         path: 'course/:courseId',
         component: CourseDetailsComponent
+      },
+      {
+        path: 'course/learning/:courseId',
+        component: CourseMoocLearningComponent
       },
     ],
   },

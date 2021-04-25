@@ -46,7 +46,7 @@
       <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id)">
         <div class="card-body">
           <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
-          <p class="card-text px-3 mt-1 mycard-course-name" style="height: 40px;" ><strong>{{course.name}}</strong></p>
+          <p class="card-text px-3 my-1 mycard-course-name" ><strong>{{course.name}}</strong></p>
           <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
           <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style = "text-align: right;">{{course.price}}$</p>
         </div>

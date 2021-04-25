@@ -29,6 +29,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TrimCourseNamePipe } from './pipes/trim/trim-course-name.pipe';
 import { CourseListBysubjectComponent } from './components/course-list-bysubject/course-list-bysubject.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { CourseMoocLearningComponent } from './components/course-mooc-learning/course-mooc-learning.component';
+import { CourseMyEnrolledComponent } from './components/course-my-enrolled/course-my-enrolled.component';
+import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
+import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { CourseDetailsComponent } from './components/course-details/course-detai
     TrimCourseNamePipe,
     CourseListBysubjectComponent,
     CourseDetailsComponent,
+    CourseMoocLearningComponent,
+    CourseMyEnrolledComponent,
+    CourseQuizComponent,
+    CourseQuizResultComponent,
   ],
   imports: [
     BrowserModule,

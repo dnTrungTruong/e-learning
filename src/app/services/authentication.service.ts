@@ -30,9 +30,9 @@ export class AuthenticationService {
                 if (res.message == "success") {
                     console.log(res);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('user', JSON.stringify(res.data.userdata));
-                    this.userSubject.next(res.data.userdata);
                     
+                    localStorage.setItem('user', JSON.stringify(res.data));
+                    this.userSubject.next(res.data);
                 }
                 
                 return res;

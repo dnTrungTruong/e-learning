@@ -81,7 +81,7 @@ body {
 }
 
 .mycard-course-image {
-    height: 20vh;
+    height: 18vh;
 }
 .mycard-course-name {
     display: -webkit-box;
@@ -89,12 +89,20 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 15px;
+    font-size: 0.95rem;
     font-weight: 400;
+    height:2.7rem;
 }
 .mycard-course-price {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     color: green;
     text-align: center;
+}
+
+.course-content-box {
+  border-width:0.15rem !important;
+  box-shadow: 0.15rem 0.15rem 0.3rem #1CC88A;
+  background-color: #FFFFFF;
+  border-radius: 0.25rem !important;
 }

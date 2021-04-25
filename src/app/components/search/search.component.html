@@ -30,7 +30,7 @@
       
       
       <hr>
-      <div ngbDropdown class="d-inline-block float-right">
+      <div ngbDropdown class="d-inline-block float-right" *ngIf="!noResult">
         <button class="btn btn-outline-success" id="dropdownMenuButton" ngbDropdownToggle>Sort by</button>
         <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
           <button ngbDropdownItem (click)="sortBy('price-ascending')">Lowest Price</button>

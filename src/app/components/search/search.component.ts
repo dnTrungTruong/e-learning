@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
       if (this.keyword=="") { return this.router.navigate([""])}
       this.courseService.searchCourses().subscribe((courses: Course[]) => {
         this.coursesList = courses;
-        if (this.coursesList) {
+        if (this.coursesList.length) {
           this.noResult=false;
         }
         else {

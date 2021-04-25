@@ -1,0 +1,23 @@
+<div class="container mt-3">
+    <h2 class="text-dark">{{quizService.quiz?.courseName}}</h2>
+    <h3 class="text-dark">Quiz: {{quizService.quiz?.name}}</h3>
+    <hr>
+    <div class="card p-3">
+      <div class="card-body text-center">
+        <h3 class="text-dark ">Completed!</h3>
+        <hr class="bg-info" style="height: 0.1rem; border:none;">
+        <h4 ><strong>Your correct answers: </strong>{{quizService.quiz?.correctAnswers}}/{{quizService.quiz?.questions.length}}</h4>
+        <h4 ><strong>Final score: </strong>{{quizService.quiz?.totalScore}}</h4>
+        <span>Time Elapsed: {{quizService.displayTimeElapsed()}}</span>
+      </div>
+      <div class="row">
+          <div class="col-6 text-center ">
+            <button (click)="restartQuiz()" class="w-100 text-center btn btn-secondary">Restart quiz</button>
+          </div>
+          <div class="col-6 text-center ">
+            <button (click)="goToCoursePage()" class="w-100 text-center btn btn-emerald">Back to course</button>
+          </div>
+      </div>
+      
+    </div>
+  </div>

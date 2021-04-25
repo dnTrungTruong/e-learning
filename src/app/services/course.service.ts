@@ -50,6 +50,15 @@ export class CourseService {
     ))
   }
 
+  public getCourseLearningDetails(courseId): Observable<CourseDetails> {
+    return this.http.get(`${this.coursesUrl}/learning/${courseId}`)
+    .pipe(map(res => 
+      res['data'] as CourseDetails
+    ))
+  }
+
+  
+
   public searchCoursesBySubject(subject: string): Observable<Course[]> {
     return this.http.get(`${this.coursesUrl}/search/?${new URLSearchParams({sub: subject}).toString()}`)
     .pipe(map(res => 

@@ -1,0 +1,24 @@
+<div class="container mt-3" *ngIf="quizService.quiz && quizService.quizProgress < quizService.quiz.questions.length">
+  <h2 class="text-dark">{{quizService.quiz?.courseName}}</h2>
+  <h3 class="text-dark">Quiz: {{quizService.quiz?.name}}</h3>
+  <hr>
+
+  <div class="card p-3">
+    <span>Time Elapsed: {{quizService.displayTimeElapsed()}}</span>
+    <div class="progress my-3" style="height: 0.2rem;">
+      <div class="progress-bar " role="progressbar" [style.width.%]="(quizService.quizProgress)/quizService.quiz.questions.length*100"></div>
+    </div>
+    <div class="card-body">
+      <h3>Question {{quizService.quizProgress + 1}}:</h3>
+      <h4>{{quizService.quiz?.questions[quizService?.quizProgress].question}}</h4>
+    </div>
+    <ul class="list-group mx-3">
+      <ng-container *ngFor="let answer of quizService.quiz?.questions[quizService.quizProgress].answers; let i=index">
+        <li *ngIf="answer != null" (click)="chooseAnswer(i)" class="list-group-item border border-success bg-light my-1">
+          {{answer}}
+        </li>
+
+      </ng-container>
+    </ul>
+  </div>
+</div>

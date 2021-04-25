@@ -1,0 +1,36 @@
+.text-mediumsize {
+    font-size:140%;
+}
+
+.mycourse-objectives {
+    list-style: none;
+    padding-inline-start: 0.2rem !important;
+}
+ul {
+    padding-inline-start: 1.4rem !important;
+}
+.mycourse-objectives li:before {
+    font-weight:bold;
+    content: '✓  ';
+}
+
+.mylecture:hover {
+    cursor: pointer;
+    padding: 0.05em;
+    background-color:#1CC888;
+}
+
+#courseDetailsTab li a {
+    color: #1CC888;
+    font-size: 1.2rem;
+    border-color: #1CC999;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #FFFFFF !important;
+    background: #1CC888;
+    border-bottom: 0.15rem solid #FFFFFF !important;
+}
+.tab-pane .container {
+    box-shadow: 0.15rem 0.15rem 0.3rem #1CC88A;
+    background-color: #FFFFFF;
+}

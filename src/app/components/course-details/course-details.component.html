@@ -4,9 +4,15 @@
             <div class="col-sm-4 text-center">
                 <img [src]="course?.img_url" style="max-width: 100%;height: auto" alt="Course's image">
                 <p class="mt-1 text-mediumsize text-light mb-0 font-weight-bold"><strong>9.9</strong> $</p>
-                <button class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">Enroll now</button>
+                <button *ngIf="isEnrolled" (click)="goToCourseLearningPage()"class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">
+                    Go to course</button>
+                <button *ngIf="!isEnrolled" (click)="enrollCourse()"class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">
+                    Enroll now</button>
             </div>
             <div class="col-sm-8 px-sm-1 px-md-0">
+                <a routerLink="/" class="text-decoration-none text-info">Home </a>
+                <i class="fa fa-angle-double-right fa-fw"></i>
+                <a [routerLink]="['/courses',course?.subject?.name]" class="text-decoration-none text-info">{{course?.subject?.name}} </a>
                 <h1 class="mb-3">{{course?.name}}</h1>
                 <p class="mb-3">{{course?.description}}</p>
                 <p>Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
@@ -15,7 +21,7 @@
     </div>
 </div>
 
-<div class="container border border-2 border-success rounded bg-white px-sm-3 px-md-5  my-3 py-3 course-content-box">
+<div class="container border border-success px-sm-3 px-md-5 my-3 py-3 course-content-box">
     <h2 class="text-body mt-sm-1 mt-md-3">What you will learn?</h2>
     <div class="container mx-sm-0 mx-md-3 my-3">
         <ul class="mycourse-objectives mx-sm-0 mx-md-1">
@@ -32,7 +38,7 @@
 
 </div>
 
-<div class="container border border-2 border-success rounded bg-white px-sm-3 px-md-5 my-3 py-3 course-content-box">
+<div class="container border border-success px-sm-3 px-md-5 my-3 py-3 course-content-box">
     <h2 class="text-body mt-sm-1 mt-md-3">Course's contents</h2>
     <div class="container  text-dark mx-sm-0 mx-md-3 my-3">
         <div  class="accordion pr-3 py-sm-0 py-md-1" id="accordion">
