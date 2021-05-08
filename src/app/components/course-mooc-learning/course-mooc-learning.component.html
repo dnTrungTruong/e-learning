@@ -47,7 +47,87 @@
                 </div>
                 <div class="tab-pane fade" id="discussion" role="tabpanel" aria-labelledby="discussion-tab">
                     <div class="container py-3">
-                        Discussion will soon be available in the future.
+                        <ng-container>
+                            <div *ngFor="let announcement of announcementsList" class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{announcement.title}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Posted on {{announcement.date.slice(0,10)}} - {{calculateTimeToCurrent(announcement.date)}}</h6>
+                                    <p class="card-text">{{announcement.content}}</p>
+                                </div>
+                                <hr>
+                                <div *ngFor="let comment of announcement.comments" class="accordion" id="accordion">
+                                    <div class="row ml-1 mb-3">
+                                        <div class="col-1">
+                                            <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                                class="img img-rounded img-fluid">
+                                        </div>
+                                        <div class="col-10 p-0">
+                                            <div>
+                                                <p class="text-info p-0 m-0">{{comment.user.firstname}} {{comment.user.lastname}}<span class="text-secondary text-date"> commented on {{comment.date.toString().slice(0,10)}} - {{calculateTimeToCurrent(comment.date)}}</span></p>
+                                            </div>
+                                            <div>
+                                                {{comment.content}}  
+                                                <a class="text-secondary pl-3 text-pointer" data-toggle="collapse" [attr.data-target]="'#collapse'+comment._id" [attr.aria-controls]="'collapse'+comment._id">
+                                                    <i class="fa fa-reply"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                    
+                                    <div *ngFor="let reply of comment.replies" class="row my-3">
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                                class="img img-rounded img-fluid">
+                                        </div>
+                                        <div class="col-9 p-0">
+                                            <div>
+                                                <p class="text-info p-0 m-0">{{reply.user.firstname}} {{reply.user.lastname}} - <span class="text-secondary text-date">replied on {{reply.date.toString().slice(0,10)}} - {{calculateTimeToCurrent(reply.date)}}</span></p>
+                                            </div>
+                                            <div>
+                                                {{reply.content}}
+                                            </div>
+                                        </div>
+                                        <div class="col-1 mb-1"></div>
+                                    </div>
+                                    <div [id]="'collapse'+comment._id" class="collapse" data-parent="#accordion">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-1">
+                                                <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                                    class="img img-rounded img-fluid">
+                                            </div>
+                                            <div class="col-9 p-0 input-group input-group-lg">
+                                                <form accept-charset="UTF-8" (ngSubmit)="onSubmitReply($event, comment)" class="input-group">
+                                                    <input type="text" name="replyTextInput" class="form-control" placeholder="Write your reply">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-info" type="submit">Post reply</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-1 mb-1"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <hr>
+                                </div>
+                                <div class="input-group input-group-lg comment-input-group">
+                                    
+                                    <form accept-charset="UTF-8" (ngSubmit)="onSubmitComment($event, announcement)" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group" id="inputGroup-sizing-lg"><img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                              style="width: 4.5rem; padding: 0.75rem;" class="img img-rounded img-fluid"></span>
+                                          </div>
+                                          <textarea name="commentTextArea" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="Write your comment" required></textarea>
+                                          <div class="input-group-append">
+                                              <button class="btn btn-outline-info" type="submit">Post comment</button>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </ng-container>
+                        
                     </div>
                 </div>
             </div>
@@ -71,14 +151,14 @@
                 </div>
             </div> -->
         <div class="col-4">
-            <div
-                class="container border border-success px-sm-1 px-md-3  my-3 py-3  course-content-box">
+            <div class="container border border-success px-sm-1 px-md-3  my-3 py-3  course-content-box">
                 <h4 class=" text-left ">Course's contents</h4>
                 <hr class="m-0 p-0">
                 <div *ngFor="let section of course?.sections; let i=index" class="py-3">
                     <strong>Section {{i+1}}</strong> {{section.name}}
-                    <div  class="card ml-3 mt-3 mylecture" *ngFor="let lecture of section.lectures" > 
-                        <div [ngStyle]="{'background-color': lecture._id == selectedLecture?._id ? '#1CC888' :  '#EEEEEE'}" [id]="'lecture' + lecture._id" (click)="changeLecture(lecture)"
+                    <div class="card ml-3 mt-3 mylecture" *ngFor="let lecture of section.lectures">
+                        <div [ngStyle]="{'background-color': lecture._id == selectedLecture?._id ? '#1CC888' :  '#EEEEEE'}"
+                            [id]="'lecture' + lecture._id" (click)="changeLecture(lecture)"
                             class="card-body px-3 py-3 ">
                             {{lecture.name}}
                         </div>

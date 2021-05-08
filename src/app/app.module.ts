@@ -19,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbRatingModule, NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 // import {MatListModule} from '@angular/material/list';
 import {SubjectService} from './services/subject.service';
 import {CourseService} from './services/course.service';
@@ -66,7 +67,10 @@ import { CourseQuizResultComponent } from './components/course-quiz-result/cours
     // MatButtonModule,
     LayoutModule,
     // MatListModule,
-    NgbModule
+    NgbRatingModule,
+    NgbCollapseModule,
+    NgbDropdownModule,
+    FormsModule
   ],
   providers: [
     UserService,

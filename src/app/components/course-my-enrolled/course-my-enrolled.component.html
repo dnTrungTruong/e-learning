@@ -11,7 +11,7 @@
         <h4 class="text-dark font-weight-bold">MOOC courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of moocCoursesList">
-                <div class="card p-0 mycard-course-content" >
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>
@@ -30,7 +30,7 @@
         <h4 class="text-dark font-weight-bold">Online courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of onlineCoursesList">
-                <div class="card p-0 mycard-course-content" >
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>
@@ -49,7 +49,7 @@
         <h4 class="text-dark font-weight-bold">Programing courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of programingCoursesList">
-                <div class="card p-0 mycard-course-content" >
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>

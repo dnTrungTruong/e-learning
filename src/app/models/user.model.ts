@@ -13,3 +13,10 @@ export class User {
     };
     token?: string;
 }
+
+export class UserWithName {
+    _id: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+}

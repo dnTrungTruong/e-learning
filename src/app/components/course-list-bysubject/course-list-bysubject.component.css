@@ -1,4 +1,6 @@
 .card-body {
     padding: 0 !important;
 }
-  
+.dashboard-subject {
+    cursor: pointer;
+}

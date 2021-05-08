@@ -23,6 +23,9 @@ export class CourseDetails {
     img_url: String;
     price: Number;
     sections: Section[];
+    type: String;
+    avgRate: Number;
+    reviewsNumber: Number;
 }
 export class Instructor {
     _id: String;
