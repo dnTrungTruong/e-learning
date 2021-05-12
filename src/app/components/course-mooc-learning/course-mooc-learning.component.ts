@@ -5,6 +5,8 @@ import { CourseDetails, Announcement, Comment } from '../../models';
 import { Router } from '@angular/router';
 import { Lecture } from 'src/app/models/lecture.model';
 import { ElementRef } from '@angular/core';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-course-mooc-learning',
   templateUrl: './course-mooc-learning.component.html',
@@ -15,7 +17,7 @@ export class CourseMoocLearningComponent implements OnInit {
   course: CourseDetails;
   courseId: string;
   selectedLecture: Lecture;
-  lectureUrl: string = "https://e-learning-10r825s36vuq028g5csk.s3-ap-southeast-1.amazonaws.com/course_videos/"
+  lectureUrl: string = `${environment.apiUrl}/file/s3/`
   player:any; 
   source:any; 
   announcementsList: Announcement[];

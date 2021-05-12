@@ -30,6 +30,13 @@ export class CourseListBysubjectComponent implements OnInit {
     courseService.searchCoursesBySubject(this.subject)
       .subscribe((courses: Course[]) => {
         this.coursesList = courses;
+
+        if (this.coursesList) {
+          this.noResult=false;
+        }
+        else {
+          this.noResult=true;
+        }
     })
    }
 
@@ -38,10 +45,18 @@ export class CourseListBysubjectComponent implements OnInit {
   }
 
   toSearchCoursesBySubjectPage(string) {
+    
     this.subject = string;
     this.courseService.searchCoursesBySubject(this.subject)
       .subscribe((courses: Course[]) => {
         this.coursesList = courses;
+
+        if (this.coursesList) {
+          this.noResult=false;
+        }
+        else {
+          this.noResult=true;
+        }
     })
     this.router.navigate([`/courses/${string}`]);
   }

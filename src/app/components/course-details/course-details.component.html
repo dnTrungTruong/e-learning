@@ -19,6 +19,11 @@
                 <h1 class="mb-3">{{course?.name}}</h1>
                 <p class="mb-3">{{course?.description}}</p>
                 <p>Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
+                <p>
+                    <span *ngIf="course?.type=='mooc'" class="badge badge-success text-mediumsize">MOOC</span>
+                    <span *ngIf="course?.type=='online'" class=" badge badge-primary text-mediumsize">Online</span>
+                    <span *ngIf="course?.type=='programming'" class="badge badge-secondary text-mediumsize">Programming</span>
+                </p>
             </div>
         </div>
     </div>

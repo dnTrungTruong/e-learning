@@ -17,6 +17,9 @@
       <div class = "col-9">
         <h2>{{subject}} courses</h2>
         <hr>
+        <div *ngIf="noResult">
+          <h3 class="text-dark">Sorry, we couldn't find any {{subject}} courses. Please come back later</h3>
+        </div>
         <div class="row">
           <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-4 py-3 h-100">
             <div class="card p-0 mycard-course-content">

@@ -22,7 +22,12 @@
         <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
           <div *ngIf="i<2" class="card p-0 dashboard-card ">
             <div class="card-body dashboard-card-content h-100" (click)="goToCourseDetails(course._id)">
-              <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              <div class="item p-0">
+                <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success notify-badge ">MOOC</span>
+                <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary notify-badge">Online</span>
+                <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary notify-badge">Programming</span>
+                <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              </div>
               <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate" >{{course.name}}</p>
             </div>
           </div>
@@ -32,7 +37,12 @@
         <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
           <div *ngIf="i>=2" class="card p-0 dashboard-card ">
             <div class="card-body dashboard-card-content h-100" (click)="goToCourseDetails(course._id)">
-              <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              <div class="item p-0">
+                <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success notify-badge ">MOOC</span>
+                <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary notify-badge">Online</span>
+                <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary notify-badge">Programming</span>
+                <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
+              </div>
               <p class="card-text mx-3 mt-3 dashboard-card-text text-truncate " >{{course.name}}</p>
             </div>
           </div>
@@ -48,7 +58,12 @@
           <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
           <p class="card-text px-3 my-1 mycard-course-name" ><strong>{{course.name}}</strong></p>
           <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
-          <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style = "text-align: right;">{{course.price}}$</p>
+          <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
+            <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
+            <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
+            <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary float-left">Programming</span>
+
+            {{course.price}}$</p>
         </div>
       </div>
     </div>
