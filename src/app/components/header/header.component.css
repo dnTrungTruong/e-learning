@@ -9,10 +9,36 @@
     border-radius: 1rem;
 }
 
-#search-span {
-    cursor: pointer;
-}
+
 #navbarNavDropdown > *:not(:last-child) {
     display: block;
     margin-bottom: 3px; 
 } 
+
+.cursor-pointer-item{
+    cursor: pointer;
+}
+
+
+
+.notifications-wrapper {
+    overflow:auto;
+    max-height:49vh;
+    width:30vw;
+}
+
+.notification-item>p {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.notification-item {
+    padding:0.3rem;
+    margin:0.2rem;
+    background:#eee;
+    border-radius:4px;
+}
+
+.notification-item:hover {
+    background:#ccc;
+}

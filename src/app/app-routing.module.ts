@@ -12,6 +12,7 @@ import { AuthGuard } from './helpers';
 import { CourseMyEnrolledComponent } from './components/course-my-enrolled/course-my-enrolled.component';
 import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
+import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 
 const routes: Routes = [
   {
@@ -55,8 +56,12 @@ const routes: Routes = [
         component: CourseDetailsComponent
       },
       {
-        path: 'course/learning/:courseId',
+        path: 'course/learning/mooc/:courseId',
         component: CourseMoocLearningComponent
+      },
+      {
+        path: 'course/learning/online/:courseId',
+        component: CourseOnlineLearningComponent
       },
     ],
   },

@@ -56,17 +56,18 @@ export class CourseDetailsComponent implements OnInit {
           this.userService.getUserInfoJWT()
             .subscribe((user: User) => {
               if (user) {
-                if (user['createdCourses'].includes(this.courseId) || (user['enrolledCourses'].includes(this.courseId))) {
+                if ((user['createdCourses'].includes(this.courseId)) || (user['enrolledCourses'].includes(this.courseId))) {
                   this.isEnrolled = true;
                 }
-                if (user['createdCourses'].includes(this.courseId)) this.isAuthor = true;
+                if (user['createdCourses'].includes(this.courseId)){
+                  this.isAuthor = true;
+                }
               }
             })
         }
         this.course = course;
         if (this.fixedAvgRate) this.fixedAvgRate = Math.round(course.avgRate.valueOf() * 1e0) / 1e0;
       });
-
       this.loadReviews();
 
     
@@ -91,10 +92,10 @@ export class CourseDetailsComponent implements OnInit {
       this.invalidContent = true;
       return;
     }
-    let review = new Review();
-    review.course = this.courseId;
-    review.content = this.reviewFormControls.reviewContent.value;
-    review.rate = this.userReviewRate;
+    let review = {};
+    review['course'] = this.courseId;
+    review['content'] = this.reviewFormControls.reviewContent.value;
+    review['rate'] = this.userReviewRate;
     this.reviewService.postReview(review)
       .subscribe(res => {
         if (res.message == 'success') {
@@ -148,7 +149,7 @@ export class CourseDetailsComponent implements OnInit {
       })
   }
   public goToCourseLearningPage() {
-    this.router.navigate([`course/learning/${this.courseId}`])
+    this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`])
   }
 
   public enrollCourse() {
@@ -162,7 +163,7 @@ export class CourseDetailsComponent implements OnInit {
       .subscribe(res => {
         if (res.message == "success") {
           alert("Enroll sucessfully. Going to course learning page now.");
-          return this.router.navigate([`course/learning/${this.courseId}`]);
+          return this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`]);
         }
         else {
           alert(res.message);

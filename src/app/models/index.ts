@@ -4,4 +4,8 @@ export * from './subject.model';
 export * from './course.model';
 export * from './quiz.model';
 export * from './review.model';
+export * from './section.model';
+export * from './lecture.model';
 export * from './announcement.model';
+export * from './resource.model';
+export * from './notification.model';

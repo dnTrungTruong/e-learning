@@ -1,8 +1,9 @@
 import { UserWithName } from "./user.model";
+import { Course } from "./course.model";
 
 export class Review {
     _id: String;
-    course: String;
+    course: Course;
     user: UserWithName;
     rate: Number;
     content: String;

@@ -44,8 +44,8 @@ export class CourseMyEnrolledComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  public goToCourseLearningPage(courseId:string) {
-    this.router.navigate([`course/learning/${courseId}`])
+  public goToCourseLearningPage(courseId:string, courseType: string) {
+    this.router.navigate([`course/learning/${courseType}/${courseId}`])
   }
 
 }

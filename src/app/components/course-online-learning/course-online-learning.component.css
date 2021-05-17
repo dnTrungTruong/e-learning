@@ -1,0 +1,26 @@
+.my-onlinecourse-header {
+    background-image: url("https://e-learning-10r825s36vuq028g5csk.s3.ap-southeast-1.amazonaws.com/public_assets/1621052472490-elearning-banner-blog.jpg");
+    height: 48vh;
+}
+.blur-image {
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+}
+.textsize-medium {
+    font-size: 140%;
+}
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+.my-container {
+    margin: 1rem;
+    padding: 0.95rem;
+    background-color: white;
+    border-radius: 0.2rem;
+}
+
+.my-lecture {
+    font-size: 1.5rem;
+}

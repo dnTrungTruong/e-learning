@@ -1,8 +1,8 @@
 <div class="container mt-3">
     <!-- <h2 class="text-dark font-weight-bold">My courses</h2> -->
     <a routerLink="/" class="text-decoration-none text-info textsize-medium">Home </a>
-                <i class="fa fa-angle-double-right fa-fw textsize-medium"></i>
-                <a routerLink="/my-enrolled-courses" class="text-decoration-none text-info textsize-medium">My courses</a>
+    <i class="fa fa-angle-double-right fa-fw textsize-medium"></i>
+    <a routerLink="/my-enrolled-courses" class="text-decoration-none text-info textsize-medium">My courses</a>
     <hr class="bg-info" style="height: 0.1rem; border:none;">
     <div *ngIf="noResult">
         <p class="text-dark">Seem to be you have had no courses yet! Try to enroll one and start learning.</p>
@@ -11,7 +11,7 @@
         <h4 class="text-dark font-weight-bold">MOOC courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of moocCoursesList">
-                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id, course.type)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>
@@ -26,11 +26,11 @@
         </div>
     </div>
 
-    <div *ngIf="(!noResult) && onlineCoursesList.length">
+    <div *ngIf="(!noResult) && onlineCoursesList.length" class="mt-3">
         <h4 class="text-dark font-weight-bold">Online courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of onlineCoursesList">
-                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id, course.type)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>
@@ -45,11 +45,11 @@
         </div>
     </div>
     
-    <div *ngIf="(!noResult) && programingCoursesList.length">
+    <div *ngIf="(!noResult) && programingCoursesList.length" class="mt-3">
         <h4 class="text-dark font-weight-bold">Programing courses</h4>
         <div class="row">
             <div class="col-3 my-3" *ngFor="let course of programingCoursesList">
-                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id)">
+                <div class="card p-0 mycard-course-content" (click)="goToCourseLearningPage(course._id, course.type)">
                     <div class="card-body">
                     <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
                     <p class="card-text px-3 my-1 mb-0 mycard-course-name"><strong>{{course.name}}</strong></p>

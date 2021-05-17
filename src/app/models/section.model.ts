@@ -1,4 +1,5 @@
 import { Lecture } from "./lecture.model";
+import { Announcement } from "./announcement.model";
 
 
 export class Section {
@@ -7,4 +8,5 @@ export class Section {
     course: String;
     lectures: Lecture[];
     quiz: String;
+    announcements: Announcement[];
 }

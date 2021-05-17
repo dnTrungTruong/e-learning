@@ -1,11 +1,12 @@
 import { Section } from "./section.model";
 import { Subject } from "./subject.model";
+import { UserWithName } from "./user.model";
 
 export class Course {
     _id: String;
     name: String;
     subject: String;
-    instructor: Instructor;
+    instructor: UserWithName;
     description: String;
     objectives: String[];
     img_url: String;
@@ -17,7 +18,7 @@ export class CourseDetails {
     _id: String;
     name: String;
     subject: Subject;
-    instructor: Instructor;
+    instructor: UserWithName;
     description: String;
     objectives: String[];
     img_url: String;
@@ -26,9 +27,4 @@ export class CourseDetails {
     type: String;
     avgRate: Number;
     reviewsNumber: Number;
-}
-export class Instructor {
-    _id: String;
-    firstname: String;
-    lastname: String;
 }

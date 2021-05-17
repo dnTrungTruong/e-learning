@@ -23,7 +23,7 @@ export class ReviewService {
     ))
   }
 
-  public postReview(review: Review) {
+  public postReview(review: any) {
     return this.http.post<any>(`${this.reviewsUrl}/`, review);
   }
 

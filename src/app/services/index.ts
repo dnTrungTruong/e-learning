@@ -5,3 +5,4 @@ export * from './authentication.service';
 export * from './quiz.service';
 export * from './review.service';
 export * from './announcement.service';
+export * from './notification.service';

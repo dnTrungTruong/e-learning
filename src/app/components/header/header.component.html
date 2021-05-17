@@ -19,7 +19,7 @@
         <li class="nav-item" >
           <div class="input-group" >
             <div class="input-group-prepend ">
-              <span class="input-group-text search-rounded" id="search-span" (click)="navigateSearch(search.value)"><i class="fa fa-search fa-fw"></i></span>
+              <span class="input-group-text search-rounded cursor-pointer-item" id="search-span" (click)="navigateSearch(search.value)"><i class="fa fa-search fa-fw"></i></span>
             </div>
             <input #search type ="text" class="form-control search-rounded"  placeholder="Search for anything..."  (keyup.enter)="navigateSearch(search.value)">
           </div>
@@ -38,12 +38,37 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link  text-light px-3" *ngIf="isLoggedIn" routerLink="/my-enrolled-courses" ><u>My courses</u></a>
+          <a class="nav-link  text-light text-center px-3" *ngIf="isLoggedIn" routerLink="/my-enrolled-courses" ><u>My courses</u></a>
         </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="isLoggedIn">
+        <li class="nav-item dropdown">
+          <a class="nav-link text-light text-center mx-sm-3 mx-md-1 cursor-pointer-item" id="navbarDropdownNotifications" (click)="checkNotification()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-bell"></i>
+            <span *ngIf="unCheckedNotifications.length > 0" class="badge badge-danger">{{unCheckedNotifications.length}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownNotifications-5">
+            <div class="notifications-wrapper">
+              <a *ngFor="let notification of notificationsList" class="dropdown-item p-0 cursor-pointer-item" (click)="goToNotificationTarget(notification)">
+                <div class="notification-item" [ngStyle]="{'background': notification.users[0].checked == false ? '#1CC88852' :  '#EEEEEE'}">
+                  <p class="text-dark mb-0"><strong>{{notification.performedBy.firstname}} {{notification.performedBy.lastname}}</strong> 
+                    {{notification.action}} in
+                    <strong *ngIf="notification.target.course">{{notification.target.course?.name}}</strong>
+                    <strong *ngIf="notification.target.review">{{notification.target.review?.course.name}}</strong>
+                  </p>
+                  <p class="mb-0 text-success"><small>{{calculateTimeToCurrent(notification.date)}}</small></p>
+                </div>
+              </a>
+            </div>
+          </div>
+          
+        </li>
+        
+        
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link btn btn-outline-light px-3" role="button" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+          <a class="nav-link btn btn-outline-light mx-3" role="button" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

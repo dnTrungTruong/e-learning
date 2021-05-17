@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService, AnnouncementService } from '../../services';
-import { CourseDetails, Announcement, Comment } from '../../models';
+import { CourseDetails, Announcement, Comment, Lecture } from '../../models';
 import { Router } from '@angular/router';
-import { Lecture } from 'src/app/models/lecture.model';
 import { ElementRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
@@ -39,15 +38,12 @@ export class CourseMoocLearningComponent implements OnInit {
         //Will change to navigate to 404 page
         this.router.navigate([""])
       }
-      console.log(course);
       this.course = course;
       this.selectedLecture = course.sections[0].lectures[0];
-      console.log(this.selectedLecture);
       this.source = this.elRef.nativeElement.querySelector('source');
       this.source.src = this.lectureUrl + this.selectedLecture?.course + '/' + this.selectedLecture?.url;
       this.player = this.elRef.nativeElement.querySelector('video');
       this.player.load();
-      console.log(this.lectureUrl + this.selectedLecture?.course + '/' + this.selectedLecture?.url)
     })
 
     this.loadAnnouncements();

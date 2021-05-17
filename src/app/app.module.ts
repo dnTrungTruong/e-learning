@@ -34,6 +34,7 @@ import { CourseMoocLearningComponent } from './components/course-mooc-learning/c
 import { CourseMyEnrolledComponent } from './components/course-my-enrolled/course-my-enrolled.component';
 import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
+import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { CourseQuizResultComponent } from './components/course-quiz-result/cours
     CourseMyEnrolledComponent,
     CourseQuizComponent,
     CourseQuizResultComponent,
+    CourseOnlineLearningComponent,
   ],
   imports: [
     BrowserModule,

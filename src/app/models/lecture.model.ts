@@ -1,8 +1,10 @@
+import { Resource } from "./resource.model";
+
 export class Lecture {
     _id: String;
     name: String;
     section: String;
     course: String;
-    resources: String[];
+    resources: Resource[];
     url: String;
 }

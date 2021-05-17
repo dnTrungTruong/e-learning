@@ -89,9 +89,9 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 400;
-    height:2.7rem;
+    height:2.75rem;
 }
 .mycard-course-price {
     font-size: 1rem;
