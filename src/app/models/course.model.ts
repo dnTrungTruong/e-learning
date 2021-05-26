@@ -5,7 +5,7 @@ import { UserWithName } from "./user.model";
 export class Course {
     _id: String;
     name: String;
-    subject: String;
+    subject: Subject;
     instructor: UserWithName;
     description: String;
     objectives: String[];
@@ -13,6 +13,7 @@ export class Course {
     price: Number;
     sections: String[];
     type: String;
+    status: String;
 }
 export class CourseDetails {
     _id: String;
@@ -27,4 +28,9 @@ export class CourseDetails {
     type: String;
     avgRate: Number;
     reviewsNumber: Number;
+    tags: Tag[];
+}
+
+export class Tag {
+    tag: string;
 }

@@ -1,70 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { User, Role, Notification } from '../../models';
-import { AuthenticationService } from '../../services/authentication.service';
-import { CourseService, NotificationService } from '../../services/';
+import { Component, Input, OnInit } from '@angular/core';
+import { Notification } from '../../models';
+import { NotificationService } from '../../services/';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.css']
 })
+export class AdminHeaderComponent implements OnInit {
 
-export class HeaderComponent implements OnInit {
-  user: User;
-  isCollapsed = false;
+  @Input() userFirstName: string;
+  @Input() userLastName: string;
+
   notificationsList: Notification[];
   noNotifications: Boolean = false;
   unCheckedNotifications: string[] = [];
 
-  
   constructor(
-    private authenticationService: AuthenticationService,
-    private courseService: CourseService,
     private notificationService: NotificationService,
     private router:Router
+
   ) {
-      this.authenticationService.user.subscribe(x => this.user = x);
-      this.loadNotifications();
-  }
+    this.loadNotifications();
 
-  get isAdmin() {
-    return this.user && this.user.userdata.role === Role.Admin;
-  }
+   }
 
-  get isLoggedIn() {
-    return (this.user != null);
-  }
-
-  logout() {
-    this.authenticationService.logout();
-  }
-
-  updateSearchString(value) {
-    this.courseService.changeKeyWord(value);
-  }
-
-  navigateSearch(value) {
-    if (value) {
-      this.courseService.changeKeyWord(value);
-      this.router.navigate(["search"])
-    }
-    else {
-      //If input is null then navigate to home (Not a good way, need update)
-      this.router.navigate([""])
-    }
-    
-  }
   ngOnInit(): void {
-    // interval(10000).subscribe(x => {
-    //   this.notificationService.getNotifications()
-    //   .subscribe((notifications: Notification[]) => {
-    //     this.notificationsList = notifications;
-    //     console.log(this.notificationsList);
-    //   })
-    // });
-    
   }
 
   public checkNotification() {

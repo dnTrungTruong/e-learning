@@ -23,11 +23,19 @@ export class ReviewService {
     ))
   }
 
+  public getReviewsForAdmin(params, courseId: string): Observable<any> {
+    return this.http.get(`${this.reviewsUrl}/admin/${courseId}`, {params});
+  }
+
   public postReview(review: any) {
     return this.http.post<any>(`${this.reviewsUrl}/`, review);
   }
 
   public postReply(reviewId: string, body: any) {
     return this.http.put<any>(`${this.reviewsUrl}/reply/${reviewId}`, body);
+  }
+
+  public deleteReview(reviewId: string) {
+    return this.http.delete<any>(`${this.reviewsUrl}/${reviewId}`); 
   }
 }

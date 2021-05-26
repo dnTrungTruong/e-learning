@@ -30,11 +30,15 @@ export class CourseService {
   //   this.searchString = string;
   // }
 
-  public getAllCourse(): Observable<Course[]> {
+  public getCourses(): Observable<Course[]> {
     return this.http.get(this.coursesUrl)
     .pipe(map(res => 
       res['data'] as Course[]
     ))
+  }
+
+  public getAllCourses(params): Observable<any> {
+    return this.http.get(`${this.coursesUrl}/all`, {params});
   }
 
   public getHotCourses(): Observable<Course[]> {
@@ -57,7 +61,12 @@ export class CourseService {
     ))
   }
 
-  
+  public getPendingCoursesCount(): Observable<number> {
+    return this.http.get(`${this.coursesUrl}/count-pending-courses`)
+    .pipe(map(res => 
+      res['data'] as number
+    ))
+  }
 
   public searchCoursesBySubject(subject: string): Observable<Course[]> {
     return this.http.get(`${this.coursesUrl}/search/?${new URLSearchParams({sub: subject}).toString()}`)
@@ -76,5 +85,13 @@ export class CourseService {
     .pipe(map(res => 
       res['data'] as Course[]
     ))
+  }
+
+  public approveCourse(courseId: string) {
+    return this.http.put<any>(`${this.coursesUrl}/approve/${courseId}`, {});
+  }
+
+  public putCourseTags(courseId: string,body:any) {
+    return this.http.put<any>(`${this.coursesUrl}/tags/${courseId}`, body);
   }
 }

@@ -1,0 +1,38 @@
+<nav id="sidebar" class="h-100">
+    <div class="sidebar-header">
+        <h3 >E-Learning Admin Panel</h3>
+        <hr>
+        <h5 ><small>Role: </small>{{userRole}}</h5>
+    </div>
+
+    <ul class="list-unstyled components ">
+        
+        <li [ngClass]="{'active': selectedPage  == ''}" >
+            <a class="py-3" routerLink="/admin"><i class="far fa-calendar-alt px-3"></i>  Dashboard</a>
+        </li>
+        <li [ngClass]="{'active': selectedPage  == 'pending-courses'}">
+            <a class="py-3" routerLink="/admin/pending-courses"><i class="far fa-check-square px-3"></i>  
+                Pending courses
+                <span *ngIf="pendingCoursesCount > 0" class="badge badge-warning">{{pendingCoursesCount}}</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': selectedPage  == 'courses'}">
+            <a class="py-3" routerLink="/admin/courses"><i class="fa fa-graduation-cap pl-3 pr-1"></i>  Manage courses</a>
+        </li>
+        <li *ngIf="userRole==Role.Admin" [ngClass]="{'active': selectedPage  == 'subjects'}">
+            <a class="py-3" routerLink="/admin/subjects"><i class="fas fa-clipboard-list px-3"></i>  Manage subjects</a>
+        </li>
+        <li *ngIf="userRole==Role.Admin" [ngClass]="{'active': selectedPage  == 'users'}">
+            <a class="py-3" routerLink="/admin/users"><i class="fa fa-users px-3"></i>  Manage users</a>
+        </li>
+        <li *ngIf="userRole==Role.Admin" [ngClass]="{'active': selectedPage  == 'payout'}">
+            <a class="py-3" routerLink="/admin/payout"><i class="fas fa-money-check-alt px-3"></i>  Payout</a>
+        </li>
+    </ul>
+
+    <ul class="list-unstyled CTAs">
+        <li>
+            <a routerLink="/" class="back-to-website">Back to website</a>
+        </li>
+    </ul>
+</nav>

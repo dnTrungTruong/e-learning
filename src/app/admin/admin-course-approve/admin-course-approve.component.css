@@ -1,0 +1,45 @@
+.full-height {
+    height: 100%;
+}
+
+div.scroll {
+    border: 0.8rem solid #B0F8E6 !important;
+    padding:1rem;
+    height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.text-mediumsize {
+	font-size: 140%;
+}
+
+.course-enroll-btn {
+	width: 75%;
+}
+
+.border-2 {
+	border-width: 2px !important;
+}
+
+.course-content-box {
+	box-shadow: 2px 2px 4px #1CC88A;
+}
+
+.mycourse-objectives {
+	list-style: none;
+	padding-inline-start: 0.2rem !important;
+}
+
+ul {
+	padding-inline-start: 1.4rem !important;
+}
+
+.mycourse-objectives li:before {
+	font-weight: bold;
+	content: '✓  ';
+}
+
+a {
+    overflow:auto;
+}

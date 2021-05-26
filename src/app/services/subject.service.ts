@@ -21,4 +21,16 @@ export class SubjectService {
       res['data'] as Subject[]
     ))
   }
+
+  public postNewSubject(subject: Subject): Observable<any> {
+    return this.http.post<any>(`${this.subjectsUrl}/`, subject);
+  }
+
+  public editSubject(subject: Subject): Observable<any> {
+    return this.http.put<any>(`${this.subjectsUrl}/${subject._id}`, subject);
+  }
+
+  public deleteSubject(subjectId: string): Observable<any> {
+    return this.http.delete<any>(`${this.subjectsUrl}/${subjectId}`);
+  }
 }

@@ -1,0 +1,16 @@
+img {
+    width: 100%;
+    display: block;
+}
+
+.capitalized {
+    text-transform:capitalize;
+}
+
+.uppercased {
+    text-transform:uppercase;
+}
+
+.table {
+    background-color: #fafafa;
+}

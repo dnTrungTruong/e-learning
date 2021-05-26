@@ -1,0 +1,13 @@
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <app-admin-sidebar [userRole]="user?.userdata?.role"></app-admin-sidebar>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <app-admin-header [userFirstName]="user?.userdata?.firstname" [userLastName]="user?.userdata?.lastname"></app-admin-header>
+
+        <router-outlet></router-outlet>
+        
+    </div>
+</div>

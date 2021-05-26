@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { User, Course } from '../models/';
+import { User, UserDetail, Course } from '../models/';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,24 @@ export class UserService {
     ))
   }
 
+  public getUsers(): Observable<UserDetail[]> {
+    return this.http.get(`${this.usersUrl}/`)
+    .pipe(map(res => 
+      res['data'] as UserDetail[]
+    ))
+  }
+
+  public getUsersWithPagination(params): Observable<any> {
+    return this.http.get(`${this.usersUrl}/`, {params});
+  }
+
+  public getUserInfo(userId: string): Observable<UserDetail> {
+    return this.http.get(`${this.usersUrl}/${userId}/`)
+    .pipe(map(res => 
+      res['data'] as UserDetail
+    ))
+  }
+
   public getMyEnrolledCourses(): Observable<Course[]> {
     return this.http.get(`${this.usersUrl}/my-enrolled-courses`)
     .pipe(map(res =>
@@ -33,5 +51,9 @@ export class UserService {
 
   public enrollCourse(courseId: string): Observable<any> {
     return this.http.put<any>(`${this.usersUrl}/enroll/${courseId}`, {});
+  }
+
+  public editUserInfoForAdmin(userId: string, body:any): Observable<any> {
+    return this.http.put<any>(`${this.usersUrl}/edit-for-admin/${userId}`, body);
   }
 }

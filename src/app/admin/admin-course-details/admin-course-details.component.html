@@ -1,0 +1,207 @@
+<div class="container-fluid">
+    <h2 class="text-center">Admin Panel - Managing course</h2>
+    <hr>
+    <h3 class="text-center">({{course?.name}} - <small>{{course?.instructor.firstname}}
+            {{course?.instructor.lastname}})</small></h3>
+    <div class="row">
+        <div class="col-md-1">
+            <button (click)="goBack()" class="btn btn-secondary h-100 w-100 p-0" style="font-size:2.5vw;"><i
+                    class="fa fa-chevron-left"></i></button>
+        </div>
+        <div class="col-md-11">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="flip-card w-100">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img [src]="course?.img_url" alt="Avatar" style="height: auto" alt="Course's image">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h4 class="mt-1">Subject: {{course?.subject.name}}</h4>
+                                    <p class="my-0">Description: {{course?.description.toString().slice(0, 40)}}...</p>
+                                    <p class="my-0">Reviews: {{course?.reviewsNumber}} - Average rate:
+                                        {{course?.avgRate}} </p>
+                                    <p>
+                                        <span *ngIf="course?.type=='mooc'"
+                                            class="badge badge-success text-mediumsize">MOOC</span>
+                                        <span *ngIf="course?.type=='online'"
+                                            class=" badge badge-primary text-mediumsize">Online</span>
+                                        <span *ngIf="course?.type=='programming'"
+                                            class="badge badge-secondary text-mediumsize">Programming</span>
+                                    </p>
+                                    <button class="btn btn-emerald" routerLink="/course/{{course?._id}}">Go to
+                                        course page</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+            <h2>Tags</h2>
+            <div class="container mt-3">
+
+                <div class="row ">
+                    <div class="col-md-10 pl-1 pr-5">
+                        <form [formGroup]="courseTagsForm">
+                            <div class="row border border-success course-content-box ml-3" formArrayName="courseTags">
+                                <ng-container *ngFor="let item of courseTags.controls; let pointIndex=index">
+                                    <div [formGroup]="item" class="col-md-3 my-1">
+                                        <div class="input-group">
+                                            <input type="text" formControlName="tag"
+                                                class="form-control border border-primary" />
+                                            <div class="input-group-append">
+                                                <button type="button" (click)="deleteTag(pointIndex)"
+                                                    class="btn btn-danger ">&#10006;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <div class="col-md-3 my-1">
+                                    <button type="button" (click)="addTag()" class="btn btn-emerald mt-1 ">Add
+                                        Tag</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success"
+                            (closed)="successMessage = ''">{{ successMessage }}
+                        </ngb-alert>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <button class="btn btn-success mt-1" (click)="updateTags()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+            <!--Review table-->
+            <hr class="mt-3">
+            <h2>Reviews</h2>
+
+            <h4 *ngIf="!hasReviews">
+                This courses hasn't have any reviews yet.
+            </h4>
+            <ng-container *ngIf="hasReviews">
+                <div class="container">
+
+                    <div class="modal fade" id="reviewDetailsModal" tabindex="-1"
+                        aria-labelledby="reviewDetailsModelLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="subjectModalLabel">Review Details
+                                    </h3>
+                                    <button #closeReviewDetailsModal type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">{{selectedReview?.user.firstname}} {{selectedReview?.user.lastname}} <small>posted on {{selectedReview?.date.toString().slice(0,10)}}</small></h5>
+                                            (User)
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{selectedReview?.content}} </p>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="selectedReview?.reply" class="card ml-5 mt-3">
+                                        <div class="card-header">
+                                            <h5 class="card-title">{{selectedReview?.reply.user.firstname}} {{selectedReview?.reply.user.lastname}} <small>replied on {{selectedReview?.reply.date.toString().slice(0,10)}}</small></h5>
+                                            (Instructor)
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{selectedReview?.reply.content}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12  ">
+                            <div class="input-group mx-auto mb-3 w-75">
+                                <input type="text" class="form-control" placeholder="Search by keyword (name)"
+                                    [(ngModel)]="searchKeyword" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="loadReviews()">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true"
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>User Name</th>
+                                    <th>Rate</th>
+                                    <th>Content</th>
+                                    <th>Date</th>
+                                    <th>Replied</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let review of reviewsList | paginate : {itemsPerPage: pageSize, currentPage: page, totalItems: count};">
+                                    <td>{{review.user.firstname}} {{review.user.lastname}}</td>
+                                    <td>{{review.rate}} <span class="text-mediumsize" style="color: gold;">&#9733;</span></td>
+                                    <td>{{review.content.toString().slice(0, 32)}}...</td>
+                                    <td>
+                                        {{review.date.toString().slice(0, 10)}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="review.reply" class="text-success font-weight-bold">&#10004;</span>
+                                    </td>
+                                    <td>
+                                        <button (click)="changeSelectedReview(review)" class="btn btn-success mr-1"
+                                            data-toggle="modal" data-target="#reviewDetailsModal">Details</button>
+                                        <button (click)="deleteReview(review._id)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-secondary">Showing
+                            <span *ngIf="pageSize<=count">{{pageSize}}</span>
+                            <span *ngIf="pageSize>count">{{count}}</span>
+                            records per page of {{count}} total records.
+                        </p>
+                        Items per Page:
+                        <select (change)="handlePageSizeChange($event)">
+                            <option *ngFor="let size of pageSizes" [ngValue]="size">
+                                {{ size }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </ng-container>
+
+            <hr>
+            <h2>Reports</h2>
+            <div class="container mt-3">
+                <p class="text-secondary">Course's reports is under developing and will be available soon.</p>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -50,7 +50,7 @@ export class HomeComponent {
       .subscribe((courses: Course[]) => {
         this.hotCoursesList = courses;
       })
-      courseService.getAllCourse()
+      courseService.getCourses()
       .subscribe((courses: Course[]) => {
         this.coursesList = courses;
       })

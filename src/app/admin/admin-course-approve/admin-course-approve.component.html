@@ -1,0 +1,138 @@
+<div class="container-fluid">
+    <h2 class="text-center">Admin Panel - Approving course</h2>
+    <hr>
+    <h3 class="text-center">({{course?.name}} - <small>{{course?.instructor.firstname}}
+        {{course?.instructor.lastname}})</small></h3>
+    <div class="row">
+        <div class="col-md-1">
+            <button (click)="goBack()" class="btn btn-secondary h-100 w-100 p-0" style="font-size:2.5vw;"><i
+                    class="fa fa-chevron-left"></i></button>
+        </div>
+        <div class="col-md-11">
+            <div class="container full-height">
+                <div class="row">
+                    <h4>Course's infomation</h4>
+                    <div class="scroll border border-primary rounded">
+                        <!-- Course overview-->
+                        <div class="container-fuild bg-dark text-light py-3">
+                            <div class="container">
+                                <div class="row mt-0">
+                                    <div class="col-md-12">
+                                        <h5 class="text-secondary text-center">(Course's overview)</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-4 text-center">
+                                        <img [src]="course?.img_url" style="max-width: 100%;height: auto"
+                                            alt="Course's image">
+                                        <p class="mt-1 text-mediumsize text-light mb-0 font-weight-bold">
+                                            <strong>{{course?.price}}</strong> $
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 col-md-8 px-xs-1 px-md-0 mt-3">
+                                        <h1 class="mb-3">{{course?.name}}</h1>
+                                        <p class="mb-3">{{course?.description}}</p>
+                                        <p>Instructor: <strong>{{course?.instructor.firstname}}
+                                                {{course?.instructor.lastname}}</strong>
+                                        </p>
+                                        <p>
+                                            <span *ngIf="course?.type=='mooc'"
+                                                class="badge badge-success text-mediumsize">MOOC</span>
+                                            <span *ngIf="course?.type=='online'"
+                                                class=" badge badge-primary text-mediumsize">Online</span>
+                                            <span *ngIf="course?.type=='programming'"
+                                                class="badge badge-secondary text-mediumsize">Programming</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Course objectives-->
+                        <div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
+                            <div class="row mt-0">
+                                <div class="col-md-12">
+                                    <h5 class="text-secondary text-center">(Course's objectives)</h5>
+                                </div>
+                            </div>
+                            <h2 class="text-body mt-xs-1 mt-md-3">What you will learn?</h2>
+                            <div class="container mx-xs-0 mx-md-3 my-3">
+                                <ul class="mycourse-objectives mx-xs-0 mx-md-1">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 py-1 text-justify"
+                                            *ngFor="let objective of course?.objectives">
+                                            <li>
+                                                {{objective}}
+                                            </li>
+                                        </div>
+                                    </div>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        <!-- Course contents-->
+                        <div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
+                            <h2 class="text-body mt-xs-1 mt-md-3">Course's contents</h2>
+                            <div class="container  text-dark mx-xs-0 mx-md-3 my-3">
+                                <div class="accordion pr-3 py-xs-0 py-md-1" id="accordion">
+                                    <div *ngFor="let section of course?.sections; let i=index" class="card">
+                                        <div class="card-header" [id]="'heading'+section._id">
+                                            <h5 class="mb-0 text-truncate">
+                                                <button class="btn btn-link text-dark " data-toggle="collapse"
+                                                    [attr.data-target]="'#collapse'+section._id"
+                                                    [attr.aria-controls]="'collapse'+section._id">
+                                                    <strong>Section {{i+1}}:</strong> {{section.name}}
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div [id]="'collapse'+section._id" class="collapse"
+                                            [attr.aria-labelledby]="'heading'+section._id" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li *ngFor="let lecture of section.lectures; let j=index"
+                                                        class="py-xs-0 py-md-1 text-truncate">
+                                                        <strong>Lecture {{j+1}}:</strong> {{lecture.name}}
+                                                        <button (click)="setLectureVideoURL(lecture)"
+                                                            class="btn btn-warning d-block">Load
+                                                            this lecture</button>
+                                                        <p class="text-dark mb-0 ">Lecture url: </p>
+                                                        <a [href]="getLectureVideoURL(lecture)"
+                                                            target="_blank">{{getLectureVideoURL(lecture)}}</a>
+                                                        <p class="text-dark">Lecture's resources: </p>
+                                                        <div *ngFor="let resource of lecture.resources" class="mt-3 ml-5">
+                                                            <p class="text-secondary" [href]="resource.url" target="_blank"><i class="fa fa-file textsize-medium mr-3 text-info"></i>{{resource.name}}</p>
+                                                            <p class="text-dark">Resource url: </p>
+                                                            <a [href]="resource.url" target="_blank">{{resource.url}}</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="course?.type=='mooc'" class="container">
+                        <div class="row mt-3">
+                            <h4>Lecture's video <small>(Need to load lecture first)</small></h4>
+                            <div class="col-md-12 border border course-content-box">
+                                <video class="w-100" controls controlslist="nodownload">
+                                    <source type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button (click)="approveCourse()" class="btn btn-success w-100 mt-3 p-3">Approve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

@@ -1,0 +1,63 @@
+<h2 class="text-center mb-3">Admin Panel - Manage Payout</h2>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mt-3">
+            <div class="card border border-primary border-5 rounded bg-white p-1">
+                <div class="card-body">
+                    <h3 class="text-center card-title">Revenue report</h3>
+                    <hr>
+                    <div class="text-center mt-1">
+                        <div class="form-group text-center">
+                            <label for="revenueStartDateInput" class="text-dark font-weight-bold mr-3">From</label>
+                            <input id="revenueStartDateInput" type="date" [ngModel]="revenueReportTimes.startDate | date:'yyyy-MM-dd'" (ngModelChange)="revenueReportTimes.startDate = $event">
+                        </div>
+                        <div class="form-group mt-1">
+                            <label for="revenueEndDateInput" class="text-dark font-weight-bold mr-3">to</label>
+                            <input id="revenueEndDateInput" type="date" [ngModel]="revenueReportTimes.endDate | date:'yyyy-MM-dd'" (ngModelChange)="revenueReportTimes.endDate = $event">
+                        </div>
+                        <button (click)="reportRevenueSales()" class="btn btn-primary mt-3 px-3">Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            <div class="card border border-danger border-5 rounded bg-white p-1">
+                <div class="card-body">
+                    <h3 class="text-center card-title">Courses sales report</h3>
+                    <hr>
+                    <div class="text-center mt-1">
+                        <div class="form-group text-center">
+                            <label for="coursesSalesStartDateInput" class="text-dark font-weight-bold mr-3">From</label>
+                            <input id="coursesSalesStartDateInput" type="date" [ngModel]="coursesSalesReportTimes.startDate | date:'yyyy-MM-dd'" (ngModelChange)="coursesSalesReportTimes.startDate = $event">
+                        </div>
+                        <div class="form-group mt-1">
+                            <label for="coursesSalesEndDateInput" class="text-dark font-weight-bold mr-3">to</label>
+                            <input id="coursesSalesEndDateInput" type="date" [ngModel]="coursesSalesReportTimes.endDate | date:'yyyy-MM-dd'" (ngModelChange)="coursesSalesReportTimes.endDate = $event">
+                        </div>
+                        <button (click)="reportCoursesSales()" class="btn btn-danger mt-3 px-3">Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            <div class="card border border-success border-5 rounded bg-white p-1">
+                <div class="card-body">
+                    <h3 class="text-center card-title">Users sales report</h3>
+                    <hr>
+                    <div class="text-center mt-1">
+                        <div class="form-group text-center">
+                            <label for="usersSalesStartDateInput" class="text-dark font-weight-bold mr-3">From</label>
+                            <input id="usersSalesStartDateInput" type="date" [ngModel]="usersSalesReportTimes.startDate | date:'yyyy-MM-dd'" (ngModelChange)="usersSalesReportTimes.startDate = $event">
+                        </div>
+                        <div class="form-group mt-1">
+                            <label for="usersSalesEndDateInput" class="text-dark font-weight-bold mr-3">to</label>
+                            <input id="usersSalesEndDateInput" type="date" [ngModel]="usersSalesReportTimes.endDate | date:'yyyy-MM-dd'" (ngModelChange)="usersSalesReportTimes.endDate = $event">
+                        </div>
+                        <button (click)="reportUsersSales()" class="btn btn-emerald mt-3 px-3">Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+.capitalized {
+    text-transform:capitalize;
+}
+
+.btn-outline-primary:hover {
+    background-color: #dddddd;
+}
+
+.btn-outline-primary:focus {
+    background-color: #fafafa;
+}

@@ -1,0 +1,65 @@
+<h2 class="text-center mb-3">Admin Panel - Manage Approved Courses</h2>
+<hr>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12  ">
+            <div class="input-group mx-auto mb-3 w-75">
+                <input type="text" class="form-control" placeholder="Search by keyword (name, instructor)"
+                    [(ngModel)]="searchKeyword" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="loadCourses()">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true"
+                (pageChange)="handlePageChange($event)"></pagination-controls>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Course Name</th>
+                    <th>Instructor</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let course of coursesList | paginate : {itemsPerPage: pageSize, currentPage: page, totalItems: count};">
+                    <td>{{course.name}}</td>
+                    <td>{{course.instructor.firstname}} {{course.instructor.lastname}}</td>
+                    <td>{{course.subject.name}}</td>
+                    <td >
+                        <span *ngIf="course.type=='mooc'" class="badge badge-success uppercased">{{course.type}}</span>
+                        <span *ngIf="course.type=='online'" class="badge badge-primary capitalized">{{course.type}}</span>
+                        <span *ngIf="course.type=='programing'" class="badge badge-secondary capitalized">{{course.type}}</span>
+                    </td>
+                    <td>
+                        <a routerLink="/admin/courses/details/{{course._id}}" class="btn btn-success">Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-3">
+        <p class="text-secondary">Showing 
+            <span *ngIf="pageSize<=count">{{pageSize}}</span>
+            <span *ngIf="pageSize>count">{{count}}</span>
+             records per page of {{count}} total records.</p>
+        Items per Page:
+        <select (change)="handlePageSizeChange($event)">
+            <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+            </option>
+        </select>
+    </div>
+</div>

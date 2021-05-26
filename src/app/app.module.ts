@@ -9,21 +9,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
-import { UserService } from './services/user.service';
+import { CourseService, UserService, SubjectService, AuthenticationService, QuizService, ReviewService, AnnouncementService, NotificationService } from './services/';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { MatGridListModule } from '@angular/material/grid-list';
-// import { MatCardModule } from '@angular/material/card';
-// import { MatMenuModule } from '@angular/material/menu';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component';
 import {NgbRatingModule, NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-// import {MatListModule} from '@angular/material/list';
-import {SubjectService} from './services/subject.service';
-import {CourseService} from './services/course.service';
 import { CardCourseComponent } from './components/card-course/card-course.component';
 import { SearchComponent } from './components/search/search.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -35,6 +27,7 @@ import { CourseMyEnrolledComponent } from './components/course-my-enrolled/cours
 import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -62,17 +55,12 @@ import { CourseOnlineLearningComponent } from './components/course-online-learni
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // MatGridListModule,
-    // MatCardModule,
-    // MatMenuModule,
-    // MatIconModule,
-    // MatButtonModule,
     LayoutModule,
-    // MatListModule,
     NgbRatingModule,
     NgbCollapseModule,
     NgbDropdownModule,
-    FormsModule
+    FormsModule,
+    AdminModule
   ],
   providers: [
     UserService,
@@ -80,6 +68,11 @@ import { CourseOnlineLearningComponent } from './components/course-online-learni
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     SubjectService,
     CourseService,
+    AuthenticationService, 
+    QuizService, 
+    ReviewService, 
+    AnnouncementService, 
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
