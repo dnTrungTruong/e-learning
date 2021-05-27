@@ -13,10 +13,6 @@ export class AdminManageSubjectsComponent implements OnInit {
   @ViewChild('closeSubjectModal') closeSubjectModal: ElementRef
 
   subjectsList: Subject[];
-  subject: Subject = {
-    _id: '',
-    name: ''
-  };
   subjectForm: FormGroup;
   invalidContent: Boolean = false;
   isEditing: Boolean = false;
@@ -30,6 +26,7 @@ export class AdminManageSubjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subjectForm = this.formBuilder.group({
+      _id: [''],
       name: ['', 
       [
         Validators.required,
@@ -38,7 +35,6 @@ export class AdminManageSubjectsComponent implements OnInit {
       ]
     ]
     });
-    
   }
 
   public loadSubjects() {
@@ -47,7 +43,10 @@ export class AdminManageSubjectsComponent implements OnInit {
       this.subjectsList = subjects;
     })
   }
+
   get subjectFormControls() { return this.subjectForm.controls; }
+
+
 
   onSubmit() {
     if (this.subjectForm.invalid) {
@@ -55,7 +54,7 @@ export class AdminManageSubjectsComponent implements OnInit {
       return;
     }
     if (this.isEditing) {
-      this.subjectService.editSubject(this.subject)
+      this.subjectService.editSubject(this.subjectForm.value)
       .subscribe(res => {
         if (res.message = "success") {
           this.loadSubjects();
@@ -67,7 +66,7 @@ export class AdminManageSubjectsComponent implements OnInit {
       })
     }
     else {
-      this.subjectService.postNewSubject(this.subject)
+      this.subjectService.postNewSubject(this.subjectForm.value)
       .subscribe(res => {
         if (res.message = "success") {
           this.loadSubjects();
@@ -83,13 +82,12 @@ export class AdminManageSubjectsComponent implements OnInit {
 
   public addNewSubject() {
     this.isEditing = false;
-    this.subject.name = '';
+    this.subjectForm.setValue({_id: '', name: ''});
   }
 
   public editSubject(subject: Subject) {
     this.isEditing = true;
-    this.subject._id= subject._id;
-    this.subject.name = subject.name;
+    this.subjectForm.setValue({_id: subject._id, name: subject.name});
   }
 
   public deleteSubject(subject: Subject) {

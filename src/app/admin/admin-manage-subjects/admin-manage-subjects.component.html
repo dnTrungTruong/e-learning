@@ -16,7 +16,7 @@
               <form  [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                   <label for="name">Subject name</label>
-                  <input class="form-control" type="text" name="name" id="name" placeholder="Name" formControlName="name" [(ngModel)]="subject.name">
+                  <input class="form-control" type="text" name="name" id="name" placeholder="Name" formControlName="name">
                   <div *ngIf="invalidContent" class="text-danger">Subject name is required and accepts only alphabet and number.</div>
                 </div>
             

@@ -28,6 +28,7 @@ import { CourseQuizComponent } from './components/course-quiz/course-quiz.compon
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 import { AdminModule } from './admin/admin.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AdminModule } from './admin/admin.module';
     NgbCollapseModule,
     NgbDropdownModule,
     FormsModule,
+    CKEditorModule,
     AdminModule
   ],
   providers: [
