@@ -18,7 +18,7 @@
                 <a [routerLink]="['/courses',course?.subject?.name]"
                     class="text-decoration-none text-info">{{course?.subject?.name}} </a>
                 <h1 class="mb-3">{{course?.name}}</h1>
-                <p class="mb-3">{{course?.description}}</p>
+                <p class="mb-3">{{course?.overview}}</p>
                 <p>Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
                 <p>
                     <span *ngIf="course?.type=='mooc'" class="badge badge-success text-mediumsize">MOOC</span>
@@ -45,6 +45,16 @@
         </ul>
     </div>
 
+</div>
+<!-- Course description-->
+<div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
+    <h2 class="text-body mt-xs-1 mt-md-3">Description</h2>
+    <div class="container mx-xs-0 mx-md-3 my-3">
+        <ul class="mycourse-objectives mx-xs-0 mx-md-1">
+            <div [innerHtml]="course?.description | safeHtml"></div>
+
+        </ul>
+    </div>
 </div>
 <!-- Course contents-->
 <div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">

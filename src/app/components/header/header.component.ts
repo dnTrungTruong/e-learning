@@ -30,7 +30,10 @@ export class HeaderComponent implements OnInit {
   }
 
   get isAdmin() {
-    return this.user && this.user.userdata.role === Role.Admin;
+    if (this.isLoggedIn) {
+      return this.user && this.user.userdata.role === Role.Admin;
+    }
+    return false;
   }
 
   get isLoggedIn() {

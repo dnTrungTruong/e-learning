@@ -29,6 +29,7 @@ import { CourseQuizResultComponent } from './components/course-quiz-result/cours
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 import { AdminModule } from './admin/admin.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     CourseQuizComponent,
     CourseQuizResultComponent,
     CourseOnlineLearningComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

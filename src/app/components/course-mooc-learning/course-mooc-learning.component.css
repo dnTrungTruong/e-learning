@@ -46,3 +46,7 @@ ul {
 .text-pointer:hover {
     cursor: pointer;
 }
+
+.card {
+    border: 0.3em solid rgba(0, 0, 0, 0.125) !important;
+}

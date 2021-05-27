@@ -18,6 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminCourseDetailsComponent } from './admin-course-details/admin-course-details.component';
 import { AdminCourseApproveComponent } from './admin-course-approve/admin-course-approve.component';
 import { AdminManagePayoutComponent } from './admin-manage-payout/admin-manage-payout.component';
+// import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AdminManagePayoutComponent } from './admin-manage-payout/admin-manage-p
     AdminUserDetailsComponent, 
     AdminCourseDetailsComponent, 
     AdminCourseApproveComponent, 
-    AdminManagePayoutComponent
+    AdminManagePayoutComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +42,7 @@ import { AdminManagePayoutComponent } from './admin-manage-payout/admin-manage-p
     ReactiveFormsModule,
     NgbDropdownModule,
     NgxPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
   ]
 })
 export class AdminModule { }

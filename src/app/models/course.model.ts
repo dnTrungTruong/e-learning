@@ -7,6 +7,7 @@ export class Course {
     name: String;
     subject: Subject;
     instructor: UserWithName;
+    overview: String;
     description: String;
     objectives: String[];
     img_url: String;
@@ -20,6 +21,7 @@ export class CourseDetails {
     name: String;
     subject: Subject;
     instructor: UserWithName;
+    overview: String;
     description: String;
     objectives: String[];
     img_url: String;

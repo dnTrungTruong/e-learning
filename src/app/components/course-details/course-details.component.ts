@@ -133,7 +133,7 @@ export class CourseDetailsComponent implements OnInit {
   loadReviews() {
     this.reviewService.getReviews(this.courseId)
       .subscribe((reviews: Review[]) => {
-        if (reviews.length) {
+        if (reviews) {
           this.hasReviews = true;
           this.reviewsList = reviews;
           for (let review of reviews) {
