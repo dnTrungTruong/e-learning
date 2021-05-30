@@ -2,6 +2,14 @@
     background-image: url("https://e-learning-10r825s36vuq028g5csk.s3.ap-southeast-1.amazonaws.com/public_assets/1621052472490-elearning-banner-blog.jpg");
     height: 48vh;
 }
+
+.bg-primary {
+    background: #0a426e!important;
+}
+
+.breadcrumb {
+    background: #196eb2!important;
+}
 .blur-image {
     filter: blur(4px);
     -webkit-filter: blur(4px);
@@ -12,6 +20,13 @@
 
 .breadcrumb {
     background-color: transparent;
+}
+
+.breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: white;
+    content: "/";
 }
 
 .my-container {
@@ -27,4 +42,37 @@
 
 .card {
     border: 0.25em solid rgba(0, 0, 0, 0.125) !important;
+}
+
+#header-card {
+    background: none;
+    border: none !important;
+    text-align: center;
+}
+
+#header-card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.page-context-header {
+    background: #0a426e;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.page-context-header {
+    overflow: hidden;
+    padding: .25rem;
+}
+
+.page-header-headings {
+    float: left;
+    display: block;
+    position: relative;
+    line-height: 24px;
 }

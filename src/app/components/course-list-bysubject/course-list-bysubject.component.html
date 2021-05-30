@@ -2,32 +2,57 @@
   
     
     <div class ="row mb-3">
-      <div class="col-3">
-        <div class="card-header">
+      <div class="col-md-6 col-lg-3 mt-sm-3 mt-md-1 mb-3 mb-md-1">
+        <button class="card-header btn btn-block d-xs-block  d-lg-none dropdown-toggle text-left" type="button"
+          data-toggle="collapse" data-target="#example-collapse">
+          <span style="font-size: 2rem; font-weight:550;">Subjects</span>
+        </button>
+        <div class="card-header d-none d-lg-block d-xl-block">
           <h2>Subjects</h2>
         </div>
-  
-        <div class="list-group ">
+        <div id="example-collapse" class="list-group collapse d-lg-block " style="height: 88%; background-color: white;">
           <div *ngFor="let subject of subjectsList">
             <a (click)="toSearchCoursesBySubjectPage(subject.name)"
               class="list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
           </div>
         </div>
       </div>
-      <div class = "col-9">
-        <h2>{{subject}} courses</h2>
+      <div class="col-12 d-xs-block d-sm-block d-md-none">
+        <hr class="d-xs-12">
+  
+      </div>
+      
+      <div class = "col-md-6 col-lg-9 mt-sm-3 mt-md-1 ">
+        <h2>{{subject}} <small>courses</small></h2>
         <hr>
         <div *ngIf="noResult">
-          <h3 class="text-dark">Sorry, we couldn't find any {{subject}} courses. Please come back later</h3>
+          <h3 class="text-dark">Sorry, we couldn't find any <strong>{{subject}} courses</strong>. Please come back later</h3>
         </div>
         <div class="row">
-          <div *ngFor="let course of coursesList" class = "col-6 col-sm-6 col-md-4 col-lg-4 py-3 h-100">
-            <div class="card p-0 mycard-course-content">
+          <div ngbDropdown class="d-inline-block ml-auto mr-3"  *ngIf="!noResult" placement="bottom-right">
+            <button class="btn btn-outline-success" id="dropdownMenuButton" ngbDropdownToggle>Sort by</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+              <button ngbDropdownItem (click)="sortBy('price-ascending')">Lowest Price</button>
+              <button ngbDropdownItem (click)="sortBy('price-descending')">Highest Price</button>
+              <button ngbDropdownItem (click)="sortBy('rate-descending')">Highest Rated</button>
+              <button ngbDropdownItem (click)="sortBy('newest')">Newest</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let course of coursesList" class="col-6 col-lg-4 mt-3 h-100">
+            <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id)">
               <div class="card-body">
                 <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
-                <p class="card-text px-3 mt-1 mycard-course-name" style="height: 40px;" ><strong>{{course.name}}</strong></p>
-                <p class="card-text px-3 pt-1 pb-0 mb-0 ">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
-                <p class ="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style = "text-align: right;">{{course.price}}$</p>
+                <p class="card-text px-3 my-1 mycard-course-name"><strong>{{course.name}}</strong></p>
+                <p class="card-text px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+                <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
+                  <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
+                  <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
+                  <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary float-left">Programming</span>
+      
+                  {{course.price.toFixed(1)}}$
+                </p>
               </div>
             </div>
           </div>

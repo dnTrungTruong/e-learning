@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col-xs-6 col-md-4 text-center">
                 <img [src]="course?.img_url" style="max-width: 100%;height: auto" alt="Course's image">
-                <p class="mt-1 text-mediumsize text-light mb-0 font-weight-bold"><strong>9.9</strong> $</p>
+                <p *ngIf="!isEnrolled" class="mt-1 text-mediumsize text-light mb-0 font-weight-bold"><strong>{{course?.price.toFixed(1)}}</strong> $</p>
                 <button *ngIf="isEnrolled" (click)="goToCourseLearningPage()"
-                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">
+                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto mt-1 text-mediumsize">
                     Go to course</button>
                 <button *ngIf="!isEnrolled" (click)="enrollCourse()"
-                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto  text-mediumsize">
+                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto mt-3 text-mediumsize">
                     Enroll now</button>
             </div>
             <div class="col-xs-6 col-md-8 px-xs-1 px-md-0 mt-3">
@@ -75,7 +75,7 @@
                     <div class="card-body">
                         <ul>
                             <li *ngFor="let lecture of section.lectures; let j=index"
-                                class="py-xs-0 py-md-1 text-truncate">
+                                class="py-xs-0 py-md-1">
                                 <strong>Lecture {{j+1}}:</strong> {{lecture.name}}
                             </li>
                         </ul>

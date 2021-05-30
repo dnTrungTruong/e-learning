@@ -22,10 +22,7 @@ export class SearchComponent implements OnInit {
     private subjectService: SubjectService,
     private router:Router
   ) {
-    subjectService.getSubjects()
-    .subscribe((subjects: Subject[]) => {
-      this.subjectsList = subjects;
-    })
+    
   }
 
   toSearchCoursesBySubjectPage(string) {
@@ -51,22 +48,33 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("sent");
+
+    this.subjectService.getSubjects()
+    .subscribe((subjects: Subject[]) => {
+      this.subjectsList = subjects;
+    });
     this.courseService.keyword
     .subscribe((value) => {
       this.keyword=value;
       //In case user use url to enter this route
       if (this.keyword=="") { return this.router.navigate([""])}
-      this.courseService.searchCourses().subscribe((courses: Course[]) => {
-        this.coursesList = courses;
-        if (this.coursesList.length) {
-          this.noResult=false;
-        }
-        else {
-          this.noResult=true;
-        }
-      })
+      
+    })
+
+    this.courseService.searchCourses().subscribe((courses: Course[]) => {
+      this.coursesList = courses;
+      if (this.coursesList) {
+        this.noResult=false;
+      }
+      else {
+        this.noResult=true;
+      }
     })
   }
     
+  public goToCourseDetails(courseId: string) {
+    this.router.navigate([`/course/${courseId}`]);
+  }
 
 }

@@ -4,7 +4,6 @@ import { CourseService, UserService, ReviewService, AuthenticationService } from
 import { CourseDetails, User, Review } from '../../models';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isBuffer } from 'util';
 
 
 @Component({
@@ -15,7 +14,7 @@ import { isBuffer } from 'util';
 export class CourseDetailsComponent implements OnInit {
 
   @ViewChild('closeReviewModal') closeReviewModal: ElementRef
-  @ViewChild('closeReplyModal') closeReplyodal: ElementRef
+  @ViewChild('closeReplyModal') closeReplyModal: ElementRef
 
   course: CourseDetails;
   reviewsList: Review[];
@@ -122,7 +121,7 @@ export class CourseDetailsComponent implements OnInit {
       .subscribe(res => {
         if (res.message == 'success') {
           this.loadReviews();
-          this.closeReplyodal.nativeElement.click()
+          this.closeReplyModal.nativeElement.click()
         }
         else {
           alert(res.message);
@@ -159,16 +158,17 @@ export class CourseDetailsComponent implements OnInit {
       //Will show sign in dialog
       return this.router.navigate(["login"])
     }
-    this.userService.enrollCourse(this.courseId)
-      .subscribe(res => {
-        if (res.message == "success") {
-          alert("Enroll sucessfully. Going to course learning page now.");
-          return this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`]);
-        }
-        else {
-          alert(res.message);
-        }
-      })
+    this.router.navigate([`course/${this.courseId}/checkout`]);
+    // this.userService.enrollCourse(this.courseId)
+    //   .subscribe(res => {
+    //     if (res.message == "success") {
+    //       alert("Enroll sucessfully. Going to course learning page now.");
+    //       return this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`]);
+    //     }
+    //     else {
+    //       alert(res.message);
+    //     }
+    //   })
   }
 
   public postReply(review:Review) {

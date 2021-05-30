@@ -60,7 +60,7 @@ export class AdminSidebarComponent implements OnInit {
       });
     });
 
-    interval(10000).subscribe(x => {
+    interval(60000).subscribe(x => {
       this.courseService.getPendingCoursesCount().subscribe((count:number) => {
         this.pendingCoursesCount = count;
       })

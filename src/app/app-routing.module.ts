@@ -13,6 +13,7 @@ import { CourseMyEnrolledComponent } from './components/course-my-enrolled/cours
 import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
       {
         path: 'course/:courseId',
         component: CourseDetailsComponent
+      },
+      {
+        path: 'course/:courseId/checkout',
+        component: CheckoutComponent
       },
       {
         path: 'course/learning/mooc/:courseId',

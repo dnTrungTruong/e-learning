@@ -30,6 +30,7 @@ import { CourseOnlineLearningComponent } from './components/course-online-learni
 import { AdminModule } from './admin/admin.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CourseQuizResultComponent,
     CourseOnlineLearningComponent,
     SafeHtmlPipe,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

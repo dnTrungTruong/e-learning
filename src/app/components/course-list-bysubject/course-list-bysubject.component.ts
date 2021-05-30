@@ -27,30 +27,39 @@ export class CourseListBysubjectComponent implements OnInit {
       this.subjectsList = subjects;
     })
     this.subject = this.route.snapshot.paramMap.get('subject');
-    courseService.searchCoursesBySubject(this.subject)
-      .subscribe((courses: Course[]) => {
-        this.coursesList = courses;
-
-        if (this.coursesList) {
-          this.noResult=false;
-        }
-        else {
-          this.noResult=true;
-        }
-    })
+    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
+    queryObject.subject = this.subject;
+    this.loadCoursesBySubject(queryObject);
    }
 
   ngOnInit(): void {
     
   }
 
-  toSearchCoursesBySubjectPage(string) {
-    
-    this.subject = string;
-    this.courseService.searchCoursesBySubject(this.subject)
+  sortBy(string) {
+    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
+    if (string == "price-descending") {
+      queryObject.price = "descending";
+    }
+    if (string == "price-ascending") {
+      queryObject.price = "ascending";
+    }
+    // if (string == "rate-descending") {
+    //   queryObject.price = "ascending";
+    // }
+    // if (string == "newest") {
+    //   queryObject.createdAt = "ascending";
+    // }
+    queryObject.subject = this.subject;
+    this.loadCoursesBySubject(queryObject);
+  }
+
+  loadCoursesBySubject( queryObject: {[k:string]: string}) {
+    console.log(queryObject);
+    this.courseService.searchCoursesBySubject(queryObject)
       .subscribe((courses: Course[]) => {
         this.coursesList = courses;
-
+        console.log(this.coursesList);
         if (this.coursesList) {
           this.noResult=false;
         }
@@ -58,6 +67,14 @@ export class CourseListBysubjectComponent implements OnInit {
           this.noResult=true;
         }
     })
+  }
+
+  toSearchCoursesBySubjectPage(string) {
+    
+    this.subject = string;
+    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
+    queryObject.subject = this.subject;
+    this.loadCoursesBySubject(queryObject);
     this.router.navigate([`/courses/${string}`]);
   }
 
