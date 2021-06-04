@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Notification } from '../../models';
-import { NotificationService } from '../../services/';
+import { NotificationService, AuthenticationService } from '../../services/';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,8 @@ export class AdminHeaderComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
-    private router:Router
+    private router: Router,
+    private authenticationService: AuthenticationService
 
   ) {
     this.loadNotifications();
@@ -66,6 +67,11 @@ export class AdminHeaderComponent implements OnInit {
         }
       })
     
+  }
+
+  logout() {
+    this.router.navigate([''])
+    this.authenticationService.logout();
   }
 
   public calculateTimeToCurrent(time) {

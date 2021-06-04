@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="margin-top: 16px">
-    <div class="col-lg-6 col-xl-4 mt-sm-3 mt-md-1 mb-3 mb-md-1">
+    <div class="col-md-6 col-lg-4 col-xl-4 mt-sm-3 mt-md-1 mb-3 mb-md-1">
       <button class="card-header btn btn-block d-xs-block  d-lg-none dropdown-toggle text-left" type="button"
         data-toggle="collapse" data-target="#example-collapse">
         <span style="font-size: 2rem; font-weight:550;">Subjects</span>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <hr>
-    <div class="col-lg-6 col-xl-8  mt-sm-3 mt-md-1 ">
+    <div class="col-md-6 col-lg-8 col-xl-8  mt-sm-3 mt-md-1 ">
       <div class="card-header">
         <h2>These courses are on trending</h2>
       </div>
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="row  dashboard-flex-card">
+      <div class="row  dashboard-flex-card d-md-none d-flex d-lg-flex d-xl-flex">
         <div *ngFor="let course of hotCoursesList; let i=index" class="col-lg-6 pb-1 h-100">
           <div *ngIf="i>=2" class="card p-0 dashboard-card ">
             <div class="card-body dashboard-card-content h-100 " (click)="goToCourseDetails(course._id)">

@@ -55,11 +55,9 @@ export class CourseListBysubjectComponent implements OnInit {
   }
 
   loadCoursesBySubject( queryObject: {[k:string]: string}) {
-    console.log(queryObject);
     this.courseService.searchCoursesBySubject(queryObject)
       .subscribe((courses: Course[]) => {
         this.coursesList = courses;
-        console.log(this.coursesList);
         if (this.coursesList) {
           this.noResult=false;
         }

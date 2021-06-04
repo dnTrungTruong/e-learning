@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("sent");
 
     this.subjectService.getSubjects()
     .subscribe((subjects: Subject[]) => {
