@@ -17,6 +17,7 @@ export class CheckoutComponent implements OnInit {
 
   isValidFormSubmitted: boolean = null;
   isProcessing: boolean = false;
+  invalidDiscountCode: boolean = false;
   courseId: string;
   course: CourseDetails;
   responseMessage:string;
@@ -48,6 +49,9 @@ export class CheckoutComponent implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
 
     this.courseService.getCourseDetails(this.courseId).subscribe((course: CourseDetails) => {
+      if (!course) {
+        return this.router.navigate(["/error/404"]);
+      };
       this.course = course;
     })
   }
@@ -96,5 +100,11 @@ export class CheckoutComponent implements OnInit {
   public changePaymentMethod(payment: string) {
     this.userInformationForm.patchValue({ payment: payment });
     this.isProcessing = false;
+  }
+
+  public applyDiscountCode() {
+    console.log(this.userInformationForm.get('discountCode').value);
+    this.userInformationForm.patchValue({ discountCode: '' });
+    this.invalidDiscountCode = true;
   }
 }

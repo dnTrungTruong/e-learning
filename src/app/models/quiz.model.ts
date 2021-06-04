@@ -5,6 +5,7 @@ export class Quiz {
     section: String;
     course: String;
     courseName: String;
+    courseType: String;
     questions: Question[];
     correctAnswers: Number;
     totalScore: Number;

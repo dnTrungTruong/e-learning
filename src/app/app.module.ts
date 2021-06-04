@@ -28,9 +28,12 @@ import { CourseQuizComponent } from './components/course-quiz/course-quiz.compon
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 import { AdminModule } from './admin/admin.module';
+import { AdminRoutingModule } from './admin/admin-routing.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CourseOnlineLearningComponent,
     SafeHtmlPipe,
     CheckoutComponent,
+    NotFoundComponent,
+    PasswordRecoveryComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     NgbDropdownModule,
     FormsModule,
     CKEditorModule,
-    AdminModule
+    // AdminModule,
+    // AdminRoutingModule
   ],
   providers: [
     UserService,

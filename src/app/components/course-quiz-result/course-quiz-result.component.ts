@@ -49,7 +49,7 @@ export class CourseQuizResultComponent implements OnInit {
   }
 
   goToCoursePage() {
-    this.router.navigate([`course/learning/${this.quizService.quiz.course}`]);
+    this.router.navigate([`course/learning/${this.quizService.quiz.courseType}/${this.quizService.quiz.course}`]);
   }
 
 }

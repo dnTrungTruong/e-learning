@@ -7,4 +7,5 @@ export class Lecture {
     course: String;
     resources: Resource[];
     url: String;
+    createdDate: Date;
 }

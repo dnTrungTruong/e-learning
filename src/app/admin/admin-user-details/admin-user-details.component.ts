@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/'
 import {UserDetail} from '../../models/'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,6 +19,7 @@ export class AdminUserDetailsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location
   ) { }
 
@@ -28,6 +29,9 @@ export class AdminUserDetailsComponent implements OnInit {
 
     this.userService.getUserInfo(this.userId)
     .subscribe((user: UserDetail) => {
+      if (!user) {
+        return this.router.navigate(["/error/404"]);
+      };
       this.user = user;
       this.selectedRole = user.role;
       this.selectedStatus = user.status;

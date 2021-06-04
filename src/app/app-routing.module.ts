@@ -14,6 +14,7 @@ import { CourseQuizComponent } from './components/course-quiz/course-quiz.compon
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -68,9 +69,18 @@ const routes: Routes = [
         path: 'course/learning/online/:courseId',
         component: CourseOnlineLearningComponent
       },
+      {
+        path: 'error/404', 
+        component: NotFoundComponent
+      },
+      // {path: '**', redirectTo: '/error/404'}
     ],
   },
-  
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {path: '**', redirectTo: '/error/404'}
 ];
 
 @NgModule({

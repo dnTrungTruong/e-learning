@@ -62,14 +62,14 @@
             <li *ngFor="let objective of course?.objectives" class="pl-3 py-1">{{objective}}</li>
         </ul>
         <hr>
-        <div *ngFor="let section of course?.sections; let i=index" class="m-sm-1 m-md-3 mb-1">
+        <div *ngFor="let section of course?.sections; let i=index" class="m-sm-1 m-md-3 my-3">
             <h4 class="text-dark mb-3 p-sm-1 p-md-3"><strong>Section {{i+1}}: </strong>{{section.name}}</h4>
             <p *ngIf="!section.lectures.length" class="text-white ml-3 ml-md-5"><span class="bg-secondary rounded">This
                     section has no contents yet.</span></p>
             <div *ngFor="let lecture of section.lectures" class="ml-3 ml-md-5">
 
                 <a class="font-weight-bold my-lecture" [href]="lecture.url" target="_blank"><i
-                        class="fa fa-video textsize-medium mr-3"></i>{{lecture.name}}</a>
+                        class="fa fa-video textsize-medium mr-3"></i>{{lecture._id}}  <small class="text-secondary">starts on {{dateToUTCString(lecture.createdDate)}}</small></a>
 
                 <div *ngFor="let resource of lecture.resources" class="mt-3 ml-3 ml-md-5">
                     <a class="text-secondary" [href]="resource.url" target="_blank"><i
@@ -87,6 +87,12 @@
                     <div [innerHtml]="announcement.content | safeHtml" class="card-text"></div>
                 </div>
 
+            </div>
+            <div *ngIf="section.quiz" class="ml-3 ml-md-5 mt-3">
+                <h4 class="text-dark">
+                    <a class="text-dark " routerLink="/course/quiz/{{section.quiz._id}}"><i
+                        class="fas fa-question-circle textsize-medium mr-3 text-danger"></i><span class="text-danger">Quiz: </span>{{section.quiz?.name}}</a>
+                </h4>
             </div>
         </div>
     </div>

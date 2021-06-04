@@ -25,14 +25,16 @@ export class CourseOnlineLearningComponent implements OnInit {
     this.courseService.getCourseLearningDetails(this.courseId)
     .subscribe((course: CourseDetails) => {
       if (!course) {
-        //Will change to navigate to 404 page
-        this.router.navigate([""])
+        return this.router.navigate(["/error/404"]);
       }
-      console.log(course);
       this.course = course;
     })
   }
 
+  public dateToUTCString(date: Date) {
+    let dateObject = new Date(date);
+    return dateObject.toUTCString();
+  }
   public calculateTimeToCurrent(time) {
 
     switch (typeof time) {

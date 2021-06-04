@@ -57,9 +57,8 @@ export class AdminCourseDetailsComponent implements OnInit {
     this.courseService.getCourseLearningDetails(this.courseId)
       .subscribe((course: CourseDetails) => {
         if (!course) {
-          //Will change to navigate to 404 page
-          this.router.navigate(["admin/courses"])
-        }
+          return this.router.navigate(["/error/404"]);
+        };
         this.course = course;
         if (course.tags.length) {
           this.courseTags.removeAt(0);

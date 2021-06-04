@@ -37,14 +37,19 @@ export class CourseQuizComponent implements OnInit {
       }
     }
     else {
-      this.quizService.seconds = 0;
-      this.quizService.quizProgress = 0;
+      
       this.quizService.getQuiz(this.quizId)
         .subscribe((quiz: Quiz) => {
+          if (!quiz) {
+            return this.router.navigate(["/error/404"]);
+          };
+          this.quizService.seconds = 0;
+          this.quizService.quizProgress = 0;
           this.quizService.quiz = quiz;
           this.courseService.getCourseDetails(quiz.course)
             .subscribe((courseDetails: CourseDetails) => {
               this.quizService.quiz.courseName = courseDetails.name;
+              this.quizService.quiz.courseType = courseDetails.type;
             })
           this.startTimer();
         })

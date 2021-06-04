@@ -16,7 +16,7 @@ import { AdminManagePayoutComponent} from './admin-manage-payout/admin-manage-pa
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminComponent,
     children: [
       {

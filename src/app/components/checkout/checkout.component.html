@@ -1,4 +1,3 @@
-<p>checkout works!</p>
 <div class="container checkout">
     <form [formGroup]="userInformationForm" (ngSubmit)="onFormSubmit()">
 
@@ -150,9 +149,10 @@
                                     placeholder="Discount code" aria-label="Discount Code"
                                     aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="input-group-text btn btn-emerald" id="basic-addon2">Apply</button>
+                                    <button class="input-group-text btn btn-emerald" id="basic-addon2" (click)="applyDiscountCode()">Apply</button>
                                 </div>
                             </div>
+                            <p *ngIf="invalidDiscountCode" class="card-text text-danger">Sorry, your code is invalid.</p>
                         </div>
                     </div>
                     <div class="card-footer text-muted">

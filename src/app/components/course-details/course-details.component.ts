@@ -48,9 +48,8 @@ export class CourseDetailsComponent implements OnInit {
     courseService.getCourseDetails(this.courseId)
       .subscribe((course: CourseDetails) => {
         if (!course) {
-          //Will change to navigate to 404 page
-          this.router.navigate([""])
-        }
+          return this.router.navigate(["/error/404"]);
+        };
         if (this.userFromLocal) {
           this.userService.getUserInfoJWT()
             .subscribe((user: User) => {

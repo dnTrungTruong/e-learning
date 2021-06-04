@@ -35,9 +35,8 @@ export class CourseMoocLearningComponent implements OnInit {
     courseService.getCourseLearningDetails(this.courseId)
     .subscribe((course: CourseDetails) => {
       if (!course) {
-        //Will change to navigate to 404 page
-        this.router.navigate([""])
-      }
+        return this.router.navigate(["/error/404"]);
+      };
       this.course = course;
       this.selectedLecture = course.sections[0].lectures[0];
       this.source = this.elRef.nativeElement.querySelector('source');
