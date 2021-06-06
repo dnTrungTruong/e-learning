@@ -15,6 +15,7 @@ import { CourseQuizResultComponent } from './components/course-quiz-result/cours
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchComponent
+      },
+      {
+        path: 'password-recovery/:email/:secretCode',
+        component: PasswordRecoveryComponent
       },
       {
         path: 'my-enrolled-courses',

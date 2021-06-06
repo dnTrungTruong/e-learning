@@ -56,4 +56,8 @@ export class UserService {
   public editUserInfoForAdmin(userId: string, body:any): Observable<any> {
     return this.http.put<any>(`${this.usersUrl}/edit-for-admin/${userId}`, body);
   }
+
+  public resetPassword(body:any): Observable<any> {
+    return this.http.post<any>(`${this.usersUrl}/password-reset/verify`, body);
+  }
 }

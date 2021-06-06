@@ -21,7 +21,10 @@ export class AdminCourseDetailsComponent implements OnInit {
 
   course: CourseDetails;
   courseId: string;
-  courseTagsForm: FormGroup;
+  courseTagsForm: FormGroup = this.fb.group({
+    course_tags: this.fb.array([this.fb.group({ tag: [''] })])
+  });
+
   successMessage = '';
   hasReviews: Boolean = false;
   selectedReview: Review;
@@ -42,16 +45,18 @@ export class AdminCourseDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) { }
+  ) {
+    console.log(this.courseTags);
+   }
 
+  get courseTags() {
+    return this.courseTagsForm.get('course_tags') as FormArray;
+  }
   
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
 
-    this.courseTagsForm = this.fb.group({
-      course_tags: this.fb.array([this.fb.group({ tag: [''] })])
-    })
 
 
     this.courseService.getCourseLearningDetails(this.courseId)
@@ -82,9 +87,7 @@ export class AdminCourseDetailsComponent implements OnInit {
     });
   }
 
-  get courseTags() {
-    return this.courseTagsForm.get('course_tags') as FormArray;
-  }
+  
 
   addTag() {
     this.courseTags.push(this.fb.group({ tag: [''] }));

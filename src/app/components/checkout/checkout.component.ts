@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseService, UserService, AuthenticationService } from '../../services';
 import { CourseDetails } from '../../models';
-import { flatten } from '@angular/compiler';
+// import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-checkout',
@@ -28,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   userInformationForm = new FormGroup({
     payment: new FormControl('momo', Validators.required),
     name: new FormControl('', Validators.required),
-    mail: new FormControl('', Validators.required),
+    mail: new FormControl('', Validators.compose([Validators.email, Validators.required])),
     discountCode: new FormControl('')
   });
 

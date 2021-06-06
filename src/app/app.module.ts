@@ -14,7 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component';
-import {NgbRatingModule, NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbRatingModule, NgbCollapseModule, NgbDropdownModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CardCourseComponent } from './components/card-course/card-course.component';
 import { SearchComponent } from './components/search/search.component';
@@ -27,10 +27,8 @@ import { CourseMyEnrolledComponent } from './components/course-my-enrolled/cours
 import { CourseQuizComponent } from './components/course-quiz/course-quiz.component';
 import { CourseQuizResultComponent } from './components/course-quiz-result/course-quiz-result.component';
 import { CourseOnlineLearningComponent } from './components/course-online-learning/course-online-learning.component';
-import { AdminModule } from './admin/admin.module';
-import { AdminRoutingModule } from './admin/admin-routing.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { PipesModule } from './pipes/pipes.module';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
@@ -54,7 +52,6 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
     CourseQuizComponent,
     CourseQuizResultComponent,
     CourseOnlineLearningComponent,
-    SafeHtmlPipe,
     CheckoutComponent,
     NotFoundComponent,
     PasswordRecoveryComponent,
@@ -68,11 +65,11 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
     LayoutModule,
     NgbRatingModule,
     NgbCollapseModule,
+    NgbAlertModule,
     NgbDropdownModule,
     FormsModule,
     CKEditorModule,
-    // AdminModule,
-    // AdminRoutingModule
+    PipesModule
   ],
   providers: [
     UserService,

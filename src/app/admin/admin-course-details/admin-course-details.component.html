@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="flip-card-back">
                                     <h4 class="mt-1">Subject: {{course?.subject.name}}</h4>
-                                    <p class="my-0">Description: {{course?.description.toString().slice(0, 40)}}...</p>
+                                    <p class="my-0">Description: {{course?.overview.toString().slice(0, 40)}}...</p>
                                     <p class="my-0">Reviews: {{course?.reviewsNumber}} - Average rate:
                                         {{course?.avgRate}} </p>
                                     <p>
@@ -51,25 +51,28 @@
 
                 <div class="row ">
                     <div class="col-md-10 pl-1 pr-5">
-                        <form [formGroup]="courseTagsForm">
-                            <div class="row border border-success course-content-box ml-3" formArrayName="courseTags">
-                                <ng-container *ngFor="let item of courseTags.controls; let pointIndex=index">
-                                    <div [formGroup]="item" class="col-md-3 my-1">
-                                        <div class="input-group">
-                                            <input type="text" formControlName="tag"
-                                                class="form-control border border-primary" />
-                                            <div class="input-group-append">
-                                                <button type="button" (click)="deleteTag(pointIndex)"
-                                                    class="btn btn-danger ">&#10006;</button>
+                        <form *ngIf="courseTags" [formGroup]="courseTagsForm">
+                            <ng-container formArrayName="courseTags">
+                                <div class="row border border-success course-content-box ml-3" >
+                                    <ng-container *ngFor="let item of courseTags?.controls; let pointIndex=index">
+                                        <div [formGroup]="item" class="col-md-3 my-1">
+                                            <div class="input-group">
+                                                <input type="text" formControlName="tag"
+                                                    class="form-control border border-primary" />
+                                                <div class="input-group-append">
+                                                    <button type="button" (click)="deleteTag(pointIndex)"
+                                                        class="btn btn-danger ">&#10006;</button>
+                                                </div>
                                             </div>
                                         </div>
+                                    </ng-container>
+                                    <div class="col-md-3 my-1">
+                                        <button type="button" (click)="addTag()" class="btn btn-emerald mt-1 ">Add
+                                            Tag</button>
                                     </div>
-                                </ng-container>
-                                <div class="col-md-3 my-1">
-                                    <button type="button" (click)="addTag()" class="btn btn-emerald mt-1 ">Add
-                                        Tag</button>
                                 </div>
-                            </div>
+                            </ng-container>
+                            
 
                         </form>
 
