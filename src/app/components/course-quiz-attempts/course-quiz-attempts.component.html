@@ -1,0 +1,92 @@
+<div class="container mt-3">
+
+    <div class="card p-3">
+        <h2 class="text-dark">{{attempt?.course.name}}</h2>
+        <h3 class="text-dark"><small>Quiz: </small>{{attempt?.quizzes[quizIndex]?.quiz?.name}}</h3>
+        <h5 *ngIf="attempt?.quizzes[quizIndex]?.quiz.isFinal" class="text-success">Attention: This quiz is final, you will earn a certificate if you pass this quiz.</h5>
+        <span>Time Allowed: {{displayQuizAllowedTime()}}</span>
+        
+        <hr>
+        <div class="card-body">
+            <h4>Summary of your previous attempts</h4>
+
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-primary">
+                            <th>No.</th>
+                            <th>State</th>
+                            <th>Start at</th>
+                            <th>End at</th>
+                            <th>Score</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let attempt of attempt?.quizzes[quizIndex]?.attempts; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                <span *ngIf="attempt.attemptSubmittedTime" class="text-success font-weight-bold">Submitted</span>
+                                <span *ngIf="!attempt.attemptSubmittedTime && isTimeOver(attempt.attemptEndTime)" class="text-danger font-weight-bold">Unsubmitted (overtime)</span>
+                                <span *ngIf="!attempt.attemptSubmittedTime && !isTimeOver(attempt.attemptEndTime)" class="text-primary font-weight-bold">In progress</span>
+                                <p *ngIf="attempt.attemptSubmittedTime">submitted at {{formatDateTime(attempt.attemptSubmittedTime)}}</p>
+                            </td>
+                            <td>{{formatDateTime(attempt.attemptDate)}}</td>
+                            <td>{{formatDateTime(attempt.attemptEndTime)}}</td>
+                            <td>{{attempt.score}}</td>
+                            <td>
+                                <a *ngIf="!attempt.attemptSubmittedTime && isTimeOver(attempt.attemptEndTime)" routerLink="/course/{{courseId}}/quiz-result/{{quizId}}" class="btn btn-primary">Submit</a>
+                                <a *ngIf="!attempt.attemptSubmittedTime && !isTimeOver(attempt.attemptEndTime)" routerLink="/course/{{courseId}}/quiz/{{quizId}}" class="btn btn-success">Continue</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p *ngIf="attempt?.quizzes[quizIndex]?.attempts.length == 0" class="text-center mt-1">
+                You haven't had any attempts yet.
+            </p>
+
+            <h5 class="text-dark mt-3">
+                <small>Your final score (highest score) for this quiz is: </small>
+                {{attempt?.quizzes[quizIndex]?.highestScore}}
+            </h5>
+            <h5 class="text-dark">
+                <small>Your final result for this quiz is: </small>
+                <span *ngIf="attempt?.quizzes[quizIndex]?.isPassed" class="text-success">Passed</span>
+                <span *ngIf="!attempt?.quizzes[quizIndex]?.isPassed" class="text-danger">Not passed</span>
+            </h5>
+            <div *ngIf="!attempt?.certificate && attempt?.quizzes[quizIndex]?.isPassed && attempt?.quizzes[quizIndex]?.quiz.isFinal" class="row mt-5">
+                <div class="col-md-12 col-lg-3">
+                </div>
+                <div class="col-md-12 col-lg-6 text-center ">
+                    <button (click)="claimCertificate()" class="w-100 text-center btn btn-warning">Claim your certificate</button>
+                    <span class="text-secondary">Note: You can only claim certificate one time. Make sure you get the highest score possible before claiming.</span>
+                </div>
+                <div class="col-md-12 col-lg-3">
+                </div>
+            </div>
+            <div *ngIf="attempt?.certificate" class="row mt-5">
+                <div class="col-md-12 col-lg-3">
+                </div>
+                <div class="col-md-12 col-lg-6 text-center ">
+                    <span class="text-secondary">You have already claimed your certificate in this course.</span>
+                    <a routerLink="/certificate/{{attempt?.certificate}}" class="w-100 text-center btn btn-warning">Go to your certificate</a>
+                </div>
+                <div class="col-md-12 col-lg-3">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-6 text-center ">
+                    <button *ngIf="(attempt?.quizzes[quizIndex].attempts.length < 2) && !isExistQuizInProgress() && !(attempt?.certificate)" (click)="startQuiz()" class="w-100 text-center btn btn-emerald">
+                        Start quiz
+                    </button>
+                </div>
+                <div class="col-6 text-center ">
+                    <button (click)="goToCoursePage()" class="w-100 text-center btn btn-secondary">Back to course</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

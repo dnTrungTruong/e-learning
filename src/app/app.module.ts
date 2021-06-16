@@ -9,7 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
-import { CourseService, UserService, SubjectService, AuthenticationService, QuizService, ReviewService, AnnouncementService, NotificationService } from './services/';
+import { CourseService, UserService, SubjectService, AuthenticationService, QuizService, ReviewService, AnnouncementService, NotificationService, AttemptService, CertificateService } from './services/';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -32,6 +32,8 @@ import { PipesModule } from './pipes/pipes.module';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
+import { CourseQuizAttemptsComponent } from './components/course-quiz-attempts/course-quiz-attempts.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
     CheckoutComponent,
     NotFoundComponent,
     PasswordRecoveryComponent,
+    CourseQuizAttemptsComponent,
+    CertificateComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,9 @@ import { PasswordRecoveryComponent } from './components/password-recovery/passwo
     QuizService, 
     ReviewService, 
     AnnouncementService, 
-    NotificationService
+    NotificationService,
+    AttemptService,
+    CertificateService
   ],
   bootstrap: [AppComponent]
 })

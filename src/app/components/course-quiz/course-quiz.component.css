@@ -6,3 +6,25 @@
     cursor: pointer;
     background-color: #1CC888 !important;
 }
+
+.quiz-content {
+    background-color: #a7e6cf !important;
+    border-radius: 5px;
+}
+
+.questions-box {
+    border-width:0.15rem !important;
+    box-shadow: 0.15rem 0.15rem 0.3rem #ccc;
+    background-color: #fefefe;
+    border-radius: 0.25rem !important;
+}
+
+.course-content-box {
+    box-shadow: 0.1rem 0.1rem 0.15rem #1CC888;
+}
+
+.btn-outline-dark, .btn-outline-success, .btn-success {
+    border-width: 0.2rem !important;
+    font-size: 120%;
+}
+

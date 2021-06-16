@@ -12,7 +12,7 @@ export class QuizService {
 
   readonly quizzesUrl = `${environment.apiUrl}/quiz`;
   courseName: string;
-  quiz: Quiz;
+  // quiz: Quiz;
   seconds: number;
   timer;
   quizProgress: number;
@@ -28,14 +28,21 @@ export class QuizService {
     ))
   }
 
-  public submitQuiz() {
-    return this.http.post<any>(`${this.quizzesUrl}/submit/${this.quiz._id}`, {questions: this.quiz.questions})
-    .pipe(map(res => 
-      res['data'] as Quiz
-    ))
-  }
+  // public submitQuiz() {
+  //   return this.http.post<any>(`${this.quizzesUrl}/submit/${this.quiz._id}`, {questions: this.quiz.questions})
+  //   .pipe(map(res => 
+  //     res['data'] as Quiz
+  //   ))
+  // }
 
-  public displayTimeElapsed() {
-    return Math.floor(this.seconds / 3600) + ':' + Math.floor(this.seconds / 60) + ':' + Math.floor(this.seconds % 60);
-  }
+  // public displayQuizLimitTime() {
+  //   if (this.quiz) {
+  //     return Math.floor(this.quiz.limitTime.valueOf() / 3600) + ' hours ' + Math.floor(this.quiz.limitTime.valueOf() / 60) + ' minutes ' + Math.floor(this.quiz.limitTime.valueOf() % 60) + ' seconds';
+
+  //   }
+  //   else {
+  //     return;
+  //   }
+  //   //return Math.floor(this.seconds / 3600) + ':' + Math.floor(this.seconds / 60) + ':' + Math.floor(this.seconds % 60);
+  // }
 }

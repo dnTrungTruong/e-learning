@@ -6,3 +6,5 @@ export * from './quiz.service';
 export * from './review.service';
 export * from './announcement.service';
 export * from './notification.service';
+export * from './attempt.service';
+export * from './certificate.service';

@@ -9,3 +9,5 @@ export * from './lecture.model';
 export * from './announcement.model';
 export * from './resource.model';
 export * from './notification.model';
+export * from './certificate.model';
+export * from './attempt.model';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CourseService } from '../../services';
-import { CourseDetails } from '../../models';
+import { CourseService, AttemptService } from '../../services';
+import { CourseDetails, Attempt } from '../../models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,9 +13,11 @@ export class CourseOnlineLearningComponent implements OnInit {
 
   course: CourseDetails;
   courseId: string;
+  userAttempt: Attempt;
 
   constructor(
     private courseService: CourseService,
+    private attemptService: AttemptService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -28,7 +30,38 @@ export class CourseOnlineLearningComponent implements OnInit {
         return this.router.navigate(["/error/404"]);
       }
       this.course = course;
+
+      this.attemptService.getAttempt(this.courseId).subscribe((attempt: Attempt) => {
+        this.userAttempt = attempt;
+        console.log(this.userAttempt);
+      })
     })
+  }
+
+  isPassedNonFinalQuizzes() {
+    if (this.userAttempt) {
+      for (let i = 0; i < this.userAttempt.quizzes.length; i++) {
+        if (!this.userAttempt.quizzes[i].quiz.isFinal && !this.userAttempt.quizzes[i].isPassed) {
+          return false
+        }
+      }
+    }
+    
+    return true;
+  }
+
+  isPassedQuiz(quizId: string) {
+    if (this.userAttempt) {
+      const index = this.userAttempt.quizzes.findIndex(function (quizzes) {
+        return <any>quizzes.quiz == quizId;
+      });
+      if (this.userAttempt.quizzes[index].isPassed) {
+        return true;
+      }
+      else return false;
+    }
+    
+    return false;
   }
 
   public dateToUTCString(date: Date) {

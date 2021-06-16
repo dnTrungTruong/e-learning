@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseService, UserService, AuthenticationService } from '../../services';
 import { CourseDetails } from '../../models';
-// import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-checkout',

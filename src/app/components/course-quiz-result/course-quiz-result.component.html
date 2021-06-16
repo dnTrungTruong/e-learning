@@ -1,23 +1,41 @@
 <div class="container mt-3">
-    <h2 class="text-dark">{{quizService.quiz?.courseName}}</h2>
-    <h3 class="text-dark">Quiz: {{quizService.quiz?.name}}</h3>
-    <hr>
-    <div class="card p-3">
-      <div class="card-body text-center">
-        <h3 class="text-dark ">Completed!</h3>
-        <hr class="bg-info" style="height: 0.1rem; border:none;">
-        <h4 ><strong>Your correct answers: </strong>{{quizService.quiz?.correctAnswers}}/{{quizService.quiz?.questions.length}}</h4>
-        <h4 ><strong>Final score: </strong>{{quizService.quiz?.totalScore}}</h4>
-        <span>Time Elapsed: {{quizService.displayTimeElapsed()}}</span>
-      </div>
-      <div class="row">
-          <div class="col-6 text-center ">
-            <button (click)="restartQuiz()" class="w-100 text-center btn btn-secondary">Restart quiz</button>
-          </div>
-          <div class="col-6 text-center ">
-            <button (click)="goToCoursePage()" class="w-100 text-center btn btn-emerald">Back to course</button>
-          </div>
-      </div>
-      
+  <h2 class="text-dark">{{attempt?.course.name}}</h2>
+  <h3 class="text-dark">Quiz: <small>{{attempt?.quizzes[quizIndex].quiz?.name}}</small></h3>
+  <hr>
+  <div class="card p-3">
+    <div class="card-body text-center">
+      <h3 class="text-dark ">Completed!</h3>
+      <hr class="bg-info" style="height: 0.1rem; border:none;">
+      <h4><strong>Your correct answers:
+        </strong>{{attempt?.quizzes[quizIndex].attempts[attemptNo].correctAnswers}}/{{attempt?.quizzes[quizIndex].attempts[attemptNo].questions.length}}
+      </h4>
+      <h4><strong>Your score: </strong>{{attempt?.quizzes[quizIndex].attempts[attemptNo].score}}</h4>
+      <h5><strong>Your highest score: </strong>{{attempt?.quizzes[quizIndex].highestScore}}</h5>
+      <span>Time Elapsed: {{displayTimeElapsed()}}</span>
+
     </div>
+    <div class="row">
+      <div
+        *ngIf="!attempt?.certificate && attempt?.quizzes[quizIndex]?.isPassed && attempt?.quizzes[quizIndex]?.quiz.isFinal"
+        class="row mt-5">
+        <div class="col-md-12 col-lg-3">
+        </div>
+        <div class="col-md-12 col-lg-6 text-center ">
+          <button (click)="claimCertificate()" class="w-100 text-center btn btn-warning">Claim your certificate</button>
+          <span class="text-secondary">Note: You can only claim certificate one time. Make sure you get the highest
+            score possible before claiming.</span>
+        </div>
+        <div class="col-md-12 col-lg-3">
+        </div>
+      </div>
+
+      <div class="col-6 text-center ">
+        <button (click)="restartQuiz()" class="w-100 text-center btn btn-secondary">Restart quiz</button>
+      </div>
+      <div class="col-6 text-center ">
+        <button (click)="goToCoursePage()" class="w-100 text-center btn btn-emerald">Back to course</button>
+      </div>
+    </div>
+
   </div>
+</div>

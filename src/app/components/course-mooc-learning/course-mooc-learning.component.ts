@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CourseService, AnnouncementService } from '../../services';
-import { CourseDetails, Announcement, Comment, Lecture } from '../../models';
+import { CourseService, AnnouncementService, AttemptService } from '../../services';
+import { CourseDetails, Announcement, Comment, Lecture, Attempt } from '../../models';
 import { Router } from '@angular/router';
 import { ElementRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -21,10 +21,12 @@ export class CourseMoocLearningComponent implements OnInit {
   source:any; 
   announcementsList: Announcement[];
   reply: Boolean = false;
+  userAttempt: Attempt;
 
   constructor(
     private courseService: CourseService,
     private announcementService: AnnouncementService,
+    private attemptService: AttemptService,
     private route: ActivatedRoute,
     private router: Router,
     private elRef: ElementRef
@@ -37,6 +39,11 @@ export class CourseMoocLearningComponent implements OnInit {
       if (!course) {
         return this.router.navigate(["/error/404"]);
       };
+      this.loadAnnouncements();
+      this.attemptService.getAttempt(this.courseId).subscribe((attempt: Attempt) => {
+        this.userAttempt = attempt;
+        console.log(this.userAttempt);
+      })
       this.course = course;
       this.selectedLecture = course.sections[0].lectures[0];
       this.source = this.elRef.nativeElement.querySelector('source');
@@ -45,11 +52,11 @@ export class CourseMoocLearningComponent implements OnInit {
       this.player.load();
     })
 
-    this.loadAnnouncements();
    }
 
   ngOnInit(): void {
   }
+
 
   loadAnnouncements(): void {
     this.announcementService.getAnnouncements(this.courseId)
@@ -94,6 +101,32 @@ export class CourseMoocLearningComponent implements OnInit {
     this.source.src = this.lectureUrl + this.selectedLecture?.course + '/' + this.selectedLecture?.url;
     
     this.player.load();
+  }
+
+  isPassedNonFinalQuizzes() {
+    if (this.userAttempt) {
+      for (let i = 0; i < this.userAttempt.quizzes.length; i++) {
+        if (!this.userAttempt.quizzes[i].quiz.isFinal && !this.userAttempt.quizzes[i].isPassed) {
+          return false
+        }
+      }
+    }
+    
+    return true;
+  }
+
+  isPassedQuiz(quizId: string) {
+    if (this.userAttempt) {
+      const index = this.userAttempt.quizzes.findIndex(function (quizzes) {
+        return <any>quizzes.quiz == quizId;
+      });
+      if (this.userAttempt.quizzes[index].isPassed) {
+        return true;
+      }
+      else return false;
+    }
+    
+    return false;
   }
 
   public calculateTimeToCurrent(time) {

@@ -16,6 +16,8 @@ import { CourseOnlineLearningComponent } from './components/course-online-learni
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
+import { CourseQuizAttemptsComponent } from './components/course-quiz-attempts/course-quiz-attempts.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
 
 const routes: Routes = [
   {
@@ -39,6 +41,10 @@ const routes: Routes = [
         component: SearchComponent
       },
       {
+        path: 'certificate/:certId',
+        component: CertificateComponent
+      },
+      {
         path: 'password-recovery/:email/:secretCode',
         component: PasswordRecoveryComponent
       },
@@ -51,11 +57,15 @@ const routes: Routes = [
         component: CourseListBysubjectComponent
       },
       {
-        path: 'course/quiz/:quizId',
+        path: 'course/:courseId/attempt-quiz/:quizId',
+        component: CourseQuizAttemptsComponent
+      },
+      {
+        path: 'course/:courseId/quiz/:quizId',
         component: CourseQuizComponent
       },
       {
-        path: 'course/quiz-result',
+        path: 'course/:courseId/quiz-result/:quizId',
         component: CourseQuizResultComponent
       },
       {

@@ -1,4 +1,5 @@
 import { Role } from "./role.model";
+import { Attempt } from "./attempt.model";
 
 export class User {
     userdata: {
@@ -29,6 +30,7 @@ export class UserDetail {
     role: Role;
     isVerified: string;
     status: string;
+    attempts: Attempt[];
 }
 
 export class UserWithName {

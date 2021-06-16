@@ -15,6 +15,8 @@ export class Course {
     sections: String[];
     type: String;
     status: String;
+    userProgress: String;
+    userCertificate: String;
 }
 export class CourseDetails {
     _id: String;

@@ -1,24 +1,79 @@
-<div class="container mt-3" *ngIf="quizService.quiz && quizService.quizProgress < quizService.quiz.questions.length">
-  <h2 class="text-dark">{{quizService.quiz?.courseName}}</h2>
-  <h3 class="text-dark">Quiz: {{quizService.quiz?.name}}</h3>
-  <hr>
+<div class="container mt-3">
+  <h4>{{attempt?.course.name}}</h4>
+  <h5 class="text-dark">Final Examination: <small>{{attempt?.quizzes[quizIndex].quiz.name}}</small></h5>
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+      <div class="border border-success course-content-box">
+        <div class="card p-3">
+          <div class="quiz-content mt-3 p-3">
+            <div class="card-body">
+              <h3>Question {{quizService?.quizProgress + 1}}:</h3>
+              <h4>{{quizQuestions[quizService?.quizProgress]?.question}}</h4>
+              <hr>
+            </div>
+            <ul class="list-group mx-3">
+              <ng-container *ngFor="let answer of quizQuestions[quizService.quizProgress]?.answers; let i=index">
+                <li *ngIf="answer != null" (click)="chooseAnswer(i)" class="list-group-item border border-success my-1"
+                  [ngClass]="answer == quizQuestions[quizService.quizProgress].userAnswer  ? 'bg-success' : 'bg-light'">
+                  {{answer}}
+                </li>
 
-  <div class="card p-3">
-    <span>Time Elapsed: {{quizService.displayTimeElapsed()}}</span>
-    <div class="progress my-3" style="height: 0.2rem;">
-      <div class="progress-bar " role="progressbar" [style.width.%]="(quizService.quizProgress)/quizService.quiz.questions.length*100"></div>
-    </div>
-    <div class="card-body">
-      <h3>Question {{quizService.quizProgress + 1}}:</h3>
-      <h4>{{quizService.quiz?.questions[quizService?.quizProgress].question}}</h4>
-    </div>
-    <ul class="list-group mx-3">
-      <ng-container *ngFor="let answer of quizService.quiz?.questions[quizService.quizProgress].answers; let i=index">
-        <li *ngIf="answer != null" (click)="chooseAnswer(i)" class="list-group-item border border-success bg-light my-1">
-          {{answer}}
-        </li>
+              </ng-container>
+            </ul>
+          </div>
 
-      </ng-container>
-    </ul>
+          <div class="row mt-3">
+            <div class="col-6 text-left">
+              <div class="previous">
+                <button type="button" (click)="previousQuestion()" class="btn btn-secondary ">
+                  &#60; Previous
+                </button>
+              </div>
+            </div>
+            <div class="col-6 text-right">
+              <div class="next">
+                <button *ngIf="quizService.quizProgress == quizQuestions.length-1" type="button"
+                  (click)="submitAnswers()" class="btn btn-primary">
+                  Submit
+                </button>
+                <button *ngIf="quizService.quizProgress != quizQuestions.length-1" type="button"
+                  (click)="nextQuestion()" class="btn btn-emerald">
+                  Next &#62;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-lg-3 p-0">
+      <div class="border border-success questions-box ">
+        <div class="card p-3">
+          <h5 class="text-dark">Questions: </h5>
+          <div class="row">
+            <ng-container>
+              <div *ngFor="let num of [].constructor(quizQuestions.length); let i = index" class="col-3">
+                <button class="btn px-3 my-1 w-100 font-weight-bold text-center" (click)="chooseQuestion(i)"
+                  [ngClass]="{'btn-success': quizQuestions[i].userAnswer, 'btn-outline-success': !quizQuestions[i].userAnswer, 'btn-outline-dark' : quizService.quizProgress == i  }">
+                  {{i+1}}
+                </button>
+              </div>
+            </ng-container>
+
+          </div>
+          <div class="row">
+            <div class="col-7 mt-3">
+              <span class="text-left ">Timeleft: <strong>{{displayTimeleft()}}</strong></span>
+            </div>
+            <div class="col-3 mt-3">
+              <button (click)="submitAnswers()" class="btn btn-primary text-right">
+                Submit?
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
