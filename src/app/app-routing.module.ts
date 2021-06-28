@@ -18,6 +18,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { CourseQuizAttemptsComponent } from './components/course-quiz-attempts/course-quiz-attempts.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
+import { CourseProgramingDetailsComponent } from './components/course-programing-details/course-programing-details.component';
+import { CourseProgramingLearningComponent } from './components/course-programing-learning/course-programing-learning.component';
+import { CourseProgramingCodingComponent } from './components/course-programing-coding/course-programing-coding.component';
 
 const routes: Routes = [
   {
@@ -77,6 +80,10 @@ const routes: Routes = [
         component: CheckoutComponent
       },
       {
+        path: 'course/programing/:courseId',
+        component: CourseProgramingDetailsComponent
+      },
+      {
         path: 'course/learning/mooc/:courseId',
         component: CourseMoocLearningComponent
       },
@@ -85,11 +92,19 @@ const routes: Routes = [
         component: CourseOnlineLearningComponent
       },
       {
+        path: 'course/learning/programing/:courseId',
+        component: CourseProgramingLearningComponent
+      },
+      {
         path: 'error/404', 
         component: NotFoundComponent
       },
       // {path: '**', redirectTo: '/error/404'}
     ],
+  },
+  {
+    path: 'coding/:courseId/:sectionId',
+    component: CourseProgramingCodingComponent
   },
   {
     path: 'admin',

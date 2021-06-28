@@ -49,6 +49,7 @@ ul .mycourse-objectives{
 
 .card {
     border: 0.3em solid rgba(0, 0, 0, 0.125) !important;
+    background-color: #F7F0E7;
 }
 
 hr {

@@ -16,6 +16,12 @@ export class CourseListBysubjectComponent implements OnInit {
   noResult:boolean = false;
   subject: string;
 
+  price = '';
+  page = 1;
+  count = 0;
+  pageSize = 4;
+  pageSizes = [4, 8, 12];
+
   constructor(
     private courseService: CourseService,
     private subjectService: SubjectService,
@@ -27,9 +33,7 @@ export class CourseListBysubjectComponent implements OnInit {
       this.subjectsList = subjects;
     })
     this.subject = this.route.snapshot.paramMap.get('subject');
-    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
-    queryObject.subject = this.subject;
-    this.loadCoursesBySubject(queryObject);
+    this.loadCoursesBySubject();
    }
 
   ngOnInit(): void {
@@ -37,12 +41,11 @@ export class CourseListBysubjectComponent implements OnInit {
   }
 
   sortBy(string) {
-    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
     if (string == "price-descending") {
-      queryObject.price = "descending";
+      this.price = "descending";
     }
     if (string == "price-ascending") {
-      queryObject.price = "ascending";
+      this.price = "ascending";
     }
     // if (string == "rate-descending") {
     //   queryObject.price = "ascending";
@@ -50,30 +53,55 @@ export class CourseListBysubjectComponent implements OnInit {
     // if (string == "newest") {
     //   queryObject.createdAt = "ascending";
     // }
-    queryObject.subject = this.subject;
-    this.loadCoursesBySubject(queryObject);
+    this.loadCoursesBySubject();
   }
 
-  loadCoursesBySubject( queryObject: {[k:string]: string}) {
-    this.courseService.searchCoursesBySubject(queryObject)
-      .subscribe((courses: Course[]) => {
-        this.coursesList = courses;
-        if (this.coursesList) {
-          this.noResult=false;
+  loadCoursesBySubject() {
+    this.courseService.searchCoursesBySubject(this.subject, this.page, this.pageSize, this.price)
+      .subscribe(res => {
+        console.log(res);
+        if (res['data']) {
+          this.coursesList= res['data']['courses'];
+          this.count = res['data']['totalItems'];
         }
         else {
-          this.noResult=true;
+          this.coursesList = [];
+          this.count = 0;
+        }
+        console.log(res['data']);
+        if (this.coursesList.length) {
+          this.noResult = false;
+        }
+        else {
+          this.noResult = true;
         }
     })
   }
 
+  handlePageChange(event): void {
+    this.page = event;
+    this.loadCoursesBySubject();
+  }
+
+  handlePageSizeChange(event): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.loadCoursesBySubject();
+  }
+
   toSearchCoursesBySubjectPage(string) {
-    
     this.subject = string;
-    let queryObject: {[k:string]: string} = {}; //Define a LooseObject that can accept fields with string as key and value
-    queryObject.subject = this.subject;
-    this.loadCoursesBySubject(queryObject);
+    this.page = 1;
+    this.loadCoursesBySubject();
     this.router.navigate([`/courses/${string}`]);
   }
 
+  goToCourseDetails(courseId:string, courseType: string) {
+    if (courseType == 'programing') {
+      this.router.navigate([`/course/proraming/${courseId}`]);
+    }
+    else {
+      this.router.navigate([`/course/${courseId}`]);
+    }
+  }
 }

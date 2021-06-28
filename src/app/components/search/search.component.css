@@ -57,17 +57,6 @@
 .course-info {
   padding:15px;
 }
-/* 
-.course-details-btn {
-  background-color: #1CC88A;
-  color: white;
-}
-.course-details-btn:hover {
-  background-color: white;
-  color:#1CC88A;
-  border-color:#1CC88A;
-  display:block;
-} */
 
 .course-image {
   height: 23vh;
@@ -85,4 +74,8 @@
 .notify-badge{
   position: absolute;
   font-size: 1rem;
+}
+
+.list-group {
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }

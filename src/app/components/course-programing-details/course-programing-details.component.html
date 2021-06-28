@@ -1,54 +1,41 @@
 <!-- Course overview-->
-<div class="container-fuild bg-dark text-light pt-5 pb-3">
+<div class="container-fuild bg-info text-light pt-3 pb-3">
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-md-4 text-center">
-                <img [src]="course?.img_url" style="width: 100%;height: auto" alt="Course's image">
-                <p *ngIf="!isEnrolled" class="mt-1 text-mediumsize text-light mb-0 font-weight-bold"><strong>{{course?.price.toFixed(1)}}</strong> $</p>
-                <button *ngIf="isEnrolled" (click)="goToCourseLearningPage()"
-                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto mt-3 text-mediumsize">
-                    Go to course</button>
-                <button *ngIf="!isEnrolled" (click)="enrollCourse()"
-                    class="btn btn-emerald btn-block center course-enroll-btn mx-auto mt-3 text-mediumsize">
-                    Enroll now</button>
-            </div>
-            <div class="col-xs-6 col-md-8 px-xs-1 px-md-0 mt-3">
-                <a routerLink="/" class="text-decoration-none text-info">Home </a>
+            <div class="col-12 text-center mt-0 mb-1">
+                <a routerLink="/" class="text-decoration-none text-light">Home </a>
                 <i class="fa fa-angle-double-right fa-fw"></i>
                 <a [routerLink]="['/courses',course?.subject?.name]"
-                    class="text-decoration-none text-info">{{course?.subject?.name}} </a>
-                <h1 class="mb-3">{{course?.name}}</h1>
-                <p class="mb-3">{{course?.overview}}</p>
-                <p>Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
-                <p>
+                    class="text-decoration-none text-light">{{course?.subject?.name}} </a>
+                <p class="pb-0 mb-0">
                     <span *ngIf="course?.type=='mooc'" class="badge badge-success text-mediumsize">MOOC</span>
                     <span *ngIf="course?.type=='online'" class=" badge badge-primary text-mediumsize">Online</span>
-                    <span *ngIf="course?.type=='programming'" class="badge badge-secondary text-mediumsize">Programming</span>
+                    <span *ngIf="course?.type=='programing'"
+                        class="badge badge-secondary text-mediumsize">Programming</span>
                 </p>
+            </div>
+            <div class="col-12 text-center">
+
+                <img [src]="course?.img_url" style="width:30vw;object-fit: fill;" alt="Course's image">
+            </div>
+            <div class="col-12 px-xs-1 px-md-0 mt-3 pb-3 text-center">
+
+                <h1 class="mb-3">{{course?.name}}</h1>
+                <p >Instructor: <strong>{{course?.instructor.firstname}} {{course?.instructor.lastname}}</strong></p>
+                <p *ngIf="!isEnrolled" class="text-mediumsize text-light mb-0 font-weight-bold">
+                    <strong>{{course?.price.toFixed(1)}}</strong> $</p>
+                <button *ngIf="isEnrolled" (click)="goToCourseLearningPage()"
+                    class="btn btn-warning center course-enroll-btn mx-auto mt-0 text-mediumsize font-weight-bold">
+                    Go to course</button>
+                <button *ngIf="!isEnrolled" (click)="enrollCourse()"
+                    class="btn btn-warning center course-enroll-btn mx-auto mt-0 text-mediumsize font-weight-bold">
+                    Enroll now</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Course objectives-->
-<div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
-    <h2 class="text-body mt-xs-1 mt-md-3">What you will learn?</h2>
-    <div class="container mx-xs-0 mx-md-3 my-3">
-        <ul class="mycourse-objectives mx-xs-0 mx-md-1">
-            <div class="row">
-                <div class="col-xs-12 col-md-6 py-1 text-justify" *ngFor="let objective of course?.objectives">
-                    <li>
-                        {{objective}}
-                    </li>
-                </div>
-            </div>
-
-        </ul>
-    </div>
-
-</div>
 <!-- Course description-->
-<div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
-    <h2 class="text-body mt-xs-1 mt-md-3">Description</h2>
+<div class="container px-xs-3 px-md-5 my-3 py-3 ">
     <div class="container mx-xs-0 mx-md-3 my-3">
         <ul class="mycourse-objectives mx-xs-0 mx-md-1">
             <div [innerHtml]="course?.description | safeHtml"></div>
@@ -57,7 +44,7 @@
     </div>
 </div>
 <!-- Course contents-->
-<div class="container border border-success px-xs-3 px-md-5 my-3 py-3 course-content-box">
+<div class="container px-xs-3 px-md-5 my-3 py-3 ">
     <h2 class="text-body mt-xs-1 mt-md-3">Course's contents</h2>
     <div class="container  text-dark mx-xs-0 mx-md-3 my-3">
         <div class="accordion pr-3 py-xs-0 py-md-1" id="accordion">
@@ -72,11 +59,12 @@
                 </div>
                 <div [id]="'collapse'+section._id" class="collapse" [attr.aria-labelledby]="'heading'+section._id"
                     data-parent="#accordion">
-                    <div class="card-body">
+                    <div class="card-body text-dark bg-light">
+                        <p>{{section.description}}</p>
+                        <hr>
                         <ul>
-                            <li *ngFor="let lecture of section.lectures; let j=index"
-                                class="py-xs-0 py-md-1">
-                                <strong>Lecture {{j+1}}:</strong> {{lecture.name}}
+                            <li *ngFor="let lesson of section.lessons; let j=index" class="py-xs-0 py-md-1 my-1">
+                                <strong>Lesson {{j+1}}:</strong> {{lesson.name}}
                             </li>
                         </ul>
                     </div>
@@ -93,13 +81,14 @@
     <div class="px-xs-1 px-md-3 mt-3" *ngIf="!hasReviews">
         <p class="text-secondary">This course doesn't have any reviews yet</p>
     </div>
-    <button *ngIf="!hasMadeReview && isEnrolled && !isAuthor"   class="btn btn-emerald my-1 mx-xs-1 mx-md-3" type="button" data-toggle="modal" data-target="#reviewModal">
+    <button *ngIf="!hasMadeReview && isEnrolled && !isAuthor" class="btn btn-emerald my-1 mx-xs-1 mx-md-3" type="button"
+        data-toggle="modal" data-target="#reviewModal">
         Leave a review?
     </button>
 
     <ng-container *ngIf="!hasMadeReview && isEnrolled && !isAuthor">
-        <div  class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-            <div class="modal-dialog" >
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="reviewModalLabel">Leave a review</h5>
@@ -119,10 +108,12 @@
                                 </ng-template>
                             </ngb-rating>
                             <div class="form-group">
-                                <textarea class="form-control" cols="50" id="review-content" formControlName="reviewContent"
-                                    placeholder="Enter your review here..." rows="5" ></textarea>
+                                <textarea class="form-control" cols="50" id="review-content"
+                                    formControlName="reviewContent" placeholder="Enter your review here..."
+                                    rows="5"></textarea>
                             </div>
-                            <div *ngIf="invalidReviewContent" class="text-danger">Please write something about this course before submit.</div>
+                            <div *ngIf="invalidReviewContent" class="text-danger">Please write something about this
+                                course before submit.</div>
                             <button type="submit" class="button btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -133,8 +124,8 @@
 
     <div *ngIf="hasReviews">
 
-        <div  class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
-            <div class="modal-dialog" >
+        <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="replyModalLabel">Make your reply</h5>
@@ -145,10 +136,12 @@
                     <div class="modal-body">
                         <form accept-charset="UTF-8" [formGroup]="replyForm" (ngSubmit)="onSubmitReply()">
                             <div class="form-group">
-                                <textarea class="form-control" cols="50" id="reply-content" formControlName="replyContent"
-                                    placeholder="Enter your reply here..." rows="3" ></textarea>
+                                <textarea class="form-control" cols="50" id="reply-content"
+                                    formControlName="replyContent" placeholder="Enter your reply here..."
+                                    rows="3"></textarea>
                             </div>
-                            <div *ngIf="invalidContent" class="text-danger">Please write a reply for this review before submit.</div>
+                            <div *ngIf="invalidContent" class="text-danger">Please write a reply for this review before
+                                submit.</div>
                             <button type="submit" class="button btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -157,7 +150,7 @@
         </div>
 
         <div class="row px-xs-3 px-md-5 my-3 py-3 mx-3 rating-summary-block ">
-    
+
             <div class="col-xs-6 col-sm-6 col-md-3">
                 <div class="text-center">
                     <h4>Average user rating</h4>
@@ -171,12 +164,12 @@
                                 <span class="review-star-half" [style.width.%]="fill">&#9733;</span>&#9733;
                             </span>
                         </ng-template>
-    
-                        <ngb-rating [(rate)]="course && course.avgRate" [starTemplate]="myStar" [readonly]="true" [max]="5"
-                            class="m-0"></ngb-rating>
-    
+
+                        <ngb-rating [(rate)]="course && course.avgRate" [starTemplate]="myStar" [readonly]="true"
+                            [max]="5" class="m-0"></ngb-rating>
+
                     </div>
-    
+
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-9 align-self-center p-md-3">
@@ -194,12 +187,13 @@
                     ({{reviewsListCount[1]}})</button>
             </div>
             <hr />
-    
+
         </div>
-        <div >
+        <div>
             <div class="row mt-3 mx-0 review-block" *ngFor="let review of reviewsList">
                 <div class="col-sm-2 text-center">
-                    <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png" class="img img-rounded img-fluid px-3">
+                    <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                        class="img img-rounded img-fluid px-3">
                     <div class="text-info">{{review.user.firstname}} {{review.user.lastname}}</div>
                 </div>
                 <div class="col-sm-10">
@@ -208,21 +202,23 @@
                             <span><i class="text-warning fa fa-star fa-2x" aria-hidden="true"></i></span>
                         </ng-container> -->
                         <ng-template #myStar let-fill="fill">
-                            <span class="review-star" [class.star-full]="fill === 100" style="font-size:1.5rem !important;">
+                            <span class="review-star" [class.star-full]="fill === 100"
+                                style="font-size:1.5rem !important;">
                                 <span class="review-star-half" [style.width.%]="fill">&#9733;</span>&#9733;
                             </span>
                         </ng-template>
-    
+
                         <ngb-rating [(rate)]="review && review.rate" [starTemplate]="myStar" [readonly]="true" [max]="5"
                             class="m-0"></ngb-rating>
-    
+
                         <div class="review-block-date text-secondary font-weight-light align-middle ml-1">
                             {{review.date.toString().slice(0,10)}} - {{calculateTimeToCurrent(review.date)}}
                         </div>
                     </div>
-    
+
                     <div class="m-1 p-1 text-dark">{{review.content}}</div>
-                    <button *ngIf="!review.reply && isAuthor" (click)="postReply(review)"  class="btn btn-emerald float-right" type="button" data-toggle="modal" data-target="#replyModal">
+                    <button *ngIf="!review.reply && isAuthor" (click)="postReply(review)"
+                        class="btn btn-emerald float-right" type="button" data-toggle="modal" data-target="#replyModal">
                         <i class="fa fa-reply"></i> Reply
                     </button>
                 </div>
@@ -234,7 +230,7 @@
                             <div class="text-info">{{review.reply.user.firstname}} {{review.reply.user.lastname}}<br>
                                 <strong>Author</strong>
                             </div>
-        
+
                         </div>
                         <div class="col-sm-6 ">
                             <div class="review-block-date text-secondary font-weight-light">
@@ -247,5 +243,5 @@
 
             </div>
         </div>
-    </div>    
+    </div>
 </div>

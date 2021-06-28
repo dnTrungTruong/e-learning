@@ -12,7 +12,7 @@ export class Course {
     objectives: String[];
     img_url: String;
     price: Number;
-    sections: String[];
+    sections: Section[];
     type: String;
     status: String;
     userProgress: String;

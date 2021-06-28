@@ -1,0 +1,117 @@
+.container {
+    font-size: 110%;
+
+}
+
+.text-mediumsize {
+	font-size: 140%;
+}
+
+.course-enroll-btn {
+	width: 35%;
+    border-radius: 50px !important;
+}
+
+.bg-dark {
+    background-color: #2DAAA6 !important;
+}
+
+.border-2 {
+	border-width: 2px !important;
+}
+
+.course-content-box {
+	box-shadow: 2px 2px 4px #1CC88A;
+}
+
+.mycourse-objectives {
+	list-style: none;
+	padding-inline-start: 0.2rem !important;
+}
+
+ul {
+	padding-inline-start: 1.4rem !important;
+}
+
+.mycourse-objectives li:before {
+	font-weight: bold;
+	content: '✓  ';
+}
+
+.rating-block {
+	background-color: #FAFAFA;
+	border: 1px solid #EFEFEF;
+	padding: 15px 15px 20px 15px;
+	border-radius: 3px;
+}
+
+.padding-bottom-7 {
+	padding-bottom: 7px;
+}
+
+.review-block {
+	background-color: #FAFAFA;
+	border: 0.5rem solid #EFEFEF;
+	padding: 1.2rem;
+	border-radius: 0.8rem;
+	margin-bottom: 1.2remx;
+	font-size: 1.1rem;
+}
+
+.review-block-name {
+	/* font-size:12px; */
+	margin: 10px 0;
+}
+
+.review-star {
+	font-size: 0.9rem !important;
+}
+
+.rating-summary-block {
+	background-color: #ddffdd;
+}
+
+.review-reply-block {
+	font-size: 1rem;
+}
+
+.review-reply-info {
+	border-left: 0.4rem solid #BBBBBB;
+}
+
+.animated {
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+.review-star {
+	position: relative;
+	display: inline-block;
+	font-size: 2.5rem !important;
+	color: #d3d3d3;
+}
+
+.star-full {
+	color: gold;
+}
+
+.review-star-half {
+	position: absolute;
+	display: inline-block;
+	overflow: hidden;
+	color: gold;
+}
+
+li {
+    padding-left: 1.28571429em;
+    text-indent: -1.28571429em;
+}
+
+.card-header {
+    background-color: #1cc88a14 !important;
+}
+
+.card-header h5 button{
+    font-size: 135%;
+}

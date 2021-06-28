@@ -5,6 +5,7 @@ import {Subject, Course} from '../../models';
 import {SubjectService} from '../../services/subject.service';
 import {CourseService} from '../../services/course.service';
 import {Router} from "@angular/router"
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 
 @Component({
@@ -16,24 +17,37 @@ export class HomeComponent {
   subjectsList: Subject[];
   coursesList: Course[];
   hotCoursesList: Course[];
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 2, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 }
-        ];
-      }
+  newCoursesList: Course[];
+  randomCoursesList: Course[];
+  personalDevelopmentCourses: Course[];
+  
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navSpeed: 700,
+    navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: false,
+    autoplay: true,
+  };
+  isDragging: Boolean =  false;
 
 
   constructor(
@@ -50,9 +64,19 @@ export class HomeComponent {
       .subscribe((courses: Course[]) => {
         this.hotCoursesList = courses;
       })
-      courseService.getCourses()
+      courseService.getNewCourses()
       .subscribe((courses: Course[]) => {
-        this.coursesList = courses;
+        this.newCoursesList = courses;
+      })
+      courseService.getRandomCourses()
+      .subscribe((courses: Course[]) => {
+        this.randomCoursesList = courses;
+      })
+      courseService.searchCoursesBySubject("Personal development", 1, 5)
+      .subscribe(res => {
+        if (res['data']) {
+          this.personalDevelopmentCourses = res['data']['courses'];
+        }
       })
     }
     
@@ -61,7 +85,12 @@ export class HomeComponent {
     this.router.navigate([`/courses/${string}`]);
   }
 
-  goToCourseDetails(courseId) {
-    this.router.navigate([`/course/${courseId}`]);
+  goToCourseDetails(courseId:string, courseType: string) {
+    if (courseType == 'programing') {
+      this.router.navigate([`/course/proraming/${courseId}`]);
+    }
+    else {
+      this.router.navigate([`/course/${courseId}`]);
+    }
   }
 }

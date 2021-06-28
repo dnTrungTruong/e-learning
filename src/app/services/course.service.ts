@@ -47,8 +47,30 @@ export class CourseService {
       res['data'] as Course[]
     ))
   }
+
+  public getNewCourses(): Observable<Course[]> {
+    return this.http.get(`${this.coursesUrl}/new`)
+    .pipe(map(res => 
+      res['data'] as Course[]
+    ))
+  }
+
+  public getRandomCourses(): Observable<Course[]> {
+    return this.http.get(`${this.coursesUrl}/random`)
+    .pipe(map(res => 
+      res['data'] as Course[]
+    ))
+  }
+
   public getCourseDetails(courseId): Observable<CourseDetails> {
     return this.http.get(`${this.coursesUrl}/${courseId}`)
+    .pipe(map(res => 
+      res['data'] as CourseDetails
+    ))
+  }
+
+  public getProgramingCourseDetails(courseId): Observable<CourseDetails> {
+    return this.http.get(`${this.coursesUrl}/programing/${courseId}`)
     .pipe(map(res => 
       res['data'] as CourseDetails
     ))
@@ -61,6 +83,13 @@ export class CourseService {
     ))
   }
 
+  public getProgramingCourseLearningDetails(courseId): Observable<CourseDetails> {
+    return this.http.get(`${this.coursesUrl}/programing/learning/${courseId}`)
+    .pipe(map(res => 
+      res['data'] as CourseDetails
+    ))
+  }
+
   public getPendingCoursesCount(): Observable<number> {
     return this.http.get(`${this.coursesUrl}/count-pending-courses`)
     .pipe(map(res => 
@@ -68,29 +97,50 @@ export class CourseService {
     ))
   }
 
-  public searchCoursesBySubject(queryObject?: {[k:string]: string}): Observable<Course[]> {
-    if (!queryObject) { 
-      let tempObject: {[k:string]: string} = {}; 
-      queryObject = tempObject;
-    }
-    let query = new URLSearchParams(queryObject);
-    return this.http.get(`${this.coursesUrl}/search/?${query.toString()}`)
-    .pipe(map(res => 
-      res['data'] as Course[]
-    ))
-  }
-  public searchCourses(queryObject?: {[k:string]: string}): Observable<Course[]> {
-    if (!queryObject) { 
-      let tempObject: {[k:string]: string} = {}; 
-      queryObject = tempObject;
-    }
-      queryObject.keyword = this.searchKeyWord;
-    let query = new URLSearchParams(queryObject);
+  public searchCoursesBySubject(subject: string, page?: number, size?: number, price?: string): Observable<any> {
+    let params = {};
 
-    return this.http.get(`${this.coursesUrl}/search/?${query.toString()}`)
-    .pipe(map(res => 
-      res['data'] as Course[]
-    ))
+    params[`subject`] = subject;
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (size) {
+      params[`size`] = size;
+    }
+
+    if (price) {
+      params[`price`] = price;
+    }
+    return this.http.get(`${this.coursesUrl}/search/`, {params});
+  }
+  //public searchCourses(queryObject?: {[k:string]: string}): Observable<Course[]> {
+  public searchCourses(page?: number, size?: number, price?: string): Observable<any> {
+    // if (!queryObject) { 
+    //   let tempObject: {[k:string]: string} = {}; 
+    //   queryObject = tempObject;
+    // }
+    //   queryObject.keyword = this.searchKeyWord;
+    // let query = new URLSearchParams(queryObject);
+
+    let params = {};
+
+    params[`keyword`] = this.searchKeyWord;
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (size) {
+      params[`size`] = size;
+    }
+
+    if (price) {
+      params[`price`] = price;
+    }
+
+    return this.http.get(`${this.coursesUrl}/search/`, { params});
   }
 
   public approveCourse(courseId: string) {

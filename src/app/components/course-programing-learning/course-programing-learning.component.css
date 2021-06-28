@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Mono:wght@600&display=swap');
+
+h1,h2,h3,h4,h5 {
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+h1 {
+    font-size:275%;
+}
+
+.container {
+    font-family: 'Lato', sans-serif;
+    font-size: 130%;
+}
+
+.wrapper {
+    padding-left: 225px;
+    padding-right: 225px;
+
+}
+
+.card {
+    border: 2px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+    overflow: visible !important;
+}
+
+.card-header {
+    background-color: rgb(0 0 0 / 20%);
+}
+
+.text-large {
+    font-size: 140%;
+}
+
+.lesson-item:hover {
+    cursor: pointer;
+    background-color: #ddd;
+}

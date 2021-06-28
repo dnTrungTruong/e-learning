@@ -42,7 +42,16 @@
 
 .course-image {
   height: 23vh;
+  object-fit: fill;
 }
+
+.card {
+  border: 2px solid rgba(0, 0, 0, 0.125);
+}
+
+/* .card-header {
+  background-color: rgb(226 226 226);
+} */
 
 .card-body {
   padding: 0 !important;
@@ -52,8 +61,49 @@
   position:relative;
   padding-top:20px;
   display:inline-block;
+  width:100%;
 }
+
+.list-group {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 .notify-badge{
   position: absolute;
   font-size: 1rem;
+}
+
+.text-dark {
+  color: #212433 !important;
+}
+
+a {
+  text-decoration: none;
+  color: #141132 !important;
+}
+
+.owl-next, .owl-prev {
+  height: 50px !important;
+  width: 50px !important;
+  position:absolute !important;
+  top: 50%;
+}
+
+.owl-next {
+  color: #1CC88A !important;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+.owl-prev {
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+ 
+.owl-next i, .owl-prev i{
+  font-size: 1.3rem;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

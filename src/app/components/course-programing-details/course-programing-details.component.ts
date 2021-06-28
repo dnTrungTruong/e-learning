@@ -5,13 +5,12 @@ import { CourseDetails, User, Review } from '../../models';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+  selector: 'app-course-programing-details',
+  templateUrl: './course-programing-details.component.html',
+  styleUrls: ['./course-programing-details.component.css']
 })
-export class CourseDetailsComponent implements OnInit {
+export class CourseProgramingDetailsComponent implements OnInit {
 
   @ViewChild('closeReviewModal') closeReviewModal: ElementRef
   @ViewChild('closeReplyModal') closeReplyModal: ElementRef
@@ -32,7 +31,6 @@ export class CourseDetailsComponent implements OnInit {
   selectedReview: Review;
   userFromLocal;
 
-
   constructor(
     private courseService: CourseService,
     private userService: UserService,
@@ -45,14 +43,11 @@ export class CourseDetailsComponent implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.userFromLocal= this.authenticationService.userValue;
 
-    courseService.getCourseDetails(this.courseId)
+    courseService.getProgramingCourseDetails(this.courseId)
       .subscribe((course: CourseDetails) => {
         if (!course) {
           return this.router.navigate(["/error/404"]);
         };
-        if(course.type == "programing") {
-          return this.router.navigate([`/course/programing/${this.courseId}`]);
-        }
         if (this.userFromLocal) {
           this.userService.getUserInfoJWT()
             .subscribe((user: User) => {
@@ -71,8 +66,7 @@ export class CourseDetailsComponent implements OnInit {
       });
       this.loadReviews();
 
-    
-  }
+   }
 
   ngOnInit(): void {
     this.reviewForm = this.formBuilder.group({
@@ -83,7 +77,6 @@ export class CourseDetailsComponent implements OnInit {
       replyContent: ['', Validators.required]
     });
   }
-
 
   get reviewFormControls() { return this.reviewForm.controls; }
   get replyFormControls() { return this.replyForm.controls; }
@@ -156,7 +149,7 @@ export class CourseDetailsComponent implements OnInit {
   public enrollCourse() {
     //Will go to checkout & payment page here
     //this.router.navigate(["learn/${this.courseId}"])
-    if (!localStorage.getItem('user')) {
+    if (!this.userFromLocal) {
       //Will show sign in dialog
       return this.router.navigate(["login"])
     }

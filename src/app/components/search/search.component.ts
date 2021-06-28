@@ -16,6 +16,12 @@ export class SearchComponent implements OnInit {
   subjectsList: Subject[];
   noResult: boolean = false;
   sortByList: string[] = ["Highest price", "Lowest price", "Most reviewed", "Newest"];
+  
+  price = '';
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [4, 8, 12];
 
   constructor(
     private courseService: CourseService,
@@ -25,26 +31,41 @@ export class SearchComponent implements OnInit {
 
   }
 
+  getRequestParams(searchTitle, page, pageSize): any {
+    let params = {};
+
+    if (searchTitle) {
+      params[`title`] = searchTitle;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
   toSearchCoursesBySubjectPage(string) {
     this.router.navigate([`/courses/${string}`]);
   }
   sortBy(string) {
-    let queryObject: { [k: string]: string } = {}; //Define a LooseObject that can accept fields with string as key and value
     if (string == "price-descending") {
-      queryObject.price = "descending";
+      this.price = "descending";
     }
     if (string == "price-ascending") {
-      queryObject.price = "ascending";
+      this.price = "ascending";
     }
     // if (string == "rate-descending") {
-    //   queryObject.price = "ascending";
+    //   this.review = "ascending";
     // }
     // if (string == "newest") {
-    //   queryObject.createdAt = "ascending";
+    //   this.createdAt = "ascending";
     // }
-    this.courseService.searchCourses(queryObject).subscribe((courses: Course[]) => {
-      this.coursesList = courses;
-    })
+    this.searchCourses();
   }
 
   ngOnInit(): void {
@@ -53,16 +74,29 @@ export class SearchComponent implements OnInit {
       .subscribe((subjects: Subject[]) => {
         this.subjectsList = subjects;
       });
+    this.searchCourses();
+
+  }
+
+  public searchCourses() {
     this.courseService.keyword
       .subscribe((value) => {
         this.keyword = value;
-
+        console.log(value);
         //In case user use url to enter this route
         if (this.keyword == "") { return this.router.navigate([""]) }
         else {
-          this.courseService.searchCourses().subscribe((courses: Course[]) => {
-            this.coursesList = courses;
-            if (this.coursesList) {
+          this.courseService.searchCourses(this.page, this.pageSize, this.price).subscribe(res => {
+            if (res['data']) {
+              this.coursesList= res['data']['courses'];
+              this.count = res['data']['totalItems'];
+            }
+            else {
+              this.coursesList = [];
+              this.count = 0;
+            }
+            console.log(res['data']);
+            if (this.coursesList.length) {
               this.noResult = false;
             }
             else {
@@ -71,11 +105,26 @@ export class SearchComponent implements OnInit {
           })
         }
       })
-
+  }
+  
+  handlePageChange(event): void {
+    this.page = event;
+    this.searchCourses();
   }
 
-  public goToCourseDetails(courseId: string) {
-    this.router.navigate([`/course/${courseId}`]);
+  handlePageSizeChange(event): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.searchCourses();
+  }
+
+  goToCourseDetails(courseId:string, courseType: string) {
+    if (courseType == 'programing') {
+      this.router.navigate([`/course/proraming/${courseId}`]);
+    }
+    else {
+      this.router.navigate([`/course/${courseId}`]);
+    }
   }
 
 }

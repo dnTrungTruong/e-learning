@@ -26,4 +26,8 @@ export class CertificateService {
   public createCertificate(courseId: string) {
     return this.http.post<any>(`${this.certificatesUrl}/`, {course: courseId});
   }
+
+  public createProgramingCertificate(courseId: string) {
+    return this.http.post<any>(`${this.certificatesUrl}/programing`, {course: courseId});
+  }
 }

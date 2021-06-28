@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {  UserService, AttemptService } from '../../services';
-import { Course, Attempt } from '../../models';
+import {  UserService, AttemptService, UserProgressService } from '../../services';
+import { Course, Attempt, UserProgress } from '../../models';
 import {Router} from "@angular/router"
 
 @Component({
@@ -18,6 +18,7 @@ export class CourseMyEnrolledComponent implements OnInit {
   constructor(
     private userService: UserService,
     private attemptService: AttemptService,
+    private userProgressService: UserProgressService,
     private router: Router
   ) {
     userService.getMyEnrolledCourses()
@@ -25,28 +26,48 @@ export class CourseMyEnrolledComponent implements OnInit {
       if (courses.length) {
         this.noResult=false;
         for(let course of courses) {
-          this.attemptService.getAttempt(course._id.toString()).subscribe((attempt: Attempt) => {
-            console.log(attempt);
-            if(attempt) {
-              let totalQuiz = attempt.quizzes.length ;
-              let passedQuiz = 0;
-              for(let i=0; i < attempt.quizzes.length; i++) {
-                if (attempt.quizzes[i].isPassed) {
-                  passedQuiz++;
+          if (course.type == 'programing') {
+            this.userProgressService.getUserProgress(course._id.toString()).subscribe((userProgress: UserProgress) => {
+              if (userProgress) {
+                let passedLessons = 0;
+                let totalLessons = 0;
+                for (let section of course.sections) {
+                  totalLessons += section.lessons.length;
+                }
+                for (let section of userProgress.progresses) {
+                  passedLessons += section.passedLessons.length;
+                }
+                course.userProgress = (passedLessons / totalLessons * 100).toFixed(0);
+                if(userProgress.certificate) {
+                  course.userCertificate = userProgress.certificate;
                 }
               }
-              course.userProgress = (passedQuiz / totalQuiz * 100).toFixed(0);
-              console.log(course.userProgress);
-              if (attempt.certificate) {
-                course.userCertificate = attempt.certificate;
-                console.log(course.userCertificate);
-
+              else {
+                course.userProgress = "0";
               }
-            }
-            else {
-              course.userProgress = "0";
-            }
-          })
+            })
+          }
+          else {
+            this.attemptService.getAttempt(course._id.toString()).subscribe((attempt: Attempt) => {
+              if(attempt) {
+                let totalQuiz = attempt.quizzes.length ;
+                let passedQuiz = 0;
+                for(let i=0; i < attempt.quizzes.length; i++) {
+                  if (attempt.quizzes[i].isPassed) {
+                    passedQuiz++;
+                  }
+                }
+                course.userProgress = (passedQuiz / totalQuiz * 100).toFixed(0);
+                if (attempt.certificate) {
+                  course.userCertificate = attempt.certificate;  
+                }
+              }
+              else {
+                course.userProgress = "0";
+              }
+            })
+          }
+          
           if (course.type === "mooc") {
             this.moocCoursesList.push(course);
           }

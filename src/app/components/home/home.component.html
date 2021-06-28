@@ -1,14 +1,15 @@
 <div class="container">
   <div class="row" style="margin-top: 16px">
-    <div class="col-md-6 col-lg-4 col-xl-4 mt-sm-3 mt-md-1 mb-3 mb-md-1">
-      <button class="card-header btn btn-block d-xs-block  d-lg-none dropdown-toggle text-left" type="button"
-        data-toggle="collapse" data-target="#example-collapse">
+    <div class="col-md-6 col-lg-4 col-xl-3 mt-sm-3 mt-md-1 mb-3 mb-md-1">
+      <button class="card-header btn btn-block d-xs-block  d-lg-none dropdown-toggle text-left " type="button"
+        aria-expanded="false" data-toggle="collapse" data-target="#example-collapse">
         <span style="font-size: 2rem; font-weight:550;">Subjects</span>
       </button>
-      <div class="card-header d-none d-lg-block d-xl-block">
+      <div class="card-header text-dark d-none d-lg-block d-xl-block">
         <h2>Subjects</h2>
       </div>
-      <div id="example-collapse" class="list-group collapse d-lg-block " style="height: 88%; background-color: white;">
+      <div id="example-collapse" class="list-group collapse show d-lg-block "
+        style="height: 88%; background-color: white;">
         <div *ngFor="let subject of subjectsList">
           <a (click)="toSearchCoursesBySubjectPage(subject.name)"
             class="list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
@@ -16,8 +17,8 @@
       </div>
     </div>
     <hr>
-    <div class="col-md-6 col-lg-8 col-xl-8  mt-sm-3 mt-md-1 ">
-      <div class="card-header">
+    <div class="col-md-6 col-lg-8 col-xl-9  mt-sm-3 mt-md-1 ">
+      <div class="card-header text-dark">
         <h2>These courses are on trending</h2>
       </div>
 
@@ -28,8 +29,8 @@
               <div class="item p-0">
                 <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success notify-badge ">MOOC</span>
                 <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary notify-badge">Online</span>
-                <span *ngIf="course.type=='programming'"
-                  class="ml-3 badge badge-secondary notify-badge">Programming</span>
+                <span *ngIf="course.type=='programing'"
+                  class="ml-3 badge badge-secondary notify-badge">Programing</span>
                 <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
               </div>
               <p class="card-text mx-3 mt-1 dashboard-card-text text-truncate">{{course.name}}</p>
@@ -44,8 +45,8 @@
               <div class="item p-0">
                 <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success notify-badge ">MOOC</span>
                 <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary notify-badge">Online</span>
-                <span *ngIf="course.type=='programming'"
-                  class="ml-3 badge badge-secondary notify-badge">Programming</span>
+                <span *ngIf="course.type=='programing'"
+                  class="ml-3 badge badge-secondary notify-badge">Programing</span>
                 <img [src]="course.img_url" class="card-img-top course-image" alt="Course avatar">
               </div>
               <p class="card-text mx-3 mt-1  dashboard-card-text text-truncate ">{{course.name}}</p>
@@ -55,18 +56,74 @@
       </div>
     </div>
   </div>
-  <h2 class="mt-3">Courses</h2>
+  <h2 class="mt-5 mb-3 text-dark">Recently added courses</h2>
+  <div class="border border-secondary bg-light rounded">
+    <owl-carousel-o [options]="customOptions" (dragging)="isDragging = $event.dragging" >
+
+      <ng-container *ngFor="let course of newCoursesList" class="mx-3">
+        <ng-template carouselSlide [id]="course._id" >
+          <a class="card p-0 mycard-course-content m-3" owlRouterLink="course/{{course._id}}" [stopLink]="isDragging">
+            <div class="card-body">
+              <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
+              <p class="card-text px-3 my-1 mycard-course-name"><strong>{{course.name}}</strong></p>
+              <p class="card-text text-dark px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}}
+                {{course.instructor.lastname}}</p>
+              <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
+                <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
+                <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
+                <span *ngIf="course.type=='programing'" class="ml-3 badge badge-secondary float-left">Programing</span>
+    
+                {{course.price.toFixed(1)}}$
+              </p>
+            </div>
+          </a>
+        </ng-template>
+      </ng-container>
+  
+    </owl-carousel-o>
+  </div>
+
+  <h2 class="mt-5 mb-3 text-dark">These courses help you to improve yourself</h2>
+  <div class="border border-secondary bg-light rounded">
+    <owl-carousel-o [options]="customOptions" (dragging)="isDragging = $event.dragging" >
+
+      <ng-container *ngFor="let course of personalDevelopmentCourses" class="mx-3">
+        <ng-template carouselSlide [id]="course._id" >
+          <a class="card p-0 mycard-course-content m-3" owlRouterLink="course/{{course._id}}" [stopLink]="isDragging">
+            <div class="card-body">
+              <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
+              <p class="card-text px-3 my-1 mycard-course-name"><strong>{{course.name}}</strong></p>
+              <p class="card-text text-dark px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}}
+                {{course.instructor.lastname}}</p>
+              <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
+                <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
+                <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
+                <span *ngIf="course.type=='programing'" class="ml-3 badge badge-secondary float-left">Programing</span>
+    
+                {{course.price.toFixed(1)}}$
+              </p>
+            </div>
+          </a>
+        </ng-template>
+      </ng-container>
+  
+    </owl-carousel-o>
+  </div>
+  
+
+  <h2 class="mt-5 text-dark">Some random courses</h2>
   <div class="row mb-3">
-    <div *ngFor="let course of coursesList" class="col-6 col-sm-6 col-md-4 col-lg-3 py-3 h-100">
-      <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id)">
+    <div *ngFor="let course of randomCoursesList" class="col-6 col-sm-6 col-md-4 col-lg-3 py-3 h-100">
+      <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id, course.type)">
         <div class="card-body">
           <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
           <p class="card-text px-3 my-1 mycard-course-name"><strong>{{course.name}}</strong></p>
-          <p class="card-text px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+          <p class="card-text text-dark px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}}
+            {{course.instructor.lastname}}</p>
           <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
             <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
             <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
-            <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary float-left">Programming</span>
+            <span *ngIf="course.type=='programing'" class="ml-3 badge badge-secondary float-left">Programing</span>
 
             {{course.price.toFixed(1)}}$
           </p>
@@ -74,3 +131,4 @@
       </div>
     </div>
   </div>
+</div>

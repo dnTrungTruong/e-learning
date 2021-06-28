@@ -1,0 +1,93 @@
+<div>
+    <app-header></app-header>
+
+    <div class="container-fluid body">
+        <as-split direction="horizontal">
+            <as-split-area [size]="40">
+                <ol class="breadcrumb text-center">
+                    <li class="breadcrumb-item"><a
+                            routerLink="course/learning/programing/{{courseId}}">{{course?.name}}</a></li>
+                    <li class="breadcrumb-item active"><a
+                            routerLink="course/learning/programing/{{courseId}}">{{course?.sections[sectionIndexCourse].name}}</a>
+                    </li>
+                </ol>
+                <h3 class="text-success text-center">{{currentLesson?.name}}</h3>
+                <div class="p-3" [innerHtml]="currentLesson?.description | safeHtml"></div>
+            </as-split-area>
+            <as-split-area [size]="34">
+                <div class="app-ace-editor" [ngStyle]="{'opacity': isProcessing ? 0.5 : 1}" style="height:92%" #editor>
+                </div>
+
+                <div class="bg-lightgreen d-flex align-items-center" style="height:8%">
+                    <button [disabled]="isProcessing" class="btn h-100 btn-emerald px-3" (click)="submitCode()">
+                        <span *ngIf="!isProcessing">Submit</span>
+                        <div *ngIf="isProcessing" class="spinner-border submit-spinner text-white" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                    <i (click)="resetTemplate()" class="fas fa-redo-alt fa-2x text-light ml-3"></i>
+                    <div ngbDropdown placement="top-right" class="d-inline-block ml-auto">
+                        <button class="btn btn-primary" id="codeTheme" [disabled]="isProcessing" ngbDropdownToggle>Code editor theme</button>
+                        <div ngbDropdownMenu aria-labelledby="codeTheme">
+                            <button ngbDropdownItem (click)="setTheme('light')">Light</button>
+                            <button ngbDropdownItem (click)="setTheme('dark')">Dark</button>
+                        </div>
+                    </div>
+                </div>
+            </as-split-area>
+            <as-split-area [size]="26">
+                <as-split direction="vertical">
+                    <as-split-area [size]="35">
+                        <!-- Test output  -->
+                        <div class="w-100 h-100" [ngClass]="isPassedTest ? 'bg-success' : 'bg-secondary'" [ngStyle]="{'opacity': isProcessing ? 0.75 : 1}"> 
+                            <div class="p-3" [ngClass]="isPassedTest ? 'bg-success' : 'bg-secondary'" style=" white-space: pre-wrap;">
+                                {{testMessage}}
+                            </div>
+                        </div>
+                    </as-split-area>
+                    <as-split-area [size]="65">
+                        <!-- Console ouput -->
+                        <div class="w-100 h-100" [ngClass]="isFailedRun ? 'bg-danger' : 'bg-secondary'" [ngStyle]="{'opacity': isProcessing ? 0.75 : 1}">
+                            <div class="p-3" [ngClass]="isFailedRun ? 'bg-danger' : 'bg-secondary'" style=" white-space: pre-wrap;">
+                                {{runMessage}}
+                            </div>
+                        </div>
+                    </as-split-area>
+                </as-split>
+
+            </as-split-area>
+        </as-split>
+    </div>
+    <div class="container-fluid footer bg-darkblue action-btn-container">
+        <span class="text-white action-btn" style="cursor:pointer;" (click)="openSideBar()">
+            &#9776;
+            <span class="text-truncate span-menu" style="font-size: 90%;">{{currentLesson?.name.slice(0.)}}</span>
+        </span>
+        <button *ngIf="hasPreviousLesson()" (click)="previousLesson()"
+            class="btn action-btn btn-back btn-light" [disabled]="isProcessing">Previous</button>
+        <span class="text-white action-btn span-progress">{{currentLesson?.currentIndex + 1}}/
+            {{course?.sections[sectionIndexCourse].lessons.length}}</span>
+        <button *ngIf="hasNextLesson()" (click)="nextLesson()" class="btn action-btn btn-next btn-success" [disabled]="isProcessing">Next</button>
+        <button *ngIf="hasNextSection()" (click)="nextSection()" class="btn action-btn btn-next btn-success" [disabled]="isProcessing">
+            Next section</button>
+
+        <span class="text-secondary action-btn span-status">
+            Lesson status:
+            <span *ngIf="!isPassedLesson" class="text-white">not passed</span>
+            <span *ngIf="isPassedLesson" class="text-success">Passed</span>
+        </span>
+    </div>
+</div>
+<div id="mySidenav" class="sidenav" [ngStyle]="{'width': isSideBarOpened ? '30vw' : '0' }">
+    <a href="javascript:void(0)" class="closebtn sidenav-item" (click)="closeSideBar()">&times;</a>
+    <a routerLink="/course/learning/programing/{{courseId}}" class="sidenav-item text-white font-weight-bold">Back to
+        course</a>
+    <div *ngFor="let section of course?.sections; let i=index">
+        <a routerLink="/coding/{{courseId}}/{{section._id}}" class="sidenav-item text-light font-weight-bold">Section
+            {{i+1}}: {{section.name}}</a>
+        <div *ngFor="let lesson of section.lessons; let j=index" (click)="chooseLesson(section._id, j)"
+            style="padding-left: 50px;">
+            <p class="sidenav-item" [ngClass]="{'bg-white': lesson._id == currentLesson?._id}">{{lesson.name}}</p>
+        </div>
+    </div>
+</div>

@@ -11,3 +11,5 @@ export * from './resource.model';
 export * from './notification.model';
 export * from './certificate.model';
 export * from './attempt.model';
+export * from './user-progress.model';
+export * from './lesson.model';

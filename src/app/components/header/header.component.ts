@@ -46,9 +46,9 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.logout();
   }
 
-  updateSearchString(value) {
-    this.courseService.changeKeyWord(value);
-  }
+  // updateSearchString(value) {
+  //   this.courseService.changeKeyWord(value);
+  // }
 
   navigateSearch(value) {
     if (value) {

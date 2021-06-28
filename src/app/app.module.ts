@@ -34,6 +34,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { CourseQuizAttemptsComponent } from './components/course-quiz-attempts/course-quiz-attempts.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CourseProgramingDetailsComponent } from './components/course-programing-details/course-programing-details.component';
+import { CourseProgramingLearningComponent } from './components/course-programing-learning/course-programing-learning.component';
+import { CourseProgramingCodingComponent } from './components/course-programing-coding/course-programing-coding.component';
+import { UserProgressService } from './services/user-progress.service';
+import { AngularSplitModule } from 'angular-split';
 
 @NgModule({
   declarations: [
@@ -59,6 +66,9 @@ import { CertificateComponent } from './components/certificate/certificate.compo
     PasswordRecoveryComponent,
     CourseQuizAttemptsComponent,
     CertificateComponent,
+    CourseProgramingDetailsComponent,
+    CourseProgramingLearningComponent,
+    CourseProgramingCodingComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +83,10 @@ import { CertificateComponent } from './components/certificate/certificate.compo
     NgbDropdownModule,
     FormsModule,
     CKEditorModule,
-    PipesModule
+    PipesModule,
+    CarouselModule,
+    NgxPaginationModule,
+    AngularSplitModule
   ],
   providers: [
     UserService,
@@ -87,7 +100,8 @@ import { CertificateComponent } from './components/certificate/certificate.compo
     AnnouncementService, 
     NotificationService,
     AttemptService,
-    CertificateService
+    CertificateService,
+    UserProgressService
   ],
   bootstrap: [AppComponent]
 })

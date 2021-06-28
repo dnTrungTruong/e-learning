@@ -1,0 +1,55 @@
+<div class="container px-5">
+    <div class="wrapper">
+        <h1 class="text-center text-success px-5 mt-3 mb-5">
+            {{course?.name}}
+        </h1>
+        <div class="text-justify px-3" [innerHtml]="course?.description | safeHtml"></div>
+        <hr>
+        <h2 class="text-center text-success mb-3">Sections</h2>
+        <ng-container>
+            <div class="accordion" id="accordion">
+                <div *ngFor="let section of course?.sections" class="card p-3 mb-5">
+                    <h3 class="text-success">{{section.name}}</h3>
+                    <p>{{section.description}}</p>
+                    <div class="card-header " [id]="'heading'+section._id">
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-link text-left text-dark " data-toggle="collapse"
+                                    [attr.data-target]="'#collapse'+section._id"
+                                    [attr.aria-controls]="'collapse'+section._id">
+                                    <strong class="text-large text-left">Lessons</strong>
+
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-right">
+                                    <span class="text-large">{{getSectionProgress(section._id)}}/{{section.lessons.length}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div [id]="'collapse'+section._id" class="collapse" [attr.aria-labelledby]="'heading'+section._id"
+                        data-parent="#accordion">
+                        <div class="card-body text-dark bg-light p-0">
+                            <div *ngFor="let lesson of section.lessons; let j=index" class="">
+                                <p class="lesson-item py-3 my-1 px-3" (click)="chooseLesson(section._id, j)">
+                                    <i *ngIf="!isPassedLesson(section._id, lesson._id)" class="far fa-circle mr-3"></i>
+                                    <i *ngIf="isPassedLesson(section._id, lesson._id)" class="fas fa-check-circle text-success mr-3"></i>
+                                    <strong>Lesson {{j+1}}:</strong> {{lesson.name}} {{lesson.name}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="text-center">
+            <p *ngIf="!isPassedAllLessons()" class="text-secondary">Note: You must passed all lessons before claiming certificate</p>
+            <button class="btn btn-warning w-100 text-large p-3" [disabled]="!isPassedAllLessons()" (click)="claimCertificate()">Claim your certificate</button>
+        </div>
+    </div>
+
+</div>

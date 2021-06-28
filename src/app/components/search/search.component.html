@@ -10,7 +10,7 @@
       <div class="card-header d-none d-lg-block d-xl-block">
         <h2>Subjects</h2>
       </div>
-      <div id="example-collapse" class="list-group collapse d-lg-block " style="height: 88%; background-color: white;">
+      <div id="example-collapse" class="list-group collapse show d-lg-block " style="height: 88%; background-color: white;">
         <div *ngFor="let subject of subjectsList">
           <a (click)="toSearchCoursesBySubjectPage(subject.name)"
             class="list-group-item list-group-item-action text-dark dashboard-subject"> {{subject.name}}</a>
@@ -35,8 +35,8 @@
           <li>Try clicking on one of the subject to list course by subject</li>
         </ul>
       </div>
-      
-      
+
+
       <hr>
       <div class="row">
         <div ngbDropdown class="d-inline-block ml-auto mr-3" *ngIf="!noResult" placement="bottom-right">
@@ -49,25 +49,34 @@
           </div>
         </div>
       </div>
-      
+
       <!-- <div class="form-group">
         <select class="form-control" name="sort" (change)="sortBy($event)">
           <option>Sort by</option>
           <option *ngFor="let sort of sortByList">{{sort}}</option>
         </select>
     </div> -->
+      <div *ngIf="!noResult" class="row">
+        <div class="col-md-12 text-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true"
+            (pageChange)="handlePageChange($event)"></pagination-controls>
+        </div>
+      </div>
       <div class="row">
-        <div *ngFor="let course of coursesList" class="col-6 col-lg-4 mt-3 h-100">
-          <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id)">
+        <div *ngFor="let course of coursesList  | paginate : { itemsPerPage: pageSize, currentPage: page, totalItems: count};
+            let i = index" class="col-6 col-lg-3 mt-3 h-100">
+          <div class="card p-0 mycard-course-content" (click)="goToCourseDetails(course._id, course.type)">
             <div class="card-body">
               <img [src]="course.img_url" class="card-img-top mycard-course-image" alt="Course avatar">
               <p class="card-text px-3 my-1 mycard-course-name"><strong>{{course.name}}</strong></p>
-              <p class="card-text px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}} {{course.instructor.lastname}}</p>
+              <p class="card-text px-3 pt-1 pb-0 mb-0 text-truncate">{{course.instructor.firstname}}
+                {{course.instructor.lastname}}</p>
               <p class="course-price mr-3 my-0 pt-0 pb-1 mr-1 mycard-course-price" style="text-align: right;">
                 <span *ngIf="course.type=='mooc'" class="ml-3 badge badge-success float-left">MOOC</span>
                 <span *ngIf="course.type=='online'" class="ml-3 badge badge-primary float-left">Online</span>
-                <span *ngIf="course.type=='programming'" class="ml-3 badge badge-secondary float-left">Programming</span>
-    
+                <span *ngIf="course.type=='programing'"
+                  class="ml-3 badge badge-secondary float-left">Programing</span>
+
                 {{course.price.toFixed(1)}}$
               </p>
             </div>
