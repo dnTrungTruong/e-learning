@@ -30,6 +30,7 @@
                     <th>Subject</th>
                     <th>Type</th>
                     <th>Actions</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,10 @@
                         <span *ngIf="course.type=='mooc'" class="badge badge-success uppercased">{{course.type}}</span>
                         <span *ngIf="course.type=='online'" class="badge badge-primary capitalized">{{course.type}}</span>
                         <span *ngIf="course.type=='programing'" class="badge badge-secondary capitalized">{{course.type}}</span>
+                    </td>
+                    <td class="capitalized">
+                        <span *ngIf="course.status=='approved'" class="text-success">&#11044; {{course.status}}</span>
+                        <span *ngIf="course.status=='disabled'" class="text-danger">&#11044; {{course.status}}</span>
                     </td>
                     <td>
                         <a routerLink="/admin/courses/details/{{course._id}}" class="btn btn-success">Details</a>

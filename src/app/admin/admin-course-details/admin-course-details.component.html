@@ -203,7 +203,15 @@
             <hr>
             <h2>Reports</h2>
             <div class="container mt-3">
-                <p class="text-secondary">Course's reports is under developing and will be available soon.</p>
+                <div class = "row">
+                    <div class="col-12 text-center">
+                        <button *ngIf="course?.status == 'approved'" (click)="disableCourse()" class="btn btn-danger w-50">Stop providing this course</button>
+                        <button *ngIf="course?.status == 'disabled'" (click)="enableCourse()" class="btn btn-success w-50">Make this course avaiable</button>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-secondary">Course's reports is under developing and will be available soon.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -33,6 +33,7 @@ export class CourseDetails {
     avgRate: Number;
     reviewsNumber: Number;
     tags: Tag[];
+    status: String;
 }
 
 export class Tag {

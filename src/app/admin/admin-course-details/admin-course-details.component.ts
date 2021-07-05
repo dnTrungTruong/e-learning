@@ -47,12 +47,12 @@ export class AdminCourseDetailsComponent implements OnInit {
     private fb: FormBuilder
   ) {
     console.log(this.courseTags);
-   }
+  }
 
   get courseTags() {
     return this.courseTagsForm.get('course_tags') as FormArray;
   }
-  
+
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
@@ -72,12 +72,12 @@ export class AdminCourseDetailsComponent implements OnInit {
           }
         }
         else {
-          
+
         }
       });
 
     this.loadReviews();
-    
+
 
     this._success.subscribe(message => this.successMessage = message);
     this._success.pipe(debounceTime(10000)).subscribe(() => {
@@ -87,7 +87,7 @@ export class AdminCourseDetailsComponent implements OnInit {
     });
   }
 
-  
+
 
   addTag() {
     this.courseTags.push(this.fb.group({ tag: [''] }));
@@ -145,14 +145,14 @@ export class AdminCourseDetailsComponent implements OnInit {
     const params = this.getRequestParams(this.searchKeyword, this.page, this.pageSize);
 
     this.reviewService.getReviewsForAdmin(params, this.courseId)
-    .subscribe(res => {
-      if (res['data']) {
-        
-        this.hasReviews = true;
-        this.reviewsList= res['data']['reviews'];
-        this.count = res['data']['totalItems'];
-      }
-    })
+      .subscribe(res => {
+        if (res['data']) {
+
+          this.hasReviews = true;
+          this.reviewsList = res['data']['reviews'];
+          this.count = res['data']['totalItems'];
+        }
+      })
   }
 
   handlePageChange(event): void {
@@ -166,8 +166,8 @@ export class AdminCourseDetailsComponent implements OnInit {
     this.loadReviews();
   }
 
-  public deleteReview(reviewId:string) {
-    if(confirm(`Are you sure you want to delete this review?`)) {
+  public deleteReview(reviewId: string) {
+    if (confirm(`Are you sure you want to delete this review?`)) {
       this.reviewService.deleteReview(reviewId).subscribe(res => {
         if (res.message == "success") {
           this._success.next(`${new Date()} - Review deleted.`);
@@ -178,5 +178,27 @@ export class AdminCourseDetailsComponent implements OnInit {
         }
       })
     }
+  }
+
+  public disableCourse() {
+    this.courseService.disableCourse(this.courseId).subscribe((res => {
+      if (res.message == "success") {
+        this.router.navigate(["admin/courses"])
+      }
+      else {
+        alert(res.message);
+      }
+    }))
+  }
+
+  public enableCourse() {
+    this.courseService.approveCourse(this.courseId).subscribe((res => {
+      if (res.message == "success") {
+        this.router.navigate(["admin/courses"])
+      }
+      else {
+        alert(res.message);
+      }
+    }))
   }
 }

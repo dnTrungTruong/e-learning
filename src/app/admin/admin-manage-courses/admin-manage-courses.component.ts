@@ -28,7 +28,7 @@ export class AdminManageCoursesComponent implements OnInit {
   getRequestParams(keyword, page, pageSize): any {
     let params = {};
 
-    params[`status`] = "approved";
+    params[`status`] = ["approved", "disabled"];
     if (keyword) {
       params[`keyword`] = keyword;
     }
@@ -50,6 +50,7 @@ export class AdminManageCoursesComponent implements OnInit {
     this.courseService.getAllCourses(params)
     .subscribe(res => {
       if (res['data']) {
+        console.log(res['data']['courses']);
         this.coursesList= res['data']['courses'];
         this.count = res['data']['totalItems'];
       }

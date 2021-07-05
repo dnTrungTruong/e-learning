@@ -147,6 +147,14 @@ export class CourseService {
     return this.http.put<any>(`${this.coursesUrl}/approve/${courseId}`, {});
   }
 
+  public rejectCourse(courseId: string) {
+    return this.http.put<any>(`${this.coursesUrl}/reject/${courseId}`, {});
+  }
+
+  public disableCourse(courseId: string) {
+    return this.http.put<any>(`${this.coursesUrl}/disable/${courseId}`, {});
+  }
+
   public putCourseTags(courseId: string,body:any) {
     return this.http.put<any>(`${this.coursesUrl}/tags/${courseId}`, body);
   }

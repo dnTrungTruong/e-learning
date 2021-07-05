@@ -107,6 +107,7 @@ export class CourseMoocLearningComponent implements OnInit {
     if (this.userAttempt) {
       for (let i = 0; i < this.userAttempt.quizzes.length; i++) {
         if (!this.userAttempt.quizzes[i].quiz.isFinal && !this.userAttempt.quizzes[i].isPassed) {
+          console.log(this.userAttempt.quizzes[i].quiz);
           return false
         }
       }
@@ -118,7 +119,7 @@ export class CourseMoocLearningComponent implements OnInit {
   isPassedQuiz(quizId: string) {
     if (this.userAttempt) {
       const index = this.userAttempt.quizzes.findIndex(function (quizzes) {
-        return <any>quizzes.quiz == quizId;
+        return <any>quizzes.quiz._id == quizId;
       });
       if (this.userAttempt.quizzes[index].isPassed) {
         return true;

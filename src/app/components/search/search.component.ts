@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   price = '';
   page = 1;
   count = 0;
-  pageSize = 3;
+  pageSize = 4;
   pageSizes = [4, 8, 12];
 
   constructor(

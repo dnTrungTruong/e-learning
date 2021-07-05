@@ -183,32 +183,40 @@
                             [id]="'lecture' + lecture._id" (click)="changeLecture(lecture)" class="card-body p-3 ">
                             {{lecture.name}}
                             <div *ngIf="lecture.resources.length" ngbDropdown class="d-block text-right">
-                                <button class="btn btn-primary" [attr.id]="'dropdownResource' + lecture._id" ngbDropdownToggle>Resources</button>
-                                <div ngbDropdownMenu  [attr.aria-labelledby]="'dropdownResource' + lecture._id">
-                                  <a *ngFor="let resource of lecture.resources" [href]="resource.url" target="_blank" ngbDropdownItem>{{resource.name}}</a>
+                                <button class="btn btn-primary" [attr.id]="'dropdownResource' + lecture._id"
+                                    ngbDropdownToggle>Resources</button>
+                                <div ngbDropdownMenu [attr.aria-labelledby]="'dropdownResource' + lecture._id">
+                                    <a *ngFor="let resource of lecture.resources" [href]="resource.url" target="_blank"
+                                        ngbDropdownItem>{{resource.name}}</a>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div *ngIf="section.quiz" class="card ml-3 mt-3 rounded p-3">
 
                         <a *ngIf="!section.quiz?.isFinal" class="text-dark "
                             routerLink="/course/{{courseId}}/attempt-quiz/{{section.quiz._id}}">
-                            <i *ngIf="isPassedQuiz(section.quiz?._id)" class="fas fa-check-circle textsize-medium mx-1 text-success"></i>
-                            <i *ngIf="!isPassedQuiz(section.quiz?._id)" class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
-                            <span [ngClass]="isPassedQuiz(section.quiz?._id) ? 'text-success' : 'text-danger'">Quiz: </span>{{section.quiz?.name}}
-                            </a>
+                            <i *ngIf="isPassedQuiz(section.quiz?._id)"
+                                class="fas fa-check-circle textsize-medium mx-1 text-success"></i>
+                            <i *ngIf="!isPassedQuiz(section.quiz?._id)"
+                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
+                            <span [ngClass]="isPassedQuiz(section.quiz?._id) ? 'text-success' : 'text-danger'">Quiz:
+                            </span>{{section.quiz?.name}}
+                        </a>
                         <a *ngIf="section.quiz?.isFinal && isPassedNonFinalQuizzes()" class="text-dark "
-                            routerLink="/course/{{courseId}}/attempt-quiz/{{section.quiz._id}}"><i
-                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i><span
-                                class="text-danger">Quiz: </span>{{section.quiz?.name}}
-                            </a>
+                            routerLink="/course/{{courseId}}/attempt-quiz/{{section.quiz._id}}">
+                            <i *ngIf="isPassedQuiz(section.quiz?._id)"
+                                class="fas fa-check-circle textsize-medium mx-1 text-success"></i>
+                            <i *ngIf="!isPassedQuiz(section.quiz?._id)"
+                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
+                            <span [ngClass]="isPassedQuiz(section.quiz?._id) ? 'text-success' : 'text-danger'">Final
+                                Quiz: </span>{{section.quiz?.name}}
+                        </a>
                         <p *ngIf="section.quiz?.isFinal && !isPassedNonFinalQuizzes()" class="text-secondary "><i
-                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i><span
-                                class="text-danger">Quiz: </span>{{section.quiz?.name}} <small>(This quiz is only
-                                avaiable when you pass all the previous quiz)</small>
-                            </p>
+                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
+                            <span class="text-danger">Final Quiz: </span>{{section.quiz?.name}} <small>(This quiz is only avaiable when you pass all the previous quiz)</small>
+                        </p>
                     </div>
                 </div>
 

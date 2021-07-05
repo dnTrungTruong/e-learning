@@ -38,6 +38,13 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  get isModerator() {
+    if (this.isLoggedIn) {
+      return this.user && this.user.userdata.role === Role.Moderator;
+    }
+    return false;
+  }
+
   get isLoggedIn() {
     return (this.user != null);
   }

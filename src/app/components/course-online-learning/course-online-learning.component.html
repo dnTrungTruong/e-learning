@@ -97,13 +97,13 @@
                             <span [ngClass]="isPassedQuiz(section.quiz?._id) ? 'text-success' : 'text-danger'">Quiz: </span>{{section.quiz?.name}}
                             </a>
                         <a *ngIf="section.quiz?.isFinal && isPassedNonFinalQuizzes()" class="text-dark "
-                            routerLink="/course/{{courseId}}/attempt-quiz/{{section.quiz._id}}"><i
-                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i><span
-                                class="text-danger">Quiz: </span>{{section.quiz?.name}}
+                            routerLink="/course/{{courseId}}/attempt-quiz/{{section.quiz._id}}">
+                            <i class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
+                            <span class="text-danger">Quiz: </span>{{section.quiz?.name}}
                             </a>
                         <p *ngIf="section.quiz?.isFinal && !isPassedNonFinalQuizzes()" class="text-secondary "><i
-                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i><span
-                                class="text-danger">Quiz: </span>{{section.quiz?.name}} <small>(This quiz is only
+                                class="fas fa-question-circle textsize-medium mx-1 text-danger"></i>
+                                <span class="text-danger">Quiz: </span>{{section.quiz?.name}} <small>(This quiz is only
                                 avaiable when you pass all the previous quiz)</small>
                             </p>
                 </h4>

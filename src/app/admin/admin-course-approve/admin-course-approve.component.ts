@@ -64,6 +64,18 @@ export class AdminCourseApproveComponent implements OnInit {
     })
   }
 
+  rejectCourse() {
+    this.courseService.rejectCourse(this.courseId)
+    .subscribe(res => {
+      if (res.message == "success") {
+        this.router.navigate(["admin/pending-courses"])
+      }
+      else {
+        alert(res.message);
+      }
+    })
+  }
+
   public goBack() {
     this.router.navigate(["admin/pending-courses"])
   }
