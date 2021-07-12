@@ -102,7 +102,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   public applyDiscountCode() {
-    console.log(this.userInformationForm.get('discountCode').value);
     this.userInformationForm.patchValue({ discountCode: '' });
     this.invalidDiscountCode = true;
   }
