@@ -41,7 +41,6 @@ export class CourseOnlineLearningComponent implements OnInit {
     if (this.userAttempt) {
       for (let i = 0; i < this.userAttempt.quizzes.length; i++) {
         if (!this.userAttempt.quizzes[i].quiz.isFinal && !this.userAttempt.quizzes[i].isPassed) {
-          console.log(this.userAttempt.quizzes[i].quiz);
           return false
         }
       }

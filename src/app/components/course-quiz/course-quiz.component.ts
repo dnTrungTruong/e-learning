@@ -56,8 +56,6 @@ export class CourseQuizComponent implements OnInit {
       }
 
       this.quizQuestions = this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].questions;
-      console.log(this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].questions);
-      console.log(this.quizQuestions);
 
       this.quizService.quizProgress = 0;
 
@@ -111,7 +109,6 @@ export class CourseQuizComponent implements OnInit {
         alert("Error!" + res.message);
       }
     })
-    console.log(this.quizQuestions[this.quizService.quizProgress].userAnswer);
     // if (this.quizService.quizProgress === this.quizService.quiz.questions.length) {
     //   clearInterval(this.quizService.timer);
     //   this.router.navigate(['course/quiz-result']);
@@ -122,7 +119,6 @@ export class CourseQuizComponent implements OnInit {
     if(confirm(`Are you sure you want to submit your answer?`)) {
       this.attemptService.submitAttempt(this.attempt._id.toString(), this.quizId).subscribe(res => {
         if (res.message == "success") {
-          console.log("Submitted");
           clearInterval(this.quizService.timer);
           this.router.navigate([`/course/${this.courseId}/quiz-result/${this.quizId}`]);
         }

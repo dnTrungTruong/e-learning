@@ -38,7 +38,6 @@ export class CourseQuizAttemptsComponent implements OnInit {
     // })
 
     this.attemptService.getAttemptByQuiz(this.quizId).subscribe((attempt: Attempt) => {
-      console.log(attempt);
       if (attempt) {
         this.attempt = attempt;
         this.quizIndex = this.attempt.quizzes.findIndex((quizzes) => {
@@ -47,7 +46,6 @@ export class CourseQuizAttemptsComponent implements OnInit {
       }
       else {
         this.attemptService.createAttempt(this.courseId).subscribe((attempt: Attempt) => {
-          console.log(attempt);
           this.attempt = attempt;
           this.quizIndex = this.attempt.quizzes.findIndex((quizzes) => {
             return quizzes.quiz._id == this.quizId;
@@ -55,8 +53,6 @@ export class CourseQuizAttemptsComponent implements OnInit {
         })
       }
 
-      console.log(this.attempt);
-      console.log(this.quizIndex);
     })
   }
 
@@ -129,8 +125,6 @@ export class CourseQuizAttemptsComponent implements OnInit {
   public claimCertificate() {
     this.certificateService.createCertificate(this.courseId).subscribe(res => {
       if (res.message == "success") {
-        console.log(res['data']['_id']);
-        console.log(res['data']);
         let certId = res['data']['_id'];
         this.router.navigate([`/certificate/${certId}`]);
       }

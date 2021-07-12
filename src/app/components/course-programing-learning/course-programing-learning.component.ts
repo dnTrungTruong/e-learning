@@ -29,10 +29,8 @@ export class CourseProgramingLearningComponent implements OnInit {
           return this.router.navigate(["/error/404"]);
         }
         this.course = course;
-        console.log(course);
         this.userProgressService.getUserProgress(this.courseId).subscribe((userProgress: UserProgress) => {
           this.userProgress = userProgress;
-          console.log(this.userProgress);
         })
       })
   }
@@ -68,8 +66,6 @@ export class CourseProgramingLearningComponent implements OnInit {
   }
 
   chooseLesson(sectionId: string, lessonIndex: number) {
-    console.log(sectionId);
-    console.log(lessonIndex);
     this.userProgressService.updateCurrentLesson(this.courseId, sectionId, lessonIndex).subscribe(res => {
       if (res.message == "success") {
         this.router.navigate([`coding/${this.courseId}/${sectionId}`]);
@@ -91,7 +87,6 @@ export class CourseProgramingLearningComponent implements OnInit {
         passed += section.passedLessons.length;
       }
       if (passed == lessons) {
-        console.log(true);
         return true;
       }
     }

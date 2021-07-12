@@ -68,9 +68,6 @@ export class CourseProgramingCodingComponent implements OnInit {
       enableSnippets: true,
       minLines: 40
     });
-    // this.aceEditor.on("change", () => {
-    //   console.log(this.aceEditor.getValue());
-    // });
     this.aceEditor.session.setValue('//Loading template... Please wait!!!');
     this.courseService.getProgramingCourseLearningDetails(this.courseId)
       .subscribe((course: CourseDetails) => {
@@ -78,7 +75,6 @@ export class CourseProgramingCodingComponent implements OnInit {
           return this.router.navigate(["/error/404"]);
         }
         this.course = course;
-        console.log(course);
         this.sectionIndexCourse = this.course.sections.findIndex((element) => element._id == this.sectionId);
         this.userProgressService.getUserProgress(this.courseId).subscribe((userProgress: UserProgress) => {
           if (!userProgress) {
@@ -89,9 +85,7 @@ export class CourseProgramingCodingComponent implements OnInit {
 
             this.userProgressService.updateCurrentLesson(this.courseId, this.sectionId, 0).subscribe(res => {
               if (res.message == "success") {
-                console.log(res);
                 this.userProgress = res.data;
-                console.log(this.userProgress);
                 this.sectionIndexProgress = this.userProgress.progresses.findIndex((element) => element.section == this.sectionId);
                 this.totalLessonsInSection = this.course.sections[this.sectionIndexCourse].lessons.length;
                 this.loadContents();
@@ -118,7 +112,6 @@ export class CourseProgramingCodingComponent implements OnInit {
     }
     this.currentLesson = this.course.sections[this.sectionIndexCourse].lessons[lessonIndex];
     this.currentLesson.currentIndex = lessonIndex;
-    console.log(this.currentLesson);
     if (this.userProgress.progresses[this.sectionIndexProgress].passedLessons.includes(this.currentLesson._id)) {
       this.isPassedLesson = true;
     }
@@ -131,7 +124,6 @@ export class CourseProgramingCodingComponent implements OnInit {
     this.compilerService.getTemplate(params).subscribe(res => {
       if (res.message == "success") {
         this.templateCode = res['code'];
-        console.log("updateCode");
         this.aceEditor.session.setValue(this.templateCode);
       }
       else {
@@ -189,7 +181,6 @@ export class CourseProgramingCodingComponent implements OnInit {
       lesson: this.currentLesson._id
     }
     this.compilerService.submitCode(body).subscribe(res => {
-      console.log(res);
       this.runMessage = res.runMessage;
       this.testMessage = res.testMessage;
       if (res.status == '0') {

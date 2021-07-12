@@ -50,7 +50,6 @@ export class AdminManageCoursesComponent implements OnInit {
     this.courseService.getAllCourses(params)
     .subscribe(res => {
       if (res['data']) {
-        console.log(res['data']['courses']);
         this.coursesList= res['data']['courses'];
         this.count = res['data']['totalItems'];
       }

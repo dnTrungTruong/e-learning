@@ -42,12 +42,10 @@ export class CourseQuizResultComponent implements OnInit {
       if (this.attemptNo < 0) {
         return this.router.navigate([`course/${this.courseId}/attempt-quiz/${this.quizId}`]);
       }
-      console.log(this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptEndTime);
       if (!this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptSubmittedTime) {
         if (new Date(this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptEndTime).getTime() <= new Date().getTime()) {
           this.attemptService.submitAttempt(this.attempt._id.toString(), this.quizId).subscribe(res => {
             if (res.message == "success") {
-              console.log(res);
               this.attempt = res['data'];
             }
             else {
@@ -75,7 +73,6 @@ export class CourseQuizResultComponent implements OnInit {
     if (this.attempt) {
       if (this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptSubmittedTime) {
         let seconds = Math.floor((new Date(this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptSubmittedTime).getTime() - new Date(this.attempt.quizzes[this.quizIndex].attempts[this.attemptNo].attemptDate).getTime())/1000);
-        console.log(seconds);
         return Math.floor(seconds / 3600) + ':' + Math.floor(seconds / 60) + ':' + Math.floor(seconds % 60);
       }
     }
@@ -86,8 +83,6 @@ export class CourseQuizResultComponent implements OnInit {
   public claimCertificate() {
     this.certificateService.createCertificate(this.courseId).subscribe(res => {
       if (res.message == "success") {
-        console.log(res['data']['_id']);
-        console.log(res['data']);
         let certId = res['data']['_id'];
         this.router.navigate([`/certificate/${certId}`]);
       }

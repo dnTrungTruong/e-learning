@@ -82,7 +82,6 @@ export class SearchComponent implements OnInit {
     this.courseService.keyword
       .subscribe((value) => {
         this.keyword = value;
-        console.log(value);
         //In case user use url to enter this route
         if (this.keyword == "") { return this.router.navigate([""]) }
         else {
@@ -95,7 +94,6 @@ export class SearchComponent implements OnInit {
               this.coursesList = [];
               this.count = 0;
             }
-            console.log(res['data']);
             if (this.coursesList.length) {
               this.noResult = false;
             }

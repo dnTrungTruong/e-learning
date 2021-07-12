@@ -41,8 +41,6 @@ export class PasswordRecoveryComponent implements OnInit {
     }
     this.email = this.route.snapshot.paramMap.get('email');
     this.secretCode = this.route.snapshot.paramMap.get('secretCode');
-    console.log(this.email);
-    console.log(this.secretCode);
     this.passwordRecoveryForm.patchValue({ email: this.email, secretCode: this.secretCode });
   }
 

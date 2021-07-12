@@ -1,10 +1,10 @@
-<div class="container mt-3">
-    <div class="card p-3">
+<div class="container mt-3 p-3">
+    <div class="card p-5">
         <div class="card-body pt-1">
             <h1 class="congrat-title text-center pt-0 mb-5">Congratulations</h1>
-            <h5 class="mt-3">Dear <strong>{{certificate.user.firstname}} {{certificate.user.lastname}},</strong></h5>
-            <p class="title mt-3">You have completed the course <strong>{{certificate.course.name}}</strong></p>
-            <p class="final-score">Your final score: <strong>{{certificate.finalScore}}</strong></p>
+            <h5 class="mt-3">Dear <strong>{{certificate?.user.firstname}} {{certificate?.user.lastname}},</strong></h5>
+            <p class="title mt-3">You have completed the course <strong>{{certificate?.course.name}}</strong></p>
+            <p *ngIf="!isProgramingCourse" class="final-score">Your final score: <strong>{{certificate?.finalScore}}</strong></p>
             <p class="mb-3">You did it. It must be a very proud moment for you. All of the hard work you have put in has paid off.
                 We know this is just a beginning of your successful jouney. Your reward lies ahead. Have a successful
                 future.
@@ -12,6 +12,13 @@
             </p>
             <p><small>P/s: We included your certificate below. You can download it to your device anytime.</small></p>
             <div class="row mt-5">
+                <div class="col-6 text-center">
+                </div>
+                <div class="col-6 text-center">
+                    <p class="mt-3 mb-1 mr-5">{{certUTCTime}}</p>
+                </div>
+            </div>
+            <div class="row ">
                 <div class="col-6 text-center">
                     <p>E - Learning Team</p>
                     <p class="team-sign">Dam Nguyen Trung Truong </p>
@@ -39,7 +46,7 @@
 
         <div class="row mt-3">
             <div class="col-12 text-center">
-                <a [href]="certificate.url" target="_blank" class="btn btn-primary">Save your certificate</a>
+                <a [href]="certificate?.url" target="_blank" class="btn btn-primary">Save your certificate</a>
             </div>
         </div>
     </div>

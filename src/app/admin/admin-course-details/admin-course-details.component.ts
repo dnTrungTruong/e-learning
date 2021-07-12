@@ -46,7 +46,6 @@ export class AdminCourseDetailsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    console.log(this.courseTags);
   }
 
   get courseTags() {
