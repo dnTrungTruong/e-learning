@@ -33,7 +33,6 @@ export class CourseOnlineLearningComponent implements OnInit {
 
       this.attemptService.getAttempt(this.courseId).subscribe((attempt: Attempt) => {
         this.userAttempt = attempt;
-        console.log(this.userAttempt);
       })
     })
   }

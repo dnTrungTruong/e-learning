@@ -59,7 +59,6 @@ export class CourseListBysubjectComponent implements OnInit {
   loadCoursesBySubject() {
     this.courseService.searchCoursesBySubject(this.subject, this.page, this.pageSize, this.price)
       .subscribe(res => {
-        console.log(res);
         if (res['data']) {
           this.coursesList= res['data']['courses'];
           this.count = res['data']['totalItems'];
@@ -68,7 +67,6 @@ export class CourseListBysubjectComponent implements OnInit {
           this.coursesList = [];
           this.count = 0;
         }
-        console.log(res['data']);
         if (this.coursesList.length) {
           this.noResult = false;
         }

@@ -42,7 +42,6 @@ export class CourseMoocLearningComponent implements OnInit {
       this.loadAnnouncements();
       this.attemptService.getAttempt(this.courseId).subscribe((attempt: Attempt) => {
         this.userAttempt = attempt;
-        console.log(this.userAttempt);
       })
       this.course = course;
       this.selectedLecture = course.sections[0].lectures[0];
@@ -107,7 +106,6 @@ export class CourseMoocLearningComponent implements OnInit {
     if (this.userAttempt) {
       for (let i = 0; i < this.userAttempt.quizzes.length; i++) {
         if (!this.userAttempt.quizzes[i].quiz.isFinal && !this.userAttempt.quizzes[i].isPassed) {
-          console.log(this.userAttempt.quizzes[i].quiz);
           return false
         }
       }
