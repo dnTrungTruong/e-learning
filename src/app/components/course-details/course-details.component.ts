@@ -139,7 +139,9 @@ export class CourseDetailsComponent implements OnInit {
           this.reviewsList = reviews;
           for (let review of reviews) {
             if (this.userFromLocal) {
-              if (review.user._id === this.userFromLocal.userdata._id) {
+              console.log(review.user._id);
+              console.log(this.userFromLocal.userdata._id);
+              if (review.user._id == this.userFromLocal.userdata._id) {
                 this.hasMadeReview = true;
               }
             }
