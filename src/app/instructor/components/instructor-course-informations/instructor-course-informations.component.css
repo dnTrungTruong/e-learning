@@ -1,0 +1,18 @@
+#coursePrice {
+    max-width: 60px !important;
+}
+
+.course-image {
+    width: 100%;
+    max-height: 30vh;
+}
+
+label {
+    font-size: 120%;
+    font-weight: 500;
+}
+
+.alert-error {
+    font-size: 85%;
+    color: red;
+}

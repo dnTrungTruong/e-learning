@@ -1,0 +1,39 @@
+.comment-input-group {
+    margin-top: -0.9rem;
+}
+
+.text-date {
+    font-size: 0.85rem;
+}
+
+.text-pointer:hover {
+    cursor: pointer;
+}
+
+.card {
+    border: 0.3em solid rgba(0, 0, 0, 0.125) !important;
+    background-color: #F7F0E7;
+}
+
+.card-subtitle {
+    font-size: 65%;
+}
+
+hr {
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-size: 120%;
+    font-weight: 500;
+}
+
+.alert {
+    font-size: 85%;
+    color: red;
+    padding: 0px;
+}
+
+p {
+    margin: 0px 0px 8px !important;
+}

@@ -41,6 +41,9 @@ import { CourseProgramingLearningComponent } from './components/course-programin
 import { CourseProgramingCodingComponent } from './components/course-programing-coding/course-programing-coding.component';
 import { UserProgressService } from './services/user-progress.service';
 import { AngularSplitModule } from 'angular-split';
+import { SectionService } from './services/section.service';
+import { LectureService } from './services/lecture.service';
+import { ResourceService } from './services/resource.service';
 
 @NgModule({
   declarations: [
@@ -101,7 +104,10 @@ import { AngularSplitModule } from 'angular-split';
     NotificationService,
     AttemptService,
     CertificateService,
-    UserProgressService
+    UserProgressService,
+    SectionService,
+    LectureService,
+    ResourceService
   ],
   bootstrap: [AppComponent]
 })

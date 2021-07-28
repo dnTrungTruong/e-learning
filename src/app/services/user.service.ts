@@ -60,4 +60,8 @@ export class UserService {
   public resetPassword(body:any): Observable<any> {
     return this.http.post<any>(`${this.usersUrl}/password-reset/verify`, body);
   }
+
+  public becomeAnInstructor(): Observable<any> {
+    return this.http.put<any>(`${this.usersUrl}/become-an-instructor/`, {});
+  }
 }

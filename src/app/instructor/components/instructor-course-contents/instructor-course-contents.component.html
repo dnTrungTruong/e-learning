@@ -1,0 +1,355 @@
+<div>
+    <span class="add-section my-1">
+        <button [disabled]="disabled" (click)="addNewSection(0)" class="only-show-on-hover btn btn-dark" type="button"
+            data-toggle="modal" data-target="#sectionModal" data-backdrop="static" data-keyboard="false">
+            <i class="fas fa-plus-square"></i> New section
+        </button>
+    </span>
+
+    <div *ngFor="let section of course?.sections; let sectionIndex = index">
+        <div class="card card-section mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Section {{sectionIndex + 1}}: </strong>{{section.name}}</h5>
+                <button [disabled]="disabled" (click)="editSection(section)" class="btn btn-dark mr-3" type="button"
+                    data-toggle="modal" data-target="#sectionModal" data-backdrop="static" data-keyboard="false">
+                    <i class="fas fa-edit"></i> Edit section
+                </button>
+                <button [disabled]="disabled" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+
+                <div class="my-1">
+                    <span class="add-lecture">
+                        <button [disabled]="disabled" (click)="addNewLecture(section._id, 0)"
+                            class="only-show-on-hover btn btn-primary" type="button" data-toggle="modal"
+                            data-target="#lectureModal" data-backdrop="static" data-keyboard="false">
+                            <i class="fas fa-plus-square"></i> New lecture
+                        </button>
+                    </span>
+                </div>
+
+
+                <div *ngFor="let lecture of section.lectures; let lectureIndex = index" class="mb-3 pl-1">
+                    <div class="card card-lecture">
+                        <div class="card-body">
+                            <span class="text-primary">
+                                <i class="fas fa-video "></i> <strong> Lecture {{lectureIndex + 1}}:
+                                </strong>{{lecture.name}}
+                                <button [disabled]="disabled" (click)="editLecture(lecture)"
+                                    class="btn btn-primary mr-1" type="button" data-toggle="modal"
+                                    data-target="#lectureModal" data-backdrop="static" data-keyboard="false">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button [disabled]="disabled" class="btn btn-danger"><i
+                                        class="fas fa-trash-alt"></i></button>
+                            </span>
+
+
+                            <div class="my-3 pl-5"
+                                *ngFor="let resource of lecture.resources; let resourceIndex = index">
+                                <div class="card card-resource">
+                                    <div class="card-body">
+                                        <span class="text-success">
+                                            <i class="fas fa-file"></i><strong> Resource {{resourceIndex + 1}}:</strong>
+                                            {{resource.name}}
+                                            <button [disabled]="disabled" (click)="editResource(resource)"
+                                                class="btn btn-success mr-1" type="button" data-toggle="modal"
+                                                data-target="#resourceModal" data-backdrop="static"
+                                                data-keyboard="false">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                            <button [disabled]="disabled" class="btn btn-danger"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pl-5 my-1">
+                                <span class="add-resource">
+                                    <button [disabled]="disabled" (click)="addNewResource(lecture._id)"
+                                        class="only-show-on-hover btn btn-success" type="button" data-toggle="modal"
+                                        data-target="#resourceModal" data-backdrop="static" data-keyboard="false">
+                                        <i class="fas fa-plus-square"></i> New resource
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="my-1">
+                        <span class="add-lecture">
+                            <button [disabled]="disabled" (click)="addNewLecture(section._id, lectureIndex + 1)"
+                                class="only-show-on-hover btn btn-primary" type="button" data-toggle="modal"
+                                data-target="#lectureModal" data-backdrop="static" data-keyboard="false">
+                                <i class="fas fa-plus-square"></i>New lecture
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <ng-container>
+                    <div *ngIf="course?.type == 'online'">
+                        <div class="card card-announcement">
+                            <div class="card-body">
+                                <div *ngFor="let announcement of section.announcements">
+                                    <span class="text-warning">
+                                        <i class="fas fa-info-circle"></i><strong> Announcement:</strong>
+                                        {{announcement.title}}
+                                        <button  (click)="editAnnouncement(announcement, section._id)"
+                                            class="btn btn-warning mr-1" type="button" data-toggle="modal"
+                                            data-target="#announcementModal" data-backdrop="static"
+                                            data-keyboard="false">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <span class="add-announcement my-1">
+                            <button type="button" data-toggle="modal" (click)="addNewAnnouncement(section._id)"
+                            data-target="#announcementModal" data-backdrop="static"
+                            data-keyboard="false"
+                                class=" only-show-on-hover btn btn-warning">
+                                <i class="fas fa-plus-square"></i> Add announcement
+                        </button>
+                        </span>
+                    </div>
+                </ng-container>
+                
+
+                <div *ngIf="section.quiz">
+                    <div class="card card-quiz">
+                        <div class="card-body">
+                            <span class="text-danger">
+                                <i class="fas fa-question-circle"></i>
+                                <strong *ngIf="section.quiz.isFinal"> (Final) </strong>
+                                Quiz: {{section.quiz?.name}}
+                                <a routerLink="/instructor/manage/{{courseId}}/quiz/{{section._id}}"
+                                    class="btn btn-danger only-show-on-hover btn btn-danger mr-1">
+                                    <i class="fas fa-edit"></i>
+                                    <span *ngIf="disabled">Quiz details</span>
+                                    <span *ngIf="!disabled">Edit quiz</span>
+                                </a>
+                                <button [disabled]="disabled" class="btn btn-secondary"><i
+                                        class="fas fa-trash-alt"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!section.quiz">
+                    <span class="add-quiz my-1">
+                        <a *ngIf="!disabled" routerLink="/instructor/manage/{{courseId}}/quiz/{{section._id}}"
+                            class=" only-show-on-hover btn btn-danger">
+                            <i class="fas fa-plus-square"></i> Add quiz
+                        </a>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+        <span class="add-section my-1">
+            <button [disabled]="disabled" (click)="addNewSection(sectionIndex + 1)"
+                class="only-show-on-hover btn btn-dark" type="button" data-toggle="modal" data-target="#sectionModal"
+                data-backdrop="static" data-keyboard="false">
+                <i class="fas fa-plus-square"></i> New section
+            </button>
+        </span>
+    </div>
+
+</div>
+
+<!-- Section Modal -->
+<div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 *ngIf="!isEditingSection" class="modal-title" id="sectionModalLabel">Adding new section</h3>
+                <h3 *ngIf="isEditingSection" class="modal-title" id="sectionModalLabel">Editing section</h3>
+                <button #closeSectionModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="sectionForm" (ngSubmit)="onSubmitSection()">
+                    <div class="form-group">
+                        <label for="name">Section name</label>
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+                            formControlName="name">
+                        <div *ngIf="sectionForm.invalid" class="text-danger">Section name is required! </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lecture Modal -->
+<div class="modal fade" id="lectureModal" tabindex="-1" aria-labelledby="lectureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 *ngIf="!isEditingLecture" class="modal-title" id="lectureModalLabel">Adding new lecture</h3>
+                <h3 *ngIf="isEditingLecture" class="modal-title" id="lectureModalLabel">Editing lecture</h3>
+                <button hidden #closeLectureModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="lectureForm" (ngSubmit)="onSubmitLecture()">
+                    <div class="form-group">
+                        <label for="name">Lecture name</label>
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+                            formControlName="name">
+                        <div *ngIf="lectureForm.invalid" class="text-danger">
+                            Lecture name is required
+                            <span *ngIf="course?.type == 'mooc'">and Video need to be uploaded</span>
+                            <span *ngIf="course?.type == 'online'">and URL is required</span>
+                        </div>
+                        <input hidden type="text" name="course" id="course" formControlName="course" class="mt-3">
+                        <input hidden type="text" name="section" id="section" formControlName="section">
+                        <div *ngIf="course?.type == 'mooc'">
+                            <input (change)="onLecturePicked($event)" class="my-1" placeholder="Upload Lecture"
+                                value="Upload Lecture" type="file" />
+                            <div *ngIf="lectureObj" class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                    attr.aria-valuenow="{{lectureProgress.percentage}}" aria-valuemin="0"
+                                    aria-valuemax="100" [ngStyle]="{width:lectureProgress.percentage+'%'}">
+                                    {{lectureProgress.percentage}}%</div>
+                            </div>
+                            <button (click)="onLectureUpload()" [disabled]="!lectureObj || isUploading"
+                                class="btn btn-primary">Upload Lecture</button>
+                            <p class="text-success text-center mt-1" *ngIf="lectureProgress.percentage == 100">
+                                <i class="fas fa-check"></i> Upload completed!
+                            </p>
+                            <p class="text-dark text-center font-weight-bold">Lecture review</p>
+                            <video class="w-100" controls controlslist="nodownload">
+                                <source type="video/mp4">
+                            </video>
+                        </div>
+                        <div *ngIf="course?.type == 'online'">
+                            <label for="url">Lecture URL</label>
+                            <input class="form-control" type="text" name="url" id="url" placeholder="Lecture URL"
+                                formControlName="url">
+                            <label for="createdDate" class="mt-3">Lecture start time:</label>
+                            <input name="createdDate" formControlName="createdDate" [owlDateTime]="dt1" [min]="currentTime"
+                                [owlDateTimeTrigger]="dt1" placeholder="Date Time" >
+                            <owl-date-time #dt1></owl-date-time>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button (click)="closeLecture()" type="button" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Resource Modal -->
+<div class="modal fade" id="resourceModal" tabindex="-1" aria-labelledby="resourceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 *ngIf="!isEditingResource" class="modal-title" id="resourceModalLabel">Adding new resource</h3>
+                <h3 *ngIf="isEditingResource" class="modal-title" id="resourceModalLabel">Editing resource</h3>
+                <button hidden #closeResourceModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="resourceForm" (ngSubmit)="onSubmitResource()">
+                    <div class="form-group">
+                        <label for="name">Resource name</label>
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+                            formControlName="name">
+                        <input hidden type="text" name="lecture" id="lecture" formControlName="lecture">
+                        <div *ngIf="resourceForm.invalid" class="text-danger">Name and resource are required! </div>
+
+                        <div ngbDropdown class="d-inline-block mt-1">
+                            <label class="mr-1">Resource type: </label>
+                            <button type="button" class="btn btn-outline-primary text-truncate" id="dropdownTypes"
+                                ngbDropdownToggle>{{resourceType}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownTypes">
+                                <button type="button" ngbDropdownItem (click)="selectResourceType('Link')">Link</button>
+                                <button type="button" ngbDropdownItem
+                                    (click)="selectResourceType('Upload')">Upload</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="url">Current resource URL</label>
+                            <input class="form-control" type="text" name="url" id="url" formControlName="url">
+
+                        </div>
+
+                        <span class="mt-3"></span>
+                        <div *ngIf="resourceType == 'Upload'">
+                            <div *ngIf="currentResourceUpload" class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                    attr.aria-valuenow="{{resourceProgress.percentage}}" aria-valuemin="0"
+                                    aria-valuemax="100" [ngStyle]="{width:resourceProgress.percentage+'%'}">
+                                    {{resourceProgress.percentage}}%</div>
+                            </div>
+
+                            <input type="file" (change)="selectResource($event)" class="" id="resourceFile">
+
+                            <button type="button" class="btn btn-primary" [disabled]="!selectedResources "
+                                (click)="uploadResource()">Upload</button>
+
+                            <p class="text-success text-center mt-1"
+                                *ngIf="resourceProgress.percentage == 100 && !resourceForm.invalid">
+                                <i class="fas fa-check"></i> Upload completed!
+                            </p>
+                        </div>
+                        <div *ngIf="resourceType == 'Upload'">
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button (click)="closeResource()" type="button" class="btn btn-secondary">Cancel</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Announcement Modal -->
+<div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 *ngIf="!isEditingAnnouncement" class="modal-title" id="announcementModalLabel">Adding new announcement</h3>
+                <h3 *ngIf="isEditingAnnouncement" class="modal-title" id="announcementModalLabel">Editing announcement</h3>
+                <button #closeAnnouncementModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="announcementForm" (ngSubmit)="onSubmitAnnouncement()">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input class="form-control" type="text" name="title" id="title" placeholder="Announcement Title"
+                            formControlName="title">
+                        <div *ngIf="announcementForm.invalid" class="text-danger">Title and content are required! </div>
+                    </div>
+                    <input hidden type="text" name="course" id="course" formControlName="course">
+                    <input hidden type="text" name="section" id="section" formControlName="section">
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <ckeditor name="content" id="content" formControlName="content" [config]="editorConfig"
+                        [editor]="Editor"></ckeditor>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

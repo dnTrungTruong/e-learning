@@ -37,6 +37,13 @@ export class CourseService {
     ))
   }
 
+  public getMyCreatedCourses(): Observable<Course[]> {
+    return this.http.get(`${this.coursesUrl}/my-created-courses`)
+    .pipe(map(res => 
+      res['data'] as Course[]
+    ))
+  }
+
   public getAllCourses(params): Observable<any> {
     return this.http.get(`${this.coursesUrl}/all`, {params});
   }
@@ -157,5 +164,17 @@ export class CourseService {
 
   public putCourseTags(courseId: string,body:any) {
     return this.http.put<any>(`${this.coursesUrl}/tags/${courseId}`, body);
+  }
+
+  public createCourse(body:any) {
+    return this.http.post<any>(`${this.coursesUrl}/`, body);
+  }
+
+  public editCourse(body:any, courseId: string) {
+    return this.http.put<any>(`${this.coursesUrl}/${courseId}`, body);
+  }
+
+  public submitCourse(courseId: string) {
+    return this.http.put<any>(`${this.coursesUrl}/submit/${courseId}`, {});
   }
 }
