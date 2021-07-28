@@ -23,8 +23,12 @@ export class AnnouncementService {
     ))
   }
 
-  public postAnnouncement(announcement: Announcement) {
-    return this.http.post<any>(`${this.announcementsUrl}/`, announcement);
+  public postAnnouncement(body: any) {
+    return this.http.post<any>(`${this.announcementsUrl}/`, body);
+  }
+
+  public editAnnouncement(body: any, announcementId) {
+    return this.http.put<any>(`${this.announcementsUrl}/${announcementId}`, body);
   }
 
   public postComment(announcementId: string, body: any) {

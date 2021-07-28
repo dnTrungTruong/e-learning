@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+.container {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.capitalized {
+    text-transform: capitalize;
+}
+
+.card {
+    border: 2px solid rgba(0, 0, 0, 0.125) !important;
+    box-shadow: 0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.125);
+}
+
+.card:hover {
+    box-shadow: 0.15rem 0.15rem 0.3rem #FFA084;
+}
+
+.mycard-course-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important;
+}
+
+.font-medium {
+    font-size: 140%;
+}
+
+.form-control {
+    border: 1px solid #000 !important;
+}
+
+@media screen and (max-width: 500px) {
+    .card {
+      font-size: 75% !important;
+    }
+    h5 {
+        font-size: 1.1rem;
+    }
+    h3 {
+        font-size: 1.25rem;
+    }
+  }

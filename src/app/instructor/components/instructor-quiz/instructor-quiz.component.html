@@ -1,0 +1,122 @@
+<div class="container mt-3">
+    <div>
+        <a routerLink="/instructor/manage/{{courseId}}" class="btn btn-secondary my-1">&#60; Back to course manage page</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <p *ngFor="let alert of alerts">
+                <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+              </p>
+            <h4>Course: {{courseDetails?.name}}</h4>
+
+            <form [formGroup]="quizInformationForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">Quiz name:</label>
+                    <input  type="text" class="form-control" id="quizName" formControlName="name"
+                        placeholder="Quiz name">
+                    <div *ngIf="isSubmitted && (name.invalid || name.errors?.required)" class="alert-label">
+                        Name is required!
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="name">Is final quiz (for certificate):</label>
+                    </div>
+                    <div class="col-1">
+                        <input [disabled]="disabled" type="checkbox" class="form-control text-left" [(ngModel)]="isFinal"
+                            [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="col-7"></div>
+                </div>
+
+                <div class="row mt-1 mb-3">
+                    <div class="col-4">
+                        <label for="name">Quiz limit time (Unit: Second):</label>
+                        <div *ngIf="isSubmitted && (limitTime.invalid)" class="alert-label">
+                            Limit time is invalid!
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" min="120" class="form-control" id="limitTime" formControlName="limitTime"
+                            placeholder="120">
+                    </div>
+                    <div class="col-6"></div>
+                </div>
+
+                <div class="border border-success course-content-box">
+                    <div class="card p-3">
+                        <div class="quiz-content mt-3 p-3">
+                            <div class="card-body">
+                                <div formArrayName="questions">
+                                    <div *ngFor="let ques of questions.controls; let quesIndex=index">
+                                        <div [formGroupName]="quesIndex" class="card mt-1">
+                                            <div class="card-body">
+                                                <button [disabled]="disabled" (click)="deleteQuestion(quesIndex)" class="btn btn-danger">Delete question
+                                                    {{quesIndex + 1}}</button>
+                                                <div class="form-group">
+                                                    <label for="question">Question {{quesIndex + 1}}:</label>
+                                                    <input type="text" formControlName="question" class="form-control" id="question" />
+                                                    <div *ngIf="isSubmitted && (ques.get('question').invalid)" class="alert-label">
+                                                        Question can not be null!
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="correctAnswer">Correct Answer</label>
+                                                    <input type="text" disabled formControlName="correctAnswer" class="form-control"/>
+                                                    <div *ngIf="isSubmitted && (ques.get('correctAnswer').invalid)" class="alert-label">
+                                                        Correct answer cannot be null!
+                                                    </div>
+                                                </div>
+                                                
+                
+                
+                                                <div formArrayName="answers">
+                                                    <div *ngFor="let ans of questionAnswers(quesIndex).controls; let ansIndex=index">
+                                                        <div [formGroupName]="ansIndex">
+                                                            <div>
+                                                                Answer {{ansIndex + 1}}: 
+                                                                <button [disabled]="disabled" (click)="changeCorrectAnswer(quesIndex, ansIndex)" type="button" class="btn btn-warning ml-3">
+                                                                    Mark this as correct answer
+                                                                </button>
+                                                            </div>
+                                                            <div class="input-group">
+                                                                <input type="text" formControlName="answer" placeholder="Answer"
+                                                                    class="form-control border border-primary" />
+                                                                <div class="input-group-append">
+                                                                    <button [disabled]="disabled" type="button" (click)="deleteAnswer(quesIndex,ansIndex)"
+                                                                        class="btn btn-danger ">&#10006;</button>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div *ngIf="isSubmitted && (ans.get('answer').invalid)" class="alert-label">
+                                                                Answer {{ansIndex + 1}} cannot be null!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button [disabled]="disabled" type="button" class="btn btn-success mt-1" (click)="addAnswer(quesIndex)">
+                                                    Add answer
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button [disabled]="disabled" type="button" class="btn btn-success mt-3" (click)="addQuestion()">Add question</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button [disabled]="disabled" type="submit" class="btn btn-primary">Submit?</button>
+                
+            </form>
+            <p *ngFor="let alert of alerts">
+                <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+              </p>
+
+        </div>
+    </div>
+
+</div>

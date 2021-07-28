@@ -52,6 +52,10 @@ ul .mycourse-objectives{
     background-color: #F7F0E7;
 }
 
+.card-subtitle {
+    font-size: 65%;
+}
+
 hr {
     border-top: 2px solid rgba(0, 0, 0, 0.1);
 }

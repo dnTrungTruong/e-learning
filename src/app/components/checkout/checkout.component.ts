@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseService, UserService, AuthenticationService } from '../../services';
 import { CourseDetails } from '../../models';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-checkout',
@@ -30,11 +31,24 @@ export class CheckoutComponent implements OnInit {
     mail: new FormControl('', Validators.compose([Validators.email, Validators.required])),
     discountCode: new FormControl('')
   });
+  currencyArr = [
+    {currency: 'USD', value: 1},
+    {currency: 'VND', value: 0},
+    {currency: 'EUR', value: 0},
+    {currency: 'GBP', value: 0},
+    {currency: 'AUD', value: 0},
+    {currency: 'CAD', value: 0},
+    {currency: 'CNY', value: 0},
+    {currency: 'HKD', value: 0},
+  ];
+  currencyIndex: number = 0;
+  currencyAPI: string = "http://api.currencylayer.com/live?access_key=e99b72ad261937c3727aace010897871&currencies=USD,VND,EUR,GBP,AUD,CAD,CNY,HKD&format=1";
+  coursePrice: number = 0;
 
   constructor(
     private userService: UserService,
     private courseService: CourseService,
-
+    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
   ) {
@@ -51,8 +65,31 @@ export class CheckoutComponent implements OnInit {
       if (!course) {
         return this.router.navigate(["/error/404"]);
       };
+
+
+      this.http.get<any>(this.currencyAPI).subscribe(res=> {
+        if (res.success) {
+          let response = res.quotes;
+          let index = 0;
+          for(let currency in response) {
+            this.currencyArr[index].value = response[currency];
+            index++;
+          }
+          
+        }
+        else {
+          alert("Currency API is not working! Currency exchange will not work.")
+        }
+      })
+      this.currencyIndex = 0;
       this.course = course;
+      this.coursePrice = course.price.valueOf();
     })
+  }
+
+  setCurrency(index: number) {
+    this.currencyIndex = index;
+    this.coursePrice = Math.round((this.course.price.valueOf() * this.currencyArr[index].value) * 100) / 100;
   }
 
   onFormSubmit() {

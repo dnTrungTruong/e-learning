@@ -28,9 +28,8 @@
                                     <div class="card-body text-secondary ">
                                         <div class="row">
                                             <div class="col-3 text-center">
-                                                <img style="height: 32px; width: 32px;" src="https://developers.momo.vn/images/logo.png"
-                                                    width="25" />
-
+                                                <img style="height: 32px; width: 32px;"
+                                                    src="https://developers.momo.vn/images/logo.png" width="25" />
                                             </div>
                                             <div class="col-9 px-0">
                                                 <span
@@ -51,14 +50,16 @@
                                     <div class="card-body text-secondary ">
                                         <div class="row">
                                             <div class="col-3 text-center">
-                                                <i class="far fa-credit-card fa-2x"></i>
+                                                <img style="height: 32px; width: 32px;"
+                                                    src="https://www.vnpay.vn/_nuxt/img/logo-primary.effc36a.svg"
+                                                    width="25" />
 
                                             </div>
                                             <div class="col-9 px-0">
                                                 <span
                                                     [ngStyle]="{'color': userInformationForm.get('payment').value == 'bank' ? '#1cc888' :  '#6c757d'}"
                                                     class="method-name">
-                                                    Internet Banking
+                                                    VNPAY
                                                 </span>
                                                 <input hidden type="radio" value="bank" formControlName="payment">
                                             </div>
@@ -99,7 +100,7 @@
                                 convenient, safe payment method licensed and managed by the State Bank of Vietnam.
                             </span>
                             <span *ngIf="userInformationForm.get('payment').value == 'bank'">
-                                the system will switch to Onepay for you to fill in payment information to complete the
+                                the system will switch to VNPAY for you to fill in payment information to complete the
                                 payment.
                             </span>
                             <span *ngIf="userInformationForm.get('payment').value == 'paypal'">
@@ -149,61 +150,95 @@
                                     placeholder="Discount code" aria-label="Discount Code"
                                     aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button type="button" class="input-group-text btn btn-emerald" id="basic-addon2" (click)="applyDiscountCode()">Apply</button>
+                                    <button type="button" class="input-group-text btn btn-emerald" id="basic-addon2"
+                                        (click)="applyDiscountCode()">Apply</button>
                                 </div>
                             </div>
-                            <p *ngIf="invalidDiscountCode" class="card-text text-danger">Sorry, your code is invalid.</p>
+                            <p *ngIf="invalidDiscountCode" class="card-text text-danger">Sorry, your code is invalid.
+                            </p>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    Currency:
+                                    <div ngbDropdown class="d-inline-block">
+                                        <button class="btn btn-outline-warning" id="dropdownCurrency" type="button"
+                                            ngbDropdownToggle>{{currencyArr[currencyIndex].currency}}</button>
+                                        <div ngbDropdownMenu aria-labelledby="dropdownCurrency">
+
+                                            <div *ngFor="let curr of currencyArr; let i = index">
+                                                <button (click)="setCurrency(i)" type="button" ngbDropdownItem>{{curr.currency}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="card-footer text-muted">
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <h6 class="card-title">Original price:</h6>
                             </div>
-                            <div class="col-3 px-0">
+                            <div class="col-4 text-right">
                                 <h6 class="card-title">{{course?.price.toFixed(2)}}$</h6>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <h6 class="card-title">Discounted:</h6>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4 text-right">
                                 <h6 class="card-title ">0.00$</h6>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <h5 class="card-title font-weight-bold">Total:</h5>
                             </div>
-                            <div class="col-3 px-0">
+                            <div class="col-4 text-right">
                                 <h5 class="card-title font-weight-bold">{{course?.price.toFixed(2)}}$</h5>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title font-weight-bold">To your currency:</h5>
+                            </div>
+                            <div class="col-4 pl-0 text-right">
+                                <h5 class="card-title font-weight-bold">{{coursePrice}} {{currencyArr[currencyIndex].currency}}</h5>
+                            </div>
+                        </div>
 
-                        <button type="submit" class="btn btn-emerald w-100 text-medium"  data-toggle="modal" data-target="#processingModal" data-backdrop="static" data-keyboard="false">
+                        <button type="submit" class="btn btn-emerald w-100 text-medium" data-toggle="modal"
+                            data-target="#processingModal" data-backdrop="static" data-keyboard="false">
                             Proceed
                         </button>
-                        
-                        <div  class="modal fade " id="processingModal" tabindex="-1" aria-labelledby="processingModalLabel" aria-hidden="true">
-                            <div *ngIf="isProcessing" class="modal-dialog modal-dialog-centered d-flex justify-content-center" >
+
+                        <div class="modal fade " id="processingModal" tabindex="-1"
+                            aria-labelledby="processingModalLabel" aria-hidden="true">
+                            <div *ngIf="isProcessing"
+                                class="modal-dialog modal-dialog-centered d-flex justify-content-center">
                                 <div class="loader">Loading...</div>
                                 <!-- <div class="spinner-border">
                                     <span class="sr-only">Loading...</span>
                                 </div> -->
                             </div>
                             <ng-container *ngIf="!isProcessing">
-                                <div  class="modal-dialog modal-dialog-centered d-flex justify-content-center" >
+                                <div class="modal-dialog modal-dialog-centered d-flex justify-content-center">
                                     <div class="modal-content text-center">
                                         <div class="modal-body" *ngIf="responseMessage=='success'">
-                                            <h3 class="modal-title text-center" id="processingModalLabel">Payment completed!</h3>
+                                            <h3 class="modal-title text-center" id="processingModalLabel">Payment
+                                                completed!</h3>
                                             <hr>
                                             <i class="far fa-check-circle fa-5x text-success"></i>
-                                            <p class="mt-3">Congratulation. Your payment is now completed, and you will be redirected to the course learning in just a sec.</p>
+                                            <p class="mt-3">Congratulation. Your payment is now completed, and you will
+                                                be redirected to the course learning in just a sec.</p>
                                             <p class="font-weight-bold">Enjoy your time learning in this new course.</p>
                                         </div>
                                         <div class="modal-body" *ngIf="responseMessage!='success'">
-                                            <h3 class="modal-title text-center" id="processingModalLabel">Oops! Something is wrong.</h3>
+                                            <h3 class="modal-title text-center" id="processingModalLabel">Oops!
+                                                Something is wrong.</h3>
                                             <hr>
                                             <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
                                             <p class="mt-3 font-weight-bold">{{responseMessage}}</p>
@@ -211,10 +246,11 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            
-                            <button #closeProcessingModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                            <button #closeProcessingModal type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true"></span>
-                              </button>
+                            </button>
                         </div>
                     </div>
                 </div>

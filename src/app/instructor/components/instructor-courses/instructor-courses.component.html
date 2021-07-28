@@ -1,0 +1,83 @@
+<div class="container">
+    <h2 class="text-black">My created courses</h2>
+
+    <hr class="bg-danger mb-0" style="height: 0.1rem; border:none;">
+
+    <div class="row p-3">
+        <div class="col-lg-4 ">
+            <div class="input-group mb-3 w-md">
+                <input type="text" class="form-control" placeholder="Search your courses" aria-label="Search your courses
+                " aria-describedby="search-addon">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div ngbDropdown class="d-inline-block ml-3">
+                <button type="button" class="btn btn-outline-dark text-truncate" id="dropdownStatus"
+                    ngbDropdownToggle>Filter by status</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownStatus">
+                    <button type="button" ngbDropdownItem (click)="filterCourses('all')">All</button>
+                    <button type="button" ngbDropdownItem (click)="filterCourses('pending')">Pending</button>
+                    <button type="button" ngbDropdownItem (click)="filterCourses('new')">New</button>
+                    <button type="button" ngbDropdownItem (click)="filterCourses('rejected')">Rejected</button>
+                    <button type="button" ngbDropdownItem (click)="filterCourses('approved')">Approved</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 ">
+            <a routerLink="/instructor/create" class="btn btn-secondary float-right">
+                <i class="fas fa-plus-square"></i> New course
+            </a>
+        </div>
+    </div>
+
+    <div class="mt-3 p-3" *ngIf="noResult">
+        <p class="text-dark">Seem to be you have had no courses yet! Try to create one and start teaching.</p>
+    </div>
+    <div class="p-3" *ngIf="!noResult">
+        <ng-container>
+            <div class="row my-5" *ngFor="let course of filteredCourses">
+                
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5">
+                                <img [src]="course.img_url" class="mycard-course-image" alt="Course image">
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-7 card-body">
+                                <h4 class="text-dark text-truncate">{{course.name}}</h4>
+                                <span *ngIf="course.type=='mooc'" class="badge badge-success ">MOOC</span>
+                                <span *ngIf="course.type=='online'" class="badge badge-primary">Online</span>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="text-secondary text-left">Status:
+                                            <span *ngIf="course.status == 'pending'"
+                                                class="text-primary capitalized">{{course.status}}</span>
+                                            <span *ngIf="course.status == 'approved'"
+                                                class="text-success capitalized">{{course.status}}</span>
+                                            <span *ngIf="course.status != 'approved' && course.status != 'pending'"
+                                                class="text-dark capitalized">
+                                                {{course.status}}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <a routerLink="/instructor/manage/{{course._id}}"
+                                            class="text-danger font-medium pull-right mr-3">
+                                            Edit/Manage course
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </ng-container>
+    </div>
+</div>

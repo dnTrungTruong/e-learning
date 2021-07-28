@@ -1,0 +1,148 @@
+<div class="p-3">
+    <div class="row mb-3">
+        <div class="col-12 text-right">
+            <button class="btn btn-secondary mt-3 pull-right" data-toggle="collapse"
+                data-target="#collapsePostAnouncement" aria-expanded="false" aria-controls="collapsePostAnouncement">
+                <i class="fas fa-plus-square"></i> Make an anouncement
+            </button>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapsePostAnouncement">
+        <div class="card card-body">
+            <form [formGroup]="announcementForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <label for="title">Announcement title: </label>
+                    <div *ngIf="isSubmitted && (title.invalid)" class="alert">
+                        Title is required!
+                    </div>
+                    <input id="title" type="text" class="form-control" formControlName="title">
+                </div>
+                <div class="form-group">
+                    <label for="content">Announcement content: </label>
+                    <div *ngIf="isSubmitted && (content.invalid)" class="alert">
+                        Content is required!
+                    </div>
+                    <ckeditor name="content" id="content" formControlName="content" [config]="editorConfig"
+                        [editor]="Editor"></ckeditor>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-success pull-right mt-3">Post the announcement</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <ng-container>
+        <div *ngIf="noResult">
+            <h5 class="text-dark">This course have no announcement at the moment...</h5>
+        </div>
+    </ng-container>
+    <ng-container>
+        <div *ngFor="let announcement of announcementsList" class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{announcement.title}}
+                    <small class="card-subtitle mb-2 text-muted">posted on
+                        {{announcement.date.slice(0,10)}}
+                        ({{calculateTimeToCurrent(announcement.date)}})</small>
+
+                </h4>
+                <div class="card-text" [innerHtml]="announcement.content | safeHtml"></div>
+            </div>
+            <hr>
+            <div *ngFor="let comment of announcement.comments" class="accordion" id="accordion">
+                <div class="row ml-1 mb-3">
+                    <div class="col-1">
+                        <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                            class="img img-rounded img-fluid">
+                    </div>
+                    <div class="col-10 p-0">
+                        <div>
+                            <p class="text-info p-0 m-0">{{comment.user.firstname}}
+                                {{comment.user.lastname}}
+                                <small *ngIf="comment.user._id == course?.instructor?._id" class="font-weight-bold">(Instructor)</small>
+                                <span class="text-secondary text-date">
+                                    commented on {{comment.date.toString().slice(0,10)}} -
+                                    {{calculateTimeToCurrent(comment.date)}}
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            {{comment.content}}
+                            <a class="text-secondary pl-3 text-pointer" data-toggle="collapse"
+                                [attr.data-target]="'#collapse'+comment._id"
+                                [attr.aria-controls]="'collapse'+comment._id">
+                                <i class="fa fa-reply"></i> Reply</a>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div *ngFor="let reply of comment.replies" class="row my-3">
+                    <div class="col-1"></div>
+                    <div class="col-1">
+                        <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                            class="img img-rounded img-fluid">
+                    </div>
+                    <div class="col-9 p-0 mb-1">
+                        <div>
+                            <p class="text-info p-0 m-0">{{reply.user.firstname}}
+                                {{reply.user.lastname}} - <span class="text-secondary text-date">replied on
+                                    {{reply.date.toString().slice(0,10)}} -
+                                    {{calculateTimeToCurrent(reply.date)}}</span></p>
+                        </div>
+                        <div>
+                            {{reply.content}}
+                        </div>
+                    </div>
+                    <div class="col-1 mb-1"></div>
+                </div>
+                <div [id]="'collapse'+comment._id" class="collapse" data-parent="#accordion">
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-1">
+                            <img src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                class="img img-rounded img-fluid">
+                        </div>
+                        <div class="col-9 p-0 input-group input-group-lg">
+                            <form accept-charset="UTF-8" (ngSubmit)="onSubmitReply($event, comment)"
+                                class="input-group">
+                                <input type="text" name="replyTextInput" class="form-control"
+                                    placeholder="Write your reply">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-info" type="submit">Post
+                                        reply</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-1 mb-1"></div>
+                    </div>
+                </div>
+
+
+                <hr>
+            </div>
+            <div class="input-group input-group-lg comment-input-group">
+
+                <form accept-charset="UTF-8" (ngSubmit)="onSubmitComment($event, announcement)" class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group" id="inputGroup-sizing-lg"><img
+                                src="https://e-learning-10r825s36vuq028g5csk.s3.amazonaws.com/public_assets/1619937744513-user.png"
+                                style="width: 4.5rem; padding: 0.75rem;" class="img img-rounded img-fluid"></span>
+                    </div>
+                    <textarea name="commentTextArea" class="form-control" aria-label="Large"
+                        aria-describedby="inputGroup-sizing-md" placeholder="Write your comment" required></textarea>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-info" type="submit">Post comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+
+</div>

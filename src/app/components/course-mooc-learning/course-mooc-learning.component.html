@@ -50,13 +50,13 @@
                         <ng-container>
                             <div *ngFor="let announcement of announcementsList" class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">
+                                    <h4 class="card-title">
                                         {{announcement.title}}
                                         <small class="card-subtitle mb-2 text-muted">posted on
                                             {{announcement.date.slice(0,10)}}
                                             ({{calculateTimeToCurrent(announcement.date)}})</small>
 
-                                    </h5>
+                                    </h4>
                                     <div class="card-text" [innerHtml]="announcement.content | safeHtml"></div>
                                 </div>
                                 <hr>
@@ -69,9 +69,13 @@
                                         <div class="col-10 p-0">
                                             <div>
                                                 <p class="text-info p-0 m-0">{{comment.user.firstname}}
-                                                    {{comment.user.lastname}}<span class="text-secondary text-date">
+                                                    {{comment.user.lastname}}
+                                                    <small *ngIf="comment.user._id == course?.instructor?._id" class="font-weight-bold">(Instructor)</small>
+                                                    <span class="text-secondary text-date">
                                                         commented on {{comment.date.toString().slice(0,10)}} -
-                                                        {{calculateTimeToCurrent(comment.date)}}</span></p>
+                                                        {{calculateTimeToCurrent(comment.date)}}
+                                                    </span>
+                                                </p>
                                             </div>
                                             <div>
                                                 {{comment.content}}
@@ -93,10 +97,13 @@
                                         <div class="col-9 p-0 mb-1">
                                             <div>
                                                 <p class="text-info p-0 m-0">{{reply.user.firstname}}
-                                                    {{reply.user.lastname}} - <span
-                                                        class="text-secondary text-date">replied on
+                                                    {{reply.user.lastname}} 
+                                                    <small *ngIf="comment.user._id == course?.instructor?._id" class="font-weight-bold">(Instructor)</small>
+                                                    <span class="text-secondary text-date">replied on
                                                         {{reply.date.toString().slice(0,10)}} -
-                                                        {{calculateTimeToCurrent(reply.date)}}</span></p>
+                                                        {{calculateTimeToCurrent(reply.date)}}
+                                                    </span>
+                                                </p>
                                             </div>
                                             <div>
                                                 {{reply.content}}

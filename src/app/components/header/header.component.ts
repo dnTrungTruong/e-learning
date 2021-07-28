@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Role, Notification } from '../../models';
 import { AuthenticationService } from '../../services/authentication.service';
-import { CourseService, NotificationService } from '../../services/';
+import { CourseService, NotificationService, UserService } from '../../services/';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 
@@ -18,22 +18,40 @@ export class HeaderComponent implements OnInit {
   noNotifications: Boolean = false;
   unCheckedNotifications: string[] = [];
 
-  
+
   constructor(
     private authenticationService: AuthenticationService,
     private courseService: CourseService,
+    private userService: UserService,
     private notificationService: NotificationService,
-    private router:Router
+    private router: Router
   ) {
-      this.authenticationService.user.subscribe(x => {
-        this.user = x
-        this.loadNotifications();
-      });
+    this.authenticationService.user.subscribe(userFromLocal => {
+      console.log(userFromLocal);
+      if (userFromLocal) {
+        this.user = userFromLocal;
+        this.userService.getUserInfoJWT().subscribe((user: any) => {
+          this.user.userdata = user;
+          this.loadNotifications();
+        })
+      }
+      else {
+        this.user = null;
+      }
+
+    });
   }
 
   get isAdmin() {
     if (this.isLoggedIn) {
       return this.user && this.user.userdata.role === Role.Admin;
+    }
+    return false;
+  }
+
+  get isStudent() {
+    if (this.isLoggedIn) {
+      return this.user && this.user.userdata.role === Role.Student;
     }
     return false;
   }
@@ -66,7 +84,7 @@ export class HeaderComponent implements OnInit {
       //If input is null then navigate to home (Not a good way, need update)
       this.router.navigate([""])
     }
-    
+
   }
   ngOnInit(): void {
     if (this.user) {
@@ -74,18 +92,18 @@ export class HeaderComponent implements OnInit {
         this.loadNotifications();
       });
     }
-    
-    
+
+
   }
 
   public checkNotification() {
     for (let i = this.unCheckedNotifications.length - 1; i >= 0; i--) {
       this.notificationService.putChecked(this.unCheckedNotifications[i])
-      .subscribe(res => {
-        if (res.message == "success") {
-          this.unCheckedNotifications.splice(i, 1);
-        }
-      })
+        .subscribe(res => {
+          if (res.message == "success") {
+            this.unCheckedNotifications.splice(i, 1);
+          }
+        })
     }
   }
 
@@ -101,24 +119,38 @@ export class HeaderComponent implements OnInit {
   public loadNotifications() {
     if (this.user) {
       this.notificationService.getNotifications()
-      .subscribe((notifications: Notification[]) => {
-        if (notifications) {
-          this.noNotifications = false;
-          for (let notification of notifications) {
-            if (notification.users[0].checked == false) {
-              this.unCheckedNotifications.push(notification._id.toString())
+        .subscribe((notifications: Notification[]) => {
+          if (notifications) {
+            this.noNotifications = false;
+            for (let notification of notifications) {
+              if (notification.users[0].checked == false) {
+                this.unCheckedNotifications.push(notification._id.toString())
+              }
             }
+            this.notificationsList = notifications;
           }
-          this.notificationsList = notifications;
-        }
-        else {
-          this.noNotifications = true;
-          this.notificationsList = undefined;
+          else {
+            this.noNotifications = true;
+            this.notificationsList = undefined;
+          }
+        })
+    }
+
+
+  }
+
+  public toInstructorSection() {
+    if (this.isStudent) {
+      this.userService.becomeAnInstructor().subscribe(res => {
+        if (res.message != "success") {
+          alert(res.message);
+          return this.router.navigate([``]);
         }
       })
     }
-    
-    
+    else {
+      this.router.navigate(['/instructor']);
+    }
   }
 
   public calculateTimeToCurrent(time) {
@@ -154,7 +186,7 @@ export class HeaderComponent implements OnInit {
     ];
     var seconds = (+new Date() - time) / 1000,
       list_choice = 1;
-  
+
     if (seconds === 0) {
       return 'just now'
     }

@@ -28,6 +28,14 @@ export class QuizService {
     ))
   }
 
+  public createQuiz(body: any) {
+    return this.http.post<any>(`${this.quizzesUrl}/`, body);
+  }
+
+  public editQuiz(body: any, quizId:string) {
+    return this.http.put<any>(`${this.quizzesUrl}/${quizId}`, body);
+  }
+
   // public submitQuiz() {
   //   return this.http.post<any>(`${this.quizzesUrl}/submit/${this.quiz._id}`, {questions: this.quiz.questions})
   //   .pipe(map(res => 

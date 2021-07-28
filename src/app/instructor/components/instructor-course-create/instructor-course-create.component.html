@@ -1,0 +1,160 @@
+<div class="container">
+    <h2 class="text-black">Create new course</h2>
+
+    <hr class="bg-danger mb-0" style="height: 0.1rem; border:none;">
+
+    <form class="add-lessons-form mt-3 px-3" [formGroup]="courseInformationForm" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+            <div class="col-12 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="border border-secondary p-3">
+                    <div class="form-group ">
+                        <label for="courseType">What type of course you're making?</label>
+                        <div ngbDropdown class="d-inline-block ml-3">
+                            <button type="button" class="btn btn-outline-primary text-truncate" id="dropdownTypes"
+                                ngbDropdownToggle>{{selectedType}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownTypes">
+                                <button type="button" ngbDropdownItem (click)="changeCourseType('mooc')">MOOC</button>
+                                <button type="button" ngbDropdownItem
+                                    (click)="changeCourseType('online')">Online</button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="isSubmitted && (type.invalid || (type.value !='mooc' && type.value != 'online'))" class="alert">
+                            Please choose MOOC or Online!
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="courseSubject">Your course subject?</label>
+
+                        <div ngbDropdown class="d-inline-block ml-3">
+                            <button type="button" class="btn btn-outline-primary text-truncate" id="dropdownSubjects"
+                                ngbDropdownToggle>{{selectedSubject}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownSubjects">
+                                <button type="button" *ngFor="let subject of subjectsList" ngbDropdownItem
+                                    (click)="changeSubject(subject)">
+                                    {{subject.name}}
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="isSubmitted && (subject.invalid || subject.value == '')" class="alert">
+                            Please choose a subject!
+                        </div>
+                    </div>
+
+                    <div class="form-group d-inline-block">
+                        <label for="coursePrice" class="">How much will your course be? (Unit: USD)</label>
+                        <div class="ml-3 d-inline-block">
+                            <input type="number" min="1" class="form-control d-inline-block" id="coursePrice"
+                                formControlName="price" placeholder="5">
+                        </div>
+                        <div *ngIf="isSubmitted && price.invalid" class="alert">
+                            Course price is invalid!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-3 border rounded border-secondary p-3">
+                    <div class="form-group">
+                        <label for="courseName">How do you want to name your course?</label>
+                        <input type="text" class="form-control" id="courseName" formControlName="name"
+                            placeholder="Course name">
+                            <div *ngIf="isSubmitted && (name.invalid || name.errors?.required)" class="alert">
+                                Name is required!
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="border border-secondary p-3">
+                    <div class="form-group text-center mb-0">
+                        <label for="courseImage ">Your course thumbnail</label>
+                        <div *ngIf="isSubmitted && img_url.invalid " class="alert">
+                            Please upload a course thumbnail!
+                        </div>
+                        <img class="course-image" [src]="imageURL" alt="Course thumbnail">
+
+                        <div *ngIf="currentFileUpload" class="progress">
+                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100"
+                                [ngStyle]="{width:progress.percentage+'%'}">
+                                {{progress.percentage}}%</div>
+                        </div>
+
+                        <input type="file" (change)="selectFile($event)" class="form-control-file" id="courseImage">
+
+                        <button type="button" class="btn btn-primary" [disabled]="!selectedFiles"
+                            (click)="upload()">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="my-3 border border-secondary rounded p-3">
+            <div class="form-group">
+                <label for="courseOverview">Brief introduction of the course</label>
+                <input type="text" class="form-control" id="courseOverview" formControlName="overview"
+                    placeholder="Course overview">
+                    <div *ngIf="isSubmitted && (overview.invalid || overview.errors?.required)" class="alert">
+                        Overview is required!
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <label for="courseDescription">Write a description about your course</label>
+                <div *ngIf="isSubmitted && (description.invalid || description.errors?.required)" class="alert">
+                    Description is required and must have at least 150 characters!
+                </div>
+                <!-- <input type="text" class="form-control" id="courseDescription" formControlName="description"
+                    placeholder="Course description"> -->
+                <ckeditor name="courseDescription" id="courseDescription" formControlName="description"
+                    [config]="editorConfig" [editor]="Editor"></ckeditor>
+            </div>
+
+
+        </div>
+
+        <div class="my-3 border border-secondary p-3">
+            <div class="form-group">
+                <label for="courseName">What will students learn from your course?</label>
+                <div *ngIf="isSubmitted && (!objectives.length || objectives.invalid)" class="alert">
+                    Must have at least 1 objective and objective cannot be empty!
+                </div>
+                <div class="border border-primary">
+                    <ng-container formArrayName="objectives">
+                        <ng-container *ngFor="let objectiveForm of objectives.controls; let i = index">
+                            <div class="lesson-form-row mb-3" [formGroup]="objectiveForm">
+
+                                <div class="input-group">
+                                    <input type="text" formControlName="objective" placeholder="Your course objective"
+                                        class="form-control border border-primary" />
+                                    <div class="input-group-append">
+                                        <button type="button" (click)="deleteObjective(i)"
+                                            class="btn btn-danger ">&#10006;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <div class="col-md-3 my-1">
+                        <button type="button" (click)="addObjective()" class="btn btn-primary mt-1 ">Add
+                            Objective</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 text-center">
+                <a routerLink="/instructor" class="btn btn-secondary w-50">Go back</a>
+            </div>
+            <div class="col-6  text-center">
+                <button type="submit" class="btn btn-success w-50">Save changes</button>
+            </div>
+        </div>
+    </form>
+</div>

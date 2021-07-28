@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown mx-xs-auto">
                     <a class="nav-link text-center mx-sm-3 mx-md-1 cursor-pointer-item"
-                        id="navbarDropdownNotifications"  data-toggle="dropdown"
+                        id="navbarDropdownNotifications" (click)="checkNotification()"  data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
                         <i class="fa fa-bell"></i>
                         <span *ngIf="unCheckedNotifications.length > 0"
@@ -24,7 +24,7 @@
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownNotifications-5">
                         <div class="notifications-wrapper">
-                            <p *ngIf="noNotifications" class="text-dark notification-item">Sorry, you haven't have any notification yet.</p>
+                            <p *ngIf="noNotifications" class="text-dark notification-item">There is no notifications yet.</p>
                             <a *ngFor="let notification of notificationsList"
                                 class="dropdown-item p-0 cursor-pointer-item"
                                 (click)="goToNotificationTarget(notification)">

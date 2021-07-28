@@ -10,3 +10,7 @@ export * from './attempt.service';
 export * from './certificate.service';
 export * from './user-progress.service';
 export * from './compiler.service';
+export * from './file.service';
+export * from './section.service';
+export * from './lecture.service';
+export * from './resource.service';

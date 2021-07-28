@@ -1,0 +1,57 @@
+<div class="container">
+    <h2 class="text-black text-truncate">Manage course - <small>{{course?.name}}</small></h2>
+
+    <hr class="bg-danger mb-0" style="height: 0.1rem; border:none;">
+    
+    <div class="row mt-1">
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-sm-3 mt-md-1 mb-3 mb-md-1 ">
+            <a routerLink="/instructor" class="btn btn-secondary text-center mb-3">&#60; Back to courses</a>
+            <button class="card-header btn btn-block d-xs-block  d-lg-none dropdown-toggle text-left" type="button"
+              aria-expanded="false" data-toggle="collapse" data-target="#example-collapse">
+              <span style="font-size: 1.5rem; font-weight:450;">Menu</span>
+            </button>
+            <!-- <div class="card-header text-dark d-none d-lg-block d-xl-block">
+              <h2>Subjects</h2>
+            </div> -->
+            <div id="example-collapse" class="list-group collapse show d-lg-block "
+              style="height: 88%; background-color: white;">
+              <div >
+                <button type="button" class="list-group-item list-group-item-action text-dark dashboard-subject" 
+                [ngClass]="{'font-weight-bold': selectedComponent === 'informations'}"
+                (click)="changeSelectedComponent('informations')"> Informations</button>
+                <button type="button" class="list-group-item list-group-item-action text-dark dashboard-subject"
+                [ngClass]="{'font-weight-bold': selectedComponent === 'contents'}" 
+                (click)="changeSelectedComponent('contents')"> Contents</button>
+                <button type="button" class="list-group-item list-group-item-action text-dark dashboard-subject"
+                [ngClass]="{'font-weight-bold': selectedComponent === 'announcements'}" [disabled]="course?.status != 'approved'"
+                (click)="changeSelectedComponent('announcements')"> Announcements</button>
+
+                <button *ngIf="course?.status == 'new' || course?.status == 'rejected'" (click)="submitCourse()"
+                type="button" class="mt-3 btn btn-success text-center w-100">Submit for review</button>
+
+                <button *ngIf="course?.status == 'pending'" [disabled]="true"
+                type="button" class="mt-3 btn btn-primary text-center w-100">Pending for approval</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="col-md-6 col-lg-8 col-xl-9  mt-sm-3 mt-md-1 ">
+            <div class="content-box p-3">
+                <div *ngIf="selectedComponent == 'informations' && course">
+                    <h4 class="text-center text-secondary">Course Information</h4>
+                    <app-instructor-course-informations [courseId]="courseId" [course]="course"></app-instructor-course-informations>
+                </div>
+                <div *ngIf="selectedComponent == 'contents' && course">
+                  <h4 class="text-center text-secondary">Course contents</h4>
+
+                    <app-instructor-course-contents [courseId]="courseId" [course]="course"></app-instructor-course-contents>
+                </div>
+                <div *ngIf="selectedComponent == 'announcements'">
+                  <h4 class="text-center text-secondary">Course Announcements</h4>
+                    <app-instructor-course-announcements [courseId]="courseId" [course]="course"></app-instructor-course-announcements>
+                </div>
+                
+            </div>
+          </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+span.add-section button.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-section button.only-show-on-hover  {
+    visibility: visible !important;
+}
+
+span.add-lecture button.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-lecture button.only-show-on-hover  {
+    visibility: visible !important;
+}
+
+span.add-resource button.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-resource button.only-show-on-hover  {
+    visibility: visible !important;
+}
+
+span.add-quiz a.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-quiz a.only-show-on-hover  {
+    visibility: visible !important;
+}
+
+span.add-announcement button.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-announcement button.only-show-on-hover  {
+    visibility: visible !important;
+}
+
+span.add-section {
+    border: 1px solid #343a40;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 2px rgb(28 29 31 / 15%);
+}
+
+
+span.add-lecture {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 2px rgb(28 29 31 / 15%);
+}
+
+
+span.add-resource {
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 2px rgb(28 29 31 / 15%);
+}
+
+span.add-quiz {
+    border: 1px solid #dc3545;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 2px rgb(28 29 31 / 15%);
+}
+
+span.add-announcement {
+    border: 1px solid #ffc107;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 2px rgb(28 29 31 / 15%);
+}
+
+.card-section {
+    border: 2px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.card-lecture {
+    border: 1px solid #007bff !important;
+}
+
+.card-resource {
+    border: 1px solid #28a745 !important;
+}
+
+.card-quiz {
+    border: 1px solid #dc3545 !important;
+}
+
+.card-announcement {
+    border: 1px solid #ffc107 !important;
+}
+
+label {
+    font-size: 120%;
+    font-weight: 500;
+}
