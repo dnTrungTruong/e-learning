@@ -44,6 +44,7 @@ import { AngularSplitModule } from 'angular-split';
 import { SectionService } from './services/section.service';
 import { LectureService } from './services/lecture.service';
 import { ResourceService } from './services/resource.service';
+import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { ResourceService } from './services/resource.service';
     CourseProgramingDetailsComponent,
     CourseProgramingLearningComponent,
     CourseProgramingCodingComponent,
+    CheckoutResultComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.authenticationService.user.subscribe(userFromLocal => {
-      console.log(userFromLocal);
       if (userFromLocal) {
         this.user = userFromLocal;
         this.userService.getUserInfoJWT().subscribe((user: any) => {

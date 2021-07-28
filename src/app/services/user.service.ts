@@ -10,6 +10,7 @@ import { User, UserDetail, Course } from '../models/';
 })
 export class UserService {
   usersUrl = `${environment.apiUrl}/user`;
+  paymentUrl = `${environment.paymentUrl}/create_payment_url`;
 
   constructor(private http: HttpClient) { }
 
@@ -63,5 +64,9 @@ export class UserService {
 
   public becomeAnInstructor(): Observable<any> {
     return this.http.put<any>(`${this.usersUrl}/become-an-instructor/`, {});
+  }
+
+  public makePayment(body:any): Observable<any> {
+    return this.http.post<any>(`${this.paymentUrl}`, body);
   }
 }

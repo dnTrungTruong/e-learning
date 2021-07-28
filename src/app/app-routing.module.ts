@@ -21,6 +21,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
 import { CourseProgramingDetailsComponent } from './components/course-programing-details/course-programing-details.component';
 import { CourseProgramingLearningComponent } from './components/course-programing-learning/course-programing-learning.component';
 import { CourseProgramingCodingComponent } from './components/course-programing-coding/course-programing-coding.component';
+import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
         component: CheckoutComponent
       },
       {
+        path: 'checkout/result/:courseId',
+        component: CheckoutResultComponent
+      },
+      {
         path: 'course/programing/:courseId',
         component: CourseProgramingDetailsComponent
       },
@@ -110,10 +115,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
-  // {
-  //   path: 'instructor',
-  //   loadChildren: () => import('./instructor/instructor.module').then(m => m.InstructorModule)
-  // },
+  {
+    path: 'instructor',
+    loadChildren: () => import('./instructor/instructor.module').then(m => m.InstructorModule)
+  },
   {path: '**', redirectTo: '/error/404'}
 ];
 

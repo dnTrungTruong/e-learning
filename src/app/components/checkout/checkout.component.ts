@@ -94,40 +94,71 @@ export class CheckoutComponent implements OnInit {
 
   onFormSubmit() {
 
-    // if (!localStorage.getItem('user')) {
-    //   //Will show sign in dialog
-    //   return this.router.navigate(["login"])
-    // }
-    // this.router.navigate([`course/${this.courseId}/checkout`]);
-
-    this.isValidFormSubmitted = false;
-    if (this.userInformationForm.invalid) {
-      setTimeout(() => {
-        // close the modal after 3s showing result message
-        this.closeProcessingModal.nativeElement.click()
-      }, 1000);
-      this.closeProcessingModal.nativeElement.click()
-      return;
-    }
-    this.isValidFormSubmitted = true;
-    this.isProcessing = true;
-    this.userService.enrollCourse(this.courseId)
-      .subscribe(res => {
-        this.responseMessage = res.message;
-        setTimeout(() => {
-          // close the processing after 2s and show result
-          this.isProcessing = false;
-          setTimeout(() => {
-            // close the modal after 3s showing result message
-            this.closeProcessingModal.nativeElement.click()
-
-            if (res.message == "success") {
-              return this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`]);
+    let paymentMethod = this.userInformationForm.get('payment').value;
+    this.userInformation.name = this.userInformationForm.get('name').value;
+    if (paymentMethod == "VNPAY") {
+      this.isProcessing = true;
+      let body = {
+        amount: parseInt(this.coursePrice.toString()),
+        course: this.courseId,
+        orderDescription: `${this.userInformation.name} make payment`
+      };
+      this.userService.makePayment(body).subscribe(res=> {
+        if (res.code == '00' ) {
+          window.location.href = res.data;
+        }
+        else {
+          if (res.message) {
+            alert (res.message);
+          }
+          else {
+            if (res.code) {
+              alert(res.code);
             }
-          }, 3000);
-        }, 2000);
-
+            else {
+              alert("ERROR when making payment");
+            }
+          }
+        }
       })
+    }
+    else {
+      if (!localStorage.getItem('user')) {
+        //Will show sign in dialog
+        return this.router.navigate(["login"])
+      }
+      this.router.navigate([`course/${this.courseId}/checkout`]);
+  
+      this.isValidFormSubmitted = false;
+      if (this.userInformationForm.invalid) {
+        setTimeout(() => {
+          // close the modal after 3s showing result message
+          this.closeProcessingModal.nativeElement.click()
+        }, 1000);
+        this.closeProcessingModal.nativeElement.click()
+        return;
+      }
+      this.isValidFormSubmitted = true;
+      this.isProcessing = true;
+      this.userService.enrollCourse(this.courseId)
+        .subscribe(res => {
+          this.responseMessage = res.message;
+          setTimeout(() => {
+            // close the processing after 2s and show result
+            this.isProcessing = false;
+            setTimeout(() => {
+              // close the modal after 3s showing result message
+              this.closeProcessingModal.nativeElement.click()
+  
+              if (res.message == "success") {
+                return this.router.navigate([`course/learning/${this.course.type}/${this.courseId}`]);
+              }
+            }, 3000);
+          }, 2000);
+  
+        })
+    }
+    
     // let paymentMethod = this.userInformationForm.get('payment').value;
     // this.userInformation.name = this.userInformationForm.get('name').value;
     // this.userInformation.mail = this.userInformationForm.get('mail').value;
