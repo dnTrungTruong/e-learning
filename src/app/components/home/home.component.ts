@@ -87,7 +87,7 @@ export class HomeComponent {
 
   goToCourseDetails(courseId:string, courseType: string) {
     if (courseType == 'programing') {
-      this.router.navigate([`/course/proraming/${courseId}`]);
+      this.router.navigate([`/course/programing/${courseId}`]);
     }
     else {
       this.router.navigate([`/course/${courseId}`]);

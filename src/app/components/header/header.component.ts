@@ -25,10 +25,10 @@ export class HeaderComponent implements OnInit {
     private notificationService: NotificationService,
     private router:Router
   ) {
-      this.authenticationService.user.subscribe(x => this.user = x);
-      if (this.user) {
+      this.authenticationService.user.subscribe(x => {
+        this.user = x
         this.loadNotifications();
-      }
+      });
   }
 
   get isAdmin() {
@@ -69,15 +69,11 @@ export class HeaderComponent implements OnInit {
     
   }
   ngOnInit(): void {
-    //NOTE: Commented because not necessary when developing
-    // if (this.user) {
-    //   interval(100000).subscribe(x => {
-    //     this.notificationService.getNotifications()
-    //     .subscribe((notifications: Notification[]) => {
-    //       this.notificationsList = notifications;
-    //     })
-    //   });
-    // }
+    if (this.user) {
+      interval(100000).subscribe(x => {
+        this.loadNotifications();
+      });
+    }
     
     
   }
@@ -103,7 +99,8 @@ export class HeaderComponent implements OnInit {
   }
 
   public loadNotifications() {
-    this.notificationService.getNotifications()
+    if (this.user) {
+      this.notificationService.getNotifications()
       .subscribe((notifications: Notification[]) => {
         if (notifications) {
           this.noNotifications = false;
@@ -116,8 +113,11 @@ export class HeaderComponent implements OnInit {
         }
         else {
           this.noNotifications = true;
+          this.notificationsList = undefined;
         }
       })
+    }
+    
     
   }
 

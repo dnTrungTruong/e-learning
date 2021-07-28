@@ -54,7 +54,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownNotifications-5">
             <div class="notifications-wrapper">
-              <p *ngIf="noNotifications" class="text-dark notification-item">Sorry, you haven't have any notification yet.</p>
+              <p *ngIf="noNotifications" class="text-dark notification-item">There is no notification yet.</p>
               <a *ngFor="let notification of notificationsList" class="dropdown-item p-0 cursor-pointer-item" (click)="goToNotificationTarget(notification)">
                 <div class="notification-item" [ngStyle]="{'background': notification.users[0].checked == false ? '#1CC88852' :  '#EEEEEE'}">
                   <p class="text-dark mb-0"><strong>{{notification.performedBy.firstname}} {{notification.performedBy.lastname}}</strong> 

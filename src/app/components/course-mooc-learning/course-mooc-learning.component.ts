@@ -96,10 +96,13 @@ export class CourseMoocLearningComponent implements OnInit {
   
   changeLecture(lecture:Lecture) {
 
-    this.selectedLecture = lecture;
-    this.source.src = this.lectureUrl + this.selectedLecture?.course + '/' + this.selectedLecture?.url;
+    if (this.selectedLecture != lecture) {
+      this.selectedLecture = lecture;
+      this.source.src = this.lectureUrl + this.selectedLecture?.course + '/' + this.selectedLecture?.url;
+      
+      this.player.load();
+    }
     
-    this.player.load();
   }
 
   isPassedNonFinalQuizzes() {
