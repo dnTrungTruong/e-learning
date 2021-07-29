@@ -19,7 +19,7 @@ export class InstructorCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService.getMyCreatedCourses().subscribe((courses: Course[]) => {
-      if (courses.length) {
+      if (courses) {
         this.noResult = false;
         //Sort by key 'status' in reverse
         this.createdCourses = courses.sort(function (a, b) {

@@ -90,8 +90,12 @@ export class InstructorCourseInformationsComponent implements OnInit {
         price: this.course.price
       });
       this.course.objectives.forEach((part, index, arr) => {
+        let disabled = false;
+        if (this.course.status == 'approved' || this.course.status == 'pending') {
+          disabled = true;
+        }
         const objectiveForm = this.fb.group({
-          objective: [{value: arr[index], disabled: true}, Validators.required]
+          objective: [{value: arr[index], disabled: disabled}, Validators.required]
         });
         this.objectives.push(objectiveForm);
       })

@@ -26,6 +26,13 @@ span:hover.add-quiz a.only-show-on-hover  {
     visibility: visible !important;
 }
 
+span.add-quiz button.only-show-on-hover {
+    visibility: hidden !important;
+}
+span:hover.add-quiz button.only-show-on-hover  {
+    visibility: visible !important;
+}
+
 span.add-announcement button.only-show-on-hover {
     visibility: hidden !important;
 }

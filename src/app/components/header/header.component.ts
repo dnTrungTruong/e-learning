@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   notificationsList: Notification[];
   noNotifications: Boolean = false;
   unCheckedNotifications: string[] = [];
-
+  myInterval: any;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.authenticationService.user.subscribe(userFromLocal => {
       if (userFromLocal) {
+        console.log(userFromLocal);
         this.user = userFromLocal;
         this.userService.getUserInfoJWT().subscribe((user: any) => {
           this.user.userdata = user;
@@ -86,14 +87,9 @@ export class HeaderComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    if (this.user) {
-      interval(100000).subscribe(x => {
-        this.loadNotifications();
-      });
-    }
-
-
+    
   }
+
 
   public checkNotification() {
     for (let i = this.unCheckedNotifications.length - 1; i >= 0; i--) {
@@ -144,6 +140,9 @@ export class HeaderComponent implements OnInit {
         if (res.message != "success") {
           alert(res.message);
           return this.router.navigate([``]);
+        }
+        else {
+          this.router.navigate(['/instructor']);
         }
       })
     }

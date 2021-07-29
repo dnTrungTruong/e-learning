@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Role} from '../../models';
 import {CourseService} from '../../services/'
+import { AuthenticationService } from '../../services/authentication.service';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import $ from 'jquery';
 import { interval } from 'rxjs';
@@ -18,6 +19,7 @@ export class AdminSidebarComponent implements OnInit {
     Moderator: Role.Moderator
   };
   pendingCoursesCount = 0;
+  myInterval:any;
 
   @Input() userRole: string;
 
@@ -25,11 +27,18 @@ export class AdminSidebarComponent implements OnInit {
   constructor(
     private router: Router,
     private courseService: CourseService,
+    private authenticationService: AuthenticationService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
-        // Show loading indicator
-
+        console.log(event);
+        this.authenticationService.user.subscribe(userFromLocal => {
+          if (userFromLocal && event.url.startsWith('/admin')) {
+            
+          }
+        })
+        
+        //show loading indicator
       }
 
       if (event instanceof NavigationEnd) {
@@ -46,9 +55,7 @@ export class AdminSidebarComponent implements OnInit {
         // Present error to user
         //console.log(event.error);
       }
-      this.courseService.getPendingCoursesCount().subscribe((count:number) => {
-        this.pendingCoursesCount = count;
-      })
+      
     });
 
   }
@@ -59,14 +66,12 @@ export class AdminSidebarComponent implements OnInit {
         $('#sidebar').toggleClass('active');
       });
     });
-
-    interval(60000).subscribe(x => {
-      this.courseService.getPendingCoursesCount().subscribe((count:number) => {
-        this.pendingCoursesCount = count;
-      })
-    });
+    this.courseService.getPendingCoursesCount().subscribe((count:number) => {
+      this.pendingCoursesCount = count;
+    })
     
   }
+
 
   setSelected(page: string) {
     this.selectedPage = page;

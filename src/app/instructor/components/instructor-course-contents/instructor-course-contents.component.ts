@@ -282,8 +282,7 @@ export class InstructorCourseContentsComponent implements OnInit {
         name: '',
         course: this.courseId,
         section: sectionId,
-        url: '',
-        
+        url: ''
       });
       this.lectureProgress.percentage = 0;
       this.source = this.elRef.nativeElement.querySelector('source');
@@ -309,7 +308,7 @@ export class InstructorCourseContentsComponent implements OnInit {
     this.isUploading = false;
     this.unSavedLecture = false;
     this.lectureObj = undefined;
-    
+    console.log(lecture);
     if (this.course.type == 'mooc') {
       this.lectureForm.setValue({
         _id: lecture._id,
@@ -317,12 +316,14 @@ export class InstructorCourseContentsComponent implements OnInit {
         course: lecture.course,
         section: lecture.section,
         url: lecture.url,
+        createdDate: this.currentTime
       });
       this.lectureProgress.percentage = 0;
       this.source = this.elRef.nativeElement.querySelector('source');
-      this.source.src = '';
+      this.source.src = this.lectureUrl + this.courseId + '/' + lecture.url;
       this.player = this.elRef.nativeElement.querySelector('video');
       this.player.load();
+      console.log(this.lectureForm);
     }
     else {
       this.lectureForm.setValue({

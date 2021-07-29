@@ -138,13 +138,17 @@
                     </div>
                 </div>
                 <div *ngIf="!section.quiz">
-                    <span class="add-quiz my-1">
+                    <span  class="add-quiz my-1">
                         <a *ngIf="!disabled" routerLink="/instructor/manage/{{courseId}}/quiz/{{section._id}}"
                             class=" only-show-on-hover btn btn-danger">
                             <i class="fas fa-plus-square"></i> Add quiz
                         </a>
+                        <button  *ngIf="disabled" type="button" class="btn btn-danger only-show-on-hover" [disabled]="disabled">
+                            Add quiz
+                        </button>
                     </span>
                 </div>
+                
 
             </div>
         </div>
